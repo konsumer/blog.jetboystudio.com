@@ -28,7 +28,7 @@ body {
 -------------------------------------------------- */
 /* Not required for template or sticky footer method. */
 
-#wrap > .container {
+.page-article#wrap > .container {
   padding: 60px 15px 0;
 }
 .container .credit {
@@ -42,4 +42,18 @@ body {
 
 code {
   font-size: 80%;
+}
+
+.jumbotron {
+  background-image:url('background.jpg');
+  text-align:center;
+  text-shadow: 0 1px 3px rgba(0,0,0,.4), 0 0 30px rgba(0,0,0,.075);
+  vertical-align:middle;
+  padding: 50px;
+}
+
+.jumbotron h1 {
+  font-size: 120px;
+  line-height: 1;
+  letter-spacing: -2px;
 }
