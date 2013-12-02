@@ -5,11 +5,11 @@ date:   2013-02-11 2:00:00
 tags: [electronics, micro-controllers, Arduino, XMEGA, LUFA, teensy]
 ---
 
-[Previously](/2013/02/08/teensy2AVRISP-MKII.html) I went through a lot of hoops to figure out how to compile a Teensy version of a burner for my XMEGA.  This is a simpler version of those instructions.
+[Previously](/articles/teensy2AVRISP-MKII/) I went through a lot of hoops to figure out how to compile a Teensy version of a burner for my XMEGA.  This is a simpler version of those instructions.
 
 ---
 
-And if you just want the hex file for teensy ++ 2, [here](/files/AVRISP-MKII-AT90USB1286.hex.zip).
+And if you just want the hex file for teensy ++ 2, [here](AVRISP-MKII-AT90USB1286.hex.zip).
 
 Install [CrossPack-AVR](http://www.obdev.at/products/crosspack/index.html) to give your Mac avr-gcc. if you are on another OS, install winavr or avr-gcc however you do that.
 

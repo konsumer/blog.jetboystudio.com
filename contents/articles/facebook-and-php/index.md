@@ -39,7 +39,7 @@ I like [composer](http://getcomposer.org/). It makes dev'ing framework-less PHP 
 
 This means "this app requires the dev version of facebook-sdk" and "autoload my own app's classes from app/ folder"
 
-Make a folder called `app/` and a folder called `webroot/`.  Point your webserver to `webroot` (see [here](/2013/01/31/easy-dev-environment.html) for this all done automatically on a virtual machine.)
+Make a folder called `app/` and a folder called `webroot/`.  Point your webserver to `webroot` (see [here](/articles/easy-dev-environment) for this all done automatically on a virtual machine.)
 
 Now, run `composer install`.
 

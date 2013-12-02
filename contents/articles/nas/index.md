@@ -162,10 +162,10 @@ Now, they can write to the share directory.
 
 ### Welcome page
 
-I made a cute lil (responsive for easy phone-use) welcome page using PHP.  I wanted it to show freespace, and give local users all the info they need to connect.  I put a nice template [here](/files/nas-welcome.zip). Extract it in `/var/www`:
+I made a cute lil (responsive for easy phone-use) welcome page using PHP.  I wanted it to show freespace, and give local users all the info they need to connect.  I put a nice template [here](nas-welcome.zip). Extract it in `/var/www`:
 
     cd /var/www
-    wget http://blog.jetboystudio.com/files/nas-welcome.zip
+    wget http://blog.jetboystudio.com/articles/nas/nas-welcome.zip
     unzip nas-welcome.zip
     rm nas-welcome.zip
 

@@ -5,7 +5,7 @@ date:   2013-02-08 18:00:00
 tags: [electronics, micro-controllers, Arduino, XMEGA, LUFA, teensy]
 ---
 
-*UPDATE* see [this](/2013/02/11/teensy2AVRISP-MKII-lufa.html) for simpler, cleaner, better directions.
+*UPDATE* see [this](/articles/teensy2AVRISP-MKII-lufa/) for simpler, cleaner, better directions.
 
 I needed a way to program the [XMEGA100 breakout board from Sparkfun](https://www.sparkfun.com/products/9546), and didn't have a "real programmer".
 
@@ -117,7 +117,7 @@ LUFA AVRISP MkII Clone:
 
 Dang! So happy. [Life is rad](http://www.youtube.com/watch?v=VazV36eWHLc).
 
-If you want the hex for your own Teensy++ 2, [here](/files/teensy_avrisp-mk2.zip) it is. Now you don't have to bother with all this silly bizness.
+If you want the hex for your own Teensy++ 2, [here](teensy_avrisp-mk2.zip) it is. Now you don't have to bother with all this silly bizness.
 
 Looks like I may need to do something with that 'Unknown (Device has not been configured)' bit. dunno.
 

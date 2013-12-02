@@ -9,7 +9,7 @@ Virtualbox networking can be tricky.
 
 ---
 
-[Earlier](/2013/01/31/easy-dev-environment.html) I talked about setting up a VirtualBox machine for LAMP development.  It's a great way to keep your ideas/experiments fairly atomic, and not effect your regular system.  On my Hackintosh, sometimes my network drivers are not 100%, because they are really just fooling the OS into working.  I noticed after a recent update that Virtualbox bridged networking would make the whole network stack stop working, and I couldn't get to my Virtual Machines, or even to the internet from the host after starting a machine.  Here is how I fixed it, and made it a bit more robust, for the future.
+[Earlier](/articles/easy-dev-environment/) I talked about setting up a VirtualBox machine for LAMP development.  It's a great way to keep your ideas/experiments fairly atomic, and not effect your regular system.  On my Hackintosh, sometimes my network drivers are not 100%, because they are really just fooling the OS into working.  I noticed after a recent update that Virtualbox bridged networking would make the whole network stack stop working, and I couldn't get to my Virtual Machines, or even to the internet from the host after starting a machine.  Here is how I fixed it, and made it a bit more robust, for the future.
 
 ## 2 Networks
 
@@ -48,5 +48,5 @@ Type `ifconfig` to get the IP address that were assigned to each interface. On m
     192.168.56.101 project2.local project2
     192.168.56.101 project3.local project3
 
-If you setup everything else, as [I did](/2013/01/31/easy-dev-environment.html) you should have files in ~/Sites/project1/webroot on host machine that gets served-up, and you should be able to `ping 192.168.56.101` from the host.
+If you setup everything else, as [I did](/articles/easy-dev-environment) you should have files in ~/Sites/project1/webroot on host machine that gets served-up, and you should be able to `ping 192.168.56.101` from the host.
     

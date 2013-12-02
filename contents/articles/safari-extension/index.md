@@ -5,13 +5,13 @@ date:   2013-04-04 13:15:00
 tags: [Safari, extension, torrent, NAS]
 ---
 
-[Earlier](/2013/03/19/nas.html) I talked about my awesome media/storage server named "stooge".  I want stooge to handle all the torrents on my network. I saw some good extensions for Firefox & Chrome, but not Safari. Since my new housemate prefers Mac Safari, I set out to make it awesome.
+[Earlier](/articles/nas) I talked about my awesome media/storage server named "stooge".  I want stooge to handle all the torrents on my network. I saw some good extensions for Firefox & Chrome, but not Safari. Since my new housemate prefers Mac Safari, I set out to make it awesome.
 
 ---
 
 I just need one for Transmission WebUI, but the principle is the same for any other web-based torrent-thing.  Basically, I want to trigger a callback for the configured back-end (only transmission implemented) and send it a torrent when the user clicks on a torrent file or magnet link.
 
-If you just want to download and use it, click [here](/files/TorrentAdder.safariextz).  If you are curious how I made it, continue reading. This is a simple example to get get you started making Safari extensions.
+If you just want to download and use it, click [here](TorrentAdder.safariextz).  If you are curious how I made it, continue reading. This is a simple example to get get you started making Safari extensions.
 
 You can checkout my github project, [here](https://github.com/konsumer/torrentadder).
 
@@ -27,11 +27,11 @@ If you have not done any development on Safari, you may need to enable some stuf
 
 Go to Safari/Preferences/Advanced, and enable the developer menu.
 
-![develop menu](/files/safari1.png)
+![develop menu](safari1.png)
 
 Under new "Develop" menu in toolbar, go to "Show Extension Builder" and add a new extension.
 
-![add extension](/files/safari2.png)
+![add extension](safari2.png)
 
 
 ## Global Page
@@ -190,7 +190,7 @@ You can see my handler for global page console.log()'s, at the end. Basically, t
 
 I wanted some preferences for the user to configure the torrent back-end. Mine (in Extension Builder) looked like this:
 
-![preferences](/files/safari3.png)
+![preferences](safari3.png)
 
 As you can see, I am securely storing user/password. I currently only have 1 client available (Transmission WebUI), but if you look at `global.html`, you can see how to add more, using `add` callbacks, and you can also see how I messed with my settings. Sweet!
 
