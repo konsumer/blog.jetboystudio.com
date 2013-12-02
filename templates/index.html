@@ -12,6 +12,7 @@
     <title>{{name}}</title>
     <link rel="alternate" href="{{url}}/feed.xml" type="application/rss+xml" title="{{textify description true}}">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/main.css">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -38,11 +39,14 @@
             <ul class="nav navbar-nav">
               <li class="active"><a href="/">Home</a></li>
               <li><a href="/archive.html">Archive</a></li>
-              <li><a href="/archive.html">Archive</a></li>
+              <li><a href="http://www.facebook.com/sharer.php?u={{urlEncode url}}"><i class="fa fa-facebook-square"></i></a></li>
+              <li><a href="https://twitter.com/share" data-via="davidkonsumer"><i class="fa fa-twitter"></i></a></li>
             </ul>
           </div>
         </div>
       </div>
+
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
 
       {{#articles}}
         <div class="container">
