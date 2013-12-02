@@ -1,0 +1,93 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Previously I went through a lot of hoops to figure out how to compile a Teensy version of a burner for my XMEGA.  This is a simpler version of those instructions.">
+    <meta name="author" content="David Konsumer">
+    <title>Turning a Teensy++ 2 into a full AVRISP-MKII clone (better) - Drunken Coder Blog</title>
+    <link rel="alternate" href="http://localhost:8080/feed.xml" type="application/rss+xml" title="a blog about code &amp; life">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.4/styles/tomorrow.min.css">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <div id="wrap">
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="http://localhost:8080">Drunken Coder Blog</a>
+          </div>
+          <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="http://localhost:8080">Home</a></li>
+              <li><a href="/archive.html">Archive</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="page-header">
+          <h2><a href="/articles/teensy2AVRISP-MKII-lufa/">Turning a Teensy++ 2 into a full AVRISP-MKII clone (better)</a></h2>
+          
+          <div class="date">Feb 10th, 2013</div>
+          <div class="tags"> electronics  micro-controllers  Arduino  XMEGA  LUFA  teensy </div>
+        </div>
+        <div><p><a href="/2013/02/08/teensy2AVRISP-MKII.html">Previously</a> I went through a lot of hoops to figure out how to compile a Teensy version of a burner for my XMEGA.  This is a simpler version of those instructions.</p>
+<hr>
+<p>And if you just want the hex file for teensy ++ 2, <a href="/files/AVRISP-MKII-AT90USB1286.hex.zip">here</a>.</p>
+<p>Install <a href="http://www.obdev.at/products/crosspack/index.html">CrossPack-AVR</a> to give your Mac avr-gcc. if you are on another OS, install winavr or avr-gcc however you do that.</p>
+<p>Close terminal, and open a new one to refresh your environment.  Type <code>avr-gcc --version</code> and you should see something liek this:</p>
+<pre><code>avr-gcc (GCC) 4.6.2
+Copyright (C) 2011 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</code></pre>
+<p>Download the <a href="http://fourwalledcubicle.com/LUFA.php">LUFA project</a>.</p>
+<p>Edit Projects/AVRISP-MKII/makefile. Change MCU like to look like this:</p>
+<pre><code class="lang-makefile"><span class="constant">MCU</span>          = at90usb1286</code></pre>
+<p>CD to Projects/AVRISP-MKII/ and type <code>make</code></p>
+<p>drag AVRISP-MKII.hex to your teensy burner window and press reset.</p>
+<p>Now, you have a AVRISP-MKII clone!</p>
+</div>
+        
+      </div>
+      
+      <div class="container pageNav">
+        <ul class="pagination">
+          <li></li>
+          <li></li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="footer">
+      <div class="container">
+        <p class="text-muted credit">© 2013 David Konsumer</p>
+      </div>
+    </div>
+
+    <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.4/highlight.min.js"></script>
+
+  </body>
+</html>
+
+
+

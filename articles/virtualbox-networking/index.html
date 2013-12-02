@@ -1,0 +1,105 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Virtualbox networking can be tricky.">
+    <meta name="author" content="David Konsumer">
+    <title>Virtualbox Networking - Drunken Coder Blog</title>
+    <link rel="alternate" href="http://localhost:8080/feed.xml" type="application/rss+xml" title="a blog about code &amp; life">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.4/styles/tomorrow.min.css">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <div id="wrap">
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="http://localhost:8080">Drunken Coder Blog</a>
+          </div>
+          <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="http://localhost:8080">Home</a></li>
+              <li><a href="/archive.html">Archive</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="page-header">
+          <h2><a href="/articles/virtualbox-networking/">Virtualbox Networking</a></h2>
+          
+          <div class="date">Jul 17th, 2013</div>
+          <div class="tags"> quickie  VirtualBox  LAMP  networking </div>
+        </div>
+        <div><p>Virtualbox networking can be tricky.</p>
+<hr>
+<p><a href="/2013/01/31/easy-dev-environment.html">Earlier</a> I talked about setting up a VirtualBox machine for LAMP development.  It’s a great way to keep your ideas/experiments fairly atomic, and not effect your regular system.  On my Hackintosh, sometimes my network drivers are not 100%, because they are really just fooling the OS into working.  I noticed after a recent update that Virtualbox bridged networking would make the whole network stack stop working, and I couldn’t get to my Virtual Machines, or even to the internet from the host after starting a machine.  Here is how I fixed it, and made it a bit more robust, for the future.</p>
+<h2 id="2-networks">2 Networks</h2>
+<p>We are going to make an internal host-only net, for serving up stuff just to the host, and an external net so the vmachine can get to the internet.</p>
+<p>In VirtualBox, go to Virtualbox/Preferences, then Network.  Make a host-only network. Mine was called “vboxnet0”.</p>
+<p>On your virtual machine, under Network, set Adapter 1 to “Host-only Adapter”.</p>
+<p>Under Adapter 2, set it to “NAT”. For both, under Advanced, set it to “Intel PRO/1000 MT Desktop” and set promiscuous mode to “DENY”.</p>
+<p>Start up the machine.</p>
+<p>type <code>sudo lshw -C network | grep logical</code> to get the 2 device names (in my case: eth2 &amp; eth3.)</p>
+<p>type <code>sudo vim /etc/network/interfaces</code> and replace my devices, with whatever you got from above:</p>
+<pre><code># local-only vbox net
+auto eth3
+iface eth3 inet dhcp
+
+# NAT net
+auto eth2
+iface eth2 inet dhcp</code></pre>
+<h2 id="testing-and-usage">Testing and Usage</h2>
+<p>Restart the vmachine.</p>
+<p>type <code>ping google.com</code> from vmachine to test if it can get to the internet.</p>
+<p>Type <code>ifconfig</code> to get the IP address that were assigned to each interface. On mine, the local interface (eth3) had an IP of 192.168.56.101, and a NAT’ed (eth2) address of 10.0.3.15. On your host, go add the internal address to <code>/etc/hosts</code> so you can call the machine by name:</p>
+<pre><code># vhosts served by VirtualBox
+192.168.56.101 project1.local project1
+192.168.56.101 project2.local project2
+192.168.56.101 project3.local project3</code></pre>
+<p>If you setup everything else, as <a href="/2013/01/31/easy-dev-environment.html">I did</a> you should have files in ~/Sites/project1/webroot on host machine that gets served-up, and you should be able to <code>ping 192.168.56.101</code> from the host.</p>
+</div>
+        
+      </div>
+      
+      <div class="container pageNav">
+        <ul class="pagination">
+          <li></li>
+          <li></li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="footer">
+      <div class="container">
+        <p class="text-muted credit">© 2013 David Konsumer</p>
+      </div>
+    </div>
+
+    <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.4/highlight.min.js"></script>
+
+  </body>
+</html>
+
+
+

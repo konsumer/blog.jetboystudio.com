@@ -1,0 +1,368 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Deving for Facebook apps kinda sucks using server-side PHP. PHP’s lib is not 100% with all browsers and has lil glitches if you don’t do it right, and you gotta really pay attention to a lot of details if you need info from the parent page.">
+    <meta name="author" content="David Konsumer">
+    <title>Facebook PHP kinda sucks, here&#x27;s how to make it better - Drunken Coder Blog</title>
+    <link rel="alternate" href="http://localhost:8080/feed.xml" type="application/rss+xml" title="a blog about code &amp; life">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.4/styles/tomorrow.min.css">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <div id="wrap">
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="http://localhost:8080">Drunken Coder Blog</a>
+          </div>
+          <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="http://localhost:8080">Home</a></li>
+              <li><a href="/archive.html">Archive</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="page-header">
+          <h2><a href="/articles/facebook-and-php/">Facebook PHP kinda sucks, here&#x27;s how to make it better</a></h2>
+          
+          <div class="date">Jul 12th, 2013</div>
+          <div class="tags"> facebook  PHP  composer </div>
+        </div>
+        <div><p>Deving for Facebook apps kinda sucks using server-side PHP. PHP’s lib is not 100% with all browsers and has lil glitches if you don’t do it right, and you gotta really pay attention to a lot of details if you need info from the parent page.</p>
+<hr>
+<p>I was making a Facebook app that was consumed by many branded retailers, and they all gotta have the right logos, etc.  I wanted 1 codebase &amp; facebook tab-app to serve up an app for everyone, and not cause me too much grief. The methodology I am describing is not what I went with, for fear of missing deadlines, but is how you should do it, if you can, and have control from the start.</p>
+<p>This post will also explain, in detail, how to setup a nice &amp; neat <a href="http://getcomposer.org/">composer</a> app, that uses <a href="https://packagist.org/packages/mustache/mustache">mustache</a> for views, and is fairly maintainable.</p>
+<h2 id="the-php-lib-is-not-in-sync-with-the-js">The PHP lib is not in sync with the JS</h2>
+<p>The first thing you gotta know, if you need info about what page is calling the app and you support IE, is that no one is your friend. You are in a dark and lonely place where Facebook says “seriously dudes, that’s just dumb” to the lone way that IE can do cross-iframe communication. You gotta double-up on cookies &amp; go crazy with the session for anything to persist. Yer gonna have to get yer hands filthy with javascript, so get ready. Your only sword in this masochistic and ill-planned D&amp;D game is to do as much as possible client-side.  Let Facebook’s javascript API handle all the details, and just pass it to your lil PHP friend, in the back, when you need to save stuff. Facebook’s Javascript can do all but know about the page calling you. It can handle users, do graph lookups (if you know the name, find out more.)</p>
+<h3 id="setup-your-app-with-composer">Setup your app with composer</h3>
+<p>I like <a href="http://getcomposer.org/">composer</a>. It makes dev’ing framework-less PHP apps a breeze, and if planned correctly, it can help you organize your app, as if you are using a framework.  PHP class auto-loading is cool, and keeps your code neat.  Go install it in your path. Make a file called <code>composer.json</code> that looks like this:</p>
+<p><strong>composer.json</strong></p>
+<pre><code class="lang-json">{
+    "<span class="attribute">require</span>": <span class="value">{
+        "<span class="attribute">facebook/php-sdk</span>": <span class="value"><span class="string">"dev-master"</span>
+    </span>}</span>,
+    "<span class="attribute">autoload</span>": <span class="value">{
+        "<span class="attribute">classmap</span>": <span class="value">[
+            <span class="string">"app"</span>
+        ]
+    </span>}
+</span>}</code></pre>
+<p>This means “this app requires the dev version of facebook-sdk” and “autoload my own app’s classes from app/ folder”</p>
+<p>Make a folder called <code>app/</code> and a folder called <code>webroot/</code>.  Point your webserver to <code>webroot</code> (see <a href="/2013/01/31/easy-dev-environment.html">here</a> for this all done automatically on a virtual machine.)</p>
+<p>Now, run <code>composer install</code>.</p>
+<p>Anytime you change files in <code>app/</code> or dependencies, run <code>composer update</code>. I like to put this in git-hooks and git-ignore <code>vendor/</code> &amp; <code>composer.lock</code>, so I don’t have to bother with it.</p>
+<h3 id="routing">Routing</h3>
+<p>Think of <code>webroot/index.php</code> as a basic router and loader of other classes.  Try and put as much functionality as possible into the classes defined in <code>app/</code>, rather than the <code>index.php</code> file.  If your facebook app has only 1 entry point, then you don’t need an actual URL router, but if you have any links (AJAX, GET, POST) you may want to install a proper URL router.  I recommend <a href="https://packagist.org/packages/torophp/torophp">ToroPHP</a>, so make your composer.json file look like this:</p>
+<p><strong>composer.json</strong></p>
+<pre><code class="lang-json">{
+    "<span class="attribute">require</span>": <span class="value">{
+        "<span class="attribute">torophp/torophp</span>": <span class="value"><span class="string">"dev-master"</span></span>,
+        "<span class="attribute">facebook/php-sdk</span>": <span class="value"><span class="string">"dev-master"</span>
+    </span>}</span>,
+    "<span class="attribute">autoload</span>": <span class="value">{
+        "<span class="attribute">classmap</span>": <span class="value">[
+            <span class="string">"app"</span>
+        ]
+    </span>}
+</span>}</code></pre>
+<p>For Toro clean-urls, I added this:</p>
+<p><strong>webroot/.htaccess</strong></p>
+<pre><code class="lang-apache"><span class="keyword"><span class="common">RewriteEngine</span></span> <span class="literal">on</span>
+<span class="keyword"><span class="common">RewriteCond</span></span> <span class="cbracket">%{REQUEST_FILENAME}</span> !-f
+<span class="keyword"><span class="common">RewriteCond</span></span> <span class="cbracket">%{REQUEST_FILENAME}</span> !-d
+<span class="keyword"><span class="common">RewriteCond</span></span> <span class="number">$1</span> !^(index\.php)
+<span class="keyword"><span class="common">RewriteRule</span></span> ^(.*)$ /index.php/<span class="number">$1</span><span class="sqbracket"> [L]</span></code></pre>
+<p>Go to Facebook, and <a href="https://developers.facebook.com/apps">make your “Page Tab” app</a>.</p>
+<p>Set the “Page Tab URL” to whatever URL resolves to your app’s webroot.</p>
+<p><strong>For all PHP code examples, below, leave off the <code>?&gt;</code> on the end. I just add it for syntax-highlighting to work, and a space after it is hard to find, and will mess with header stuff.</strong></p>
+<p>I made a <code>config.php</code> file, outside of the webroot, to handle all configuration.  Mine looks like this, but you could definately do something fancier with a class/database/etc:</p>
+<p><strong>config.php</strong></p>
+<pre><code class="lang-php"><span class="preprocessor">&lt;?php</span>
+
+<span class="comment">// DEV: output ALL errors to screen</span>
+error_reporting(E_ALL);
+ini_set(<span class="string">'display_errors'</span>, <span class="number">1</span>);
+
+<span class="comment">// set timezone for all date functions</span>
+date_default_timezone_set(<span class="string">'America/Los_Angeles'</span>);
+
+<span class="variable">$config</span> = <span class="keyword">array</span>();
+
+<span class="variable">$config</span>[<span class="string">'title'</span>] = <span class="string">"My Cool Facebook App"</span>;
+
+<span class="variable">$config</span>[<span class="string">'view_dir'</span>] = <span class="keyword">__DIR__</span> . <span class="string">"/views/"</span>;
+
+<span class="comment">// Facebook App info for tab-app</span>
+<span class="variable">$config</span>[<span class="string">'facebook'</span>] = <span class="keyword">array</span>(
+    <span class="string">'appId'</span>=&gt;<span class="string">'BADWOLFBADWOLFBADWOLF'</span>,
+    <span class="string">'secret'</span>=&gt;<span class="string">'BADWOLFBADWOLFBADWOLF'</span>
+);
+
+<span class="preprocessor">?&gt;</span></code></pre>
+<p>Replace Doctor Who reference with your credentials. Put whatever else site-specific config you need in there.</p>
+<p><strong>webroot/index.php</strong></p>
+<pre><code class="lang-php"><span class="preprocessor">&lt;?php</span>
+<span class="keyword">require</span> dirname(<span class="keyword">__DIR__</span>) . <span class="string">'/config.php'</span>;
+<span class="keyword">require</span> dirname(<span class="keyword">__DIR__</span>) . <span class="string">'/vendor/autoload.php'</span>;
+session_start();
+
+<span class="comment">// save any info we get about app/auth from facebook</span>
+<span class="variable">$facebook</span> = <span class="keyword">new</span> Facebook(<span class="variable">$config</span>[<span class="string">'facebook'</span>]);
+<span class="variable">$sr</span> = <span class="variable">$facebook</span>-&gt;getSignedRequest();
+<span class="keyword">if</span> (!<span class="keyword">empty</span>(<span class="variable">$sr</span>)){
+    <span class="variable">$_SESSION</span>[<span class="string">'signed_request'</span>] = <span class="variable">$sr</span>;
+}
+
+<span class="comment">// here you could verify $_SESSION['signed_request']['page']['id'] is authorized to use this tab, if you wanted.</span>
+
+ToroHook::add(<span class="string">"404"</span>,  <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+    header(<span class="string">'HTTP/1.0 404 Not Found'</span>);
+    <span class="variable">$controller</span> = <span class="keyword">new</span> BaseController();
+    <span class="keyword">echo</span> <span class="variable">$controller</span>-&gt;view(<span class="string">"404"</span>, <span class="keyword">array</span>(<span class="string">'title'</span>=&gt;<span class="string">'Not Found'</span>));
+});
+
+Toro::serve(<span class="keyword">array</span>(
+    <span class="string">"/"</span> =&gt; <span class="string">"Home"</span>
+));
+
+
+<span class="preprocessor">?&gt;</span></code></pre>
+<p>Now, go make a <code>app/Home.php</code>. The method <code>get()</code> will handle GET requests to “/“. I like using a template-lib like <a href="https://packagist.org/packages/mustache/mustache">mustache</a> and a BaseController class that all my controller extend that is smart enough to do 90% of the work. If you want to go that direction, add <code>&quot;mustache/mustache&quot;: &quot;*&quot;</code> to your composer.json’s <code>require</code> section. I will show a quick example, but how you actually implement your app is obviously totally up to you. Above, in the 404 function, I am using BaseController, which I will define, below.</p>
+<p>The facebook stuff is just to save any incoming facebook info, if there is some.</p>
+<p><strong>app/BaseController.php</strong></p>
+<pre><code class="lang-php"><span class="preprocessor">&lt;?php</span>
+
+<span class="class"><span class="keyword">class</span> <span class="title">BaseController</span> {</span>
+    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">view</span><span class="params">(<span class="variable">$tpl</span>, <span class="variable">$context</span>=array<span class="params">()</span>, <span class="variable">$layout</span>=<span class="string">"layout"</span>, <span class="variable">$name</span>=NULL)</span>{</span>
+        <span class="keyword">global</span> <span class="variable">$config</span>;
+        <span class="keyword">static</span> <span class="variable">$mustache</span>;
+
+        <span class="keyword">if</span> (<span class="keyword">empty</span>(<span class="variable">$mustache</span>)){
+            <span class="variable">$mustache</span> = <span class="keyword">new</span> Mustache_Engine(<span class="keyword">array</span>(
+                <span class="string">'cache'</span> =&gt; sys_get_temp_dir () . <span class="string">'/cache/mustache/'</span> . <span class="variable">$_SERVER</span>[<span class="string">'SERVER_NAME'</span>],
+                <span class="string">'cache_file_mode'</span> =&gt; <span class="number">0666</span>, <span class="comment">// Please, configure your umask instead of doing this :)</span>
+                <span class="string">'loader'</span> =&gt; <span class="keyword">new</span> Mustache_Loader_FilesystemLoader(<span class="variable">$config</span>[<span class="string">'view_dir'</span>]),
+                <span class="string">'partials_loader'</span> =&gt; <span class="keyword">new</span> Mustache_Loader_FilesystemLoader(<span class="variable">$config</span>[<span class="string">'view_dir'</span>]),
+                <span class="string">'helpers'</span> =&gt; <span class="keyword">array</span>(),
+                <span class="string">'escape'</span> =&gt; <span class="function"><span class="keyword">function</span><span class="params">(<span class="variable">$value</span>)</span> {</span>
+                    <span class="keyword">return</span> htmlspecialchars(<span class="variable">$value</span>, ENT_COMPAT, <span class="string">'UTF-8'</span>);
+                },
+                <span class="string">'charset'</span> =&gt; <span class="string">'UTF-8'</span>,
+                <span class="string">'logger'</span> =&gt; <span class="keyword">new</span> Mustache_Logger_StreamLogger(<span class="string">'php://stderr'</span>),
+                <span class="string">'strict_callables'</span> =&gt; <span class="keyword">true</span>,
+            ));
+        }
+
+        <span class="variable">$context</span>[<span class="string">'title'</span>] = <span class="keyword">empty</span>(<span class="variable">$context</span>[<span class="string">'title'</span>]) ? <span class="variable">$config</span>[<span class="string">'title'</span>] : <span class="variable">$context</span>[<span class="string">'title'</span>] . <span class="string">' - '</span> . <span class="variable">$config</span>[<span class="string">'title'</span>];
+        <span class="variable">$context</span>[<span class="string">'config'</span>] = <span class="variable">$config</span>;
+        <span class="variable">$context</span>[<span class="string">'request'</span>] = <span class="variable">$_REQUEST</span>;
+        <span class="variable">$context</span>[<span class="string">'server'</span>] = <span class="variable">$_SERVER</span>;
+        <span class="variable">$context</span>[<span class="string">'session'</span>] = <span class="variable">$_SESSION</span>;
+        <span class="variable">$context</span>[<span class="string">'template'</span>] = <span class="keyword">empty</span>(<span class="variable">$name</span>) ? <span class="variable">$tpl</span> : <span class="variable">$name</span>;
+
+        <span class="keyword">if</span> (!<span class="keyword">empty</span>(<span class="variable">$layout</span>)){
+            <span class="variable">$context</span>[<span class="string">'content'</span>] = <span class="variable">$mustache</span>-&gt;render(<span class="variable">$tpl</span>, <span class="variable">$context</span>);
+            <span class="variable">$out</span> = <span class="variable">$mustache</span>-&gt;render(<span class="variable">$layout</span>, <span class="variable">$context</span>);
+        }<span class="keyword">else</span>{
+            <span class="variable">$out</span> = <span class="variable">$mustache</span>-&gt;render(<span class="variable">$tpl</span>, <span class="variable">$context</span>);
+        }
+
+        <span class="keyword">return</span> <span class="variable">$out</span>;
+    }
+
+    <span class="comment">// generic views</span>
+    <span class="function"><span class="keyword">function</span> <span class="title">get</span><span class="params">()</span>{</span>
+        <span class="keyword">echo</span> <span class="variable">$this</span>-&gt;view(<span class="variable">$this</span>-&gt;template, <span class="keyword">array</span>(<span class="string">'title'</span>=&gt;<span class="variable">$this</span>-&gt;page_title));
+    }
+    <span class="function"><span class="keyword">function</span> <span class="title">get_xhr</span><span class="params">()</span>{</span>
+        header(<span class="string">"Content-Type:text/html"</span>);
+        <span class="keyword">echo</span> <span class="string">'&lt;div class="xhr"&gt;'</span>.<span class="variable">$this</span>-&gt;view(<span class="variable">$this</span>-&gt;template, <span class="keyword">array</span>(), <span class="keyword">NULL</span>).<span class="string">'&lt;/div&gt;'</span>;
+    }
+}
+
+<span class="preprocessor">?&gt;</span></code></pre>
+<p><strong>app/Home.php</strong></p>
+<pre><code class="lang-php"><span class="preprocessor">&lt;?php</span>
+
+<span class="class"><span class="keyword">class</span> <span class="title">Home</span> <span class="keyword">extends</span> <span class="title">BaseController</span> {</span>
+    <span class="keyword">public</span> <span class="variable">$template</span> = <span class="string">"home"</span>;
+    <span class="keyword">public</span> <span class="variable">$page_title</span> = <span class="keyword">NULL</span>;
+}
+
+<span class="preprocessor">?&gt;</span></code></pre>
+<p>Ok, so we have a generic BaseController, that does Mustache, we have 2 generic methods: <code>get</code> &amp; <code>get_xhr</code> which just serve up the view, with or without a layout, we have a Home controller, and we have a 404 error handler. Since you made changes to the classes, don’t forget to run <code>composer update</code>.</p>
+<p>Again, this is just an example, but for all this to work as it is, <code>views/</code> holds Mustache templates, and include <code>layout.mustache</code>, <code>404.mustache</code>, and <code>home.mustache</code>. Go make those. Mine look like this:</p>
+<p><strong>views/layout.mustache</strong></p>
+<pre><code class="lang-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot; class=&quot;no-js&quot; data-app=&quot;{{config.facebook.appId}}&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;utf-8&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=9&quot; /&gt;
+    &lt;title&gt;{{title}}&lt;/title&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;meta name=&quot;description&quot; content=&quot;&quot;&gt;
+    &lt;meta name=&quot;author&quot; content=&quot;Your name here&gt;
+    &lt;script src=&quot;//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js&quot;&gt;&lt;/script&gt;
+    &lt;link href=&quot;/css/site.css&quot; rel=&quot;stylesheet&quot;&gt;
+    {{#session.signed_request.page.id}}
+        &lt;script&gt;window.page={ id: &quot;{{session.signed_request.page.id}}&quot;, liked: {{session.signed_request.page.liked}}, admin: {{session.signed_request.page.admin}} };&lt;/script&gt;
+    {{/session.signed_request.page.id}}
+  &lt;/head&gt;
+  &lt;body class=&quot;page-{{template}}&quot;&gt;
+    &lt;div id=&quot;wrapper&quot;&gt;
+      &lt;header&gt;&lt;h1&gt;{{config.title}}&lt;/h1&gt;&lt;/header&gt;
+      &lt;section class=&quot;clearfix&quot;&gt;{{{content}}}&lt;/section&gt;
+      &lt;footer&gt;&amp;copy; 2013 {{config.title}}&lt;/footer&gt;
+    &lt;/div&gt;
+    &lt;script src=&quot;//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js&quot;&gt;&lt;/script&gt;
+    &lt;script src=&quot;/js/site.js&quot;&gt;&lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<p><strong>views/404.mustache</strong></p>
+<pre><code class="lang-html">&lt;h2&gt;Page not found&lt;/h2&gt;</code></pre>
+<p><strong>views/home.mustache</strong></p>
+<pre><code class="lang-html">&lt;h2&gt;Welcome&lt;/h2&gt;</code></pre>
+<p>The <code>{{#session.signed_request.page.id}}</code> bit in the header tells the client-side javascript about the page that called it. The <code>{{config.facebook.appId}}</code> part is the facebook app id of your tab-app.</p>
+<p>So, now is the part where you start work on the client-side javascript we talked about earlier.  How you do this totally depends on how your app works, but for illustration, here is mine:</p>
+<p><strong>webroot/js/site.js</strong></p>
+<pre><code class="lang-javascript"><span class="comment">// immediate fangate, if you setup the CSS</span>
+<span class="keyword">if</span> (window.page &amp;&amp; window.page.liked){
+    document.getElementsByTagName(<span class="string">'body'</span>)[<span class="number">0</span>].attributes[<span class="string">'class'</span>].value+=<span class="string">" liked"</span>;
+}
+
+<span class="keyword">if</span> (window === window.top){
+    console.log(<span class="string">'not in an iframe, not on facebook.'</span>);
+}<span class="keyword">else</span>{
+    console.log(<span class="string">'in an iframe'</span>);
+}
+
+window.fbAsyncInit = <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+    FB.init({
+        appId      : document.getElementsByTagName(<span class="string">'html'</span>)[<span class="number">0</span>].attributes[<span class="string">'data-app'</span>].value,
+        channelUrl : <span class="string">'//'</span> + document.location.host + document.location.pathname + <span class="string">'/channel.php'</span>,
+        status     : <span class="literal">true</span>,
+        cookie     : <span class="literal">true</span>,
+        xfbml      : <span class="literal">true</span>
+    });
+    <span class="function"><span class="keyword">function</span> <span class="title">login</span><span class="params">()</span>{</span>
+        FB.login(<span class="function"><span class="keyword">function</span><span class="params">(response)</span> {</span>
+            <span class="keyword">if</span> (response.authResponse) {
+                console.log(<span class="string">'logged in'</span>);
+                FB.api(<span class="string">'/me'</span>, <span class="function"><span class="keyword">function</span><span class="params">(user)</span>{</span>
+                    facebook_authorized(user, FB, response);                
+                });
+            } <span class="keyword">else</span> {
+                console.log(<span class="string">'User cancelled login or did not fully authorize.'</span>);
+                login();
+            }
+        },{scope: <span class="string">'email'</span>});
+    }
+
+    FB.getLoginStatus(<span class="function"><span class="keyword">function</span><span class="params">(response)</span> {</span>
+        <span class="keyword">if</span> (response.status === <span class="string">'connected'</span>) {
+            FB.api(<span class="string">'/me'</span>, <span class="function"><span class="keyword">function</span><span class="params">(user)</span>{</span>
+                facebook_authorized(user, FB, response);
+            });
+        } <span class="keyword">else</span> <span class="keyword">if</span> (response.status === <span class="string">'not_authorized'</span>) {
+            login();
+        } <span class="keyword">else</span> {
+            login();
+        }
+    });
+};
+
+<span class="comment">// callback for Facebook correctly authorized</span>
+<span class="function"><span class="keyword">function</span> <span class="title">facebook_authorized</span><span class="params">(user, FB, auth)</span>{</span>
+    FB.Canvas.setSize();
+    FB.Canvas.setAutoGrow();
+
+    console.log(<span class="string">'FB'</span>, FB);
+    console.log(<span class="string">'user'</span>, user);
+    console.log(<span class="string">'auth'</span>, auth);
+
+    <span class="comment">// do your stuff here.</span>
+    <span class="comment">// you have window.page, user, FB, and the auth objects to do things</span>
+    <span class="comment">// make sure to verify them, and do cool stuff</span>
+}
+
+
+(<span class="function"><span class="keyword">function</span><span class="params">(d, s, id)</span>{</span>
+<span class="keyword">var</span> js, fjs = d.getElementsByTagName(s)[<span class="number">0</span>];
+<span class="keyword">if</span> (d.getElementById(id)) {<span class="keyword">return</span>;}
+js = d.createElement(s); js.id = id;
+js.src = <span class="string">"//connect.facebook.net/en_US/all.js"</span>;
+fjs.parentNode.insertBefore(js, fjs);
+}(document, <span class="string">'script'</span>, <span class="string">'facebook-jssdk'</span>));</code></pre>
+<p>This will add “liked” to body class, so you can hide stuff by default and show it under body.liked in CSS, for a fangate. You can see how I detect if I’m in an iframe, do what you want if not.  <code>facebook_authorized()</code> is your entry-point, and has access to all the data you will need.</p>
+<p>The way this is all setup, you can get just the content on the server by sending ajax requests to routes, so that might be good for things like this:</p>
+<pre><code class="lang-javascript">$.get(<span class="string">'/about'</span>, <span class="function"><span class="keyword">function</span><span class="params">(content)</span>{</span>
+    $(<span class="string">'section'</span>).html(content);
+});</code></pre>
+<p>and make a route in <code>index.php</code> like this:</p>
+<pre><code class="lang-php">    <span class="preprocessor">&lt;?php</span>
+
+    Toro::serve(<span class="keyword">array</span>(
+        <span class="string">"/"</span> =&gt; <span class="string">"Home"</span>,
+        <span class="string">"/about"</span> =&gt; <span class="string">"About"</span>
+    ));
+
+    <span class="preprocessor">?&gt;</span></code></pre>
+<p>and <strong>app/About.php</strong></p>
+<pre><code class="lang-php">    <span class="preprocessor">&lt;?php</span>
+
+    <span class="class"><span class="keyword">class</span> <span class="title">About</span> <span class="keyword">extends</span> <span class="title">BaseController</span> {</span>
+        <span class="keyword">public</span> <span class="variable">$template</span> = <span class="string">"about"</span>;
+        <span class="keyword">public</span> <span class="variable">$page_title</span> = <span class="string">"About Us"</span>;
+    }
+
+    <span class="preprocessor">?&gt;</span></code></pre>
+<p>and <strong>views/about.mustache</strong></p>
+<pre><code class="lang-html">    &lt;h1&gt;o hai!&lt;/h1&gt;</code></pre>
+</div>
+        
+      </div>
+      
+      <div class="container pageNav">
+        <ul class="pagination">
+          <li></li>
+          <li></li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="footer">
+      <div class="container">
+        <p class="text-muted credit">© 2013 David Konsumer</p>
+      </div>
+    </div>
+
+    <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.4/highlight.min.js"></script>
+
+  </body>
+</html>
+
+
+

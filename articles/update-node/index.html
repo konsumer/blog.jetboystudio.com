@@ -5,10 +5,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A long time ago, when the world was young — someone put some food on their tongue.They tasted the food, and thought it was nice. Most fruit liked it — but banana’s thought twice.">
-    <meta name="author" content="baker">
-    <title>A red herring - The Wintersmith&#x27;s blog</title>
-    <link rel="alternate" href="http://localhost:8080/feed.xml" type="application/rss+xml" title="Ramblings of an immor(t)al demigod">
+    <meta name="description" content="I was having funny little issues on Ubuntu 12.10 64bit, and realized that it was using a really old version of node.">
+    <meta name="author" content="David Konsumer">
+    <title>updated node.js on Ubuntu - Drunken Coder Blog</title>
+    <link rel="alternate" href="http://localhost:8080/feed.xml" type="application/rss+xml" title="a blog about code &amp; life">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.4/styles/tomorrow.min.css">
@@ -31,7 +31,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="http://localhost:8080">The Wintersmith&#x27;s blog</a>
+            <a class="navbar-brand" href="http://localhost:8080">Drunken Coder Blog</a>
           </div>
           <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
@@ -44,30 +44,18 @@
 
       <div class="container">
         <div class="page-header">
-          <h2><a href="/articles/red-herring/">A red herring</a></h2>
-          <div class="text-muted credit">Written by: baker</div>
-          <div class="date">Mar 31st, 2013</div>
+          <h2><a href="/articles/update-node/">updated node.js on Ubuntu</a></h2>
+          
+          <div class="date">Feb 3rd, 2013</div>
+          <div class="tags"> Ubuntu  Linux  node  quickie </div>
         </div>
-        <div><p>A long time ago, when the world was young — someone put some food on their tongue.
-They tasted the food, and thought it was nice. Most fruit liked it — but banana’s thought twice.</p>
-<p><span class="more"></span></p>
-<p>They held a meeting at quarter past eight.
-Whilst the human’s were getting home late.
-They decided they didn’t want to be eaten they said:
-“No way, we’re not going to be beaten”.</p>
-<p>So time went by, and human’s got old.
-Banana’s got ready, for their prophets had told.
-That soon shall come the dawn of war.
-Where humans will rule the earth no more.</p>
-<p>The humans knew not of the evil banana’s plans.
-They made their cars, guitars and aluminum cans.
-And the banana’s began to take over the east.
-While humans knew not, and kept having their feast.</p>
-<p>But time has run out, no more hiding there can be.
-Or else the banana’s will kill you and me.
-We must take up arms, and fight to the end.
-Because, believe it or not, a banana is not a friend.</p>
-<p><img src="/articles/red-herring/banana.png" alt="a banana"></p>
+        <div><p>I was having funny little issues on Ubuntu 12.10 64bit, and realized that it was using a really old version of node.</p>
+<hr>
+<p>I installed a new one like this:</p>
+<pre><code class="lang-bash"><span class="built_in">sudo</span> apt-get install python-software-properties software-properties-common python-software-properties
+<span class="built_in">sudo</span> add-apt-repository ppa:chris-lea/node.js
+<span class="built_in">sudo</span> apt-get update
+<span class="built_in">sudo</span> apt-get install python g++ make nodejs npm</code></pre>
 </div>
         
       </div>
@@ -82,7 +70,7 @@ Because, believe it or not, a banana is not a friend.</p>
 
     <div id="footer">
       <div class="container">
-        <p class="text-muted credit">© 2013 Someone</p>
+        <p class="text-muted credit">© 2013 David Konsumer</p>
       </div>
     </div>
 

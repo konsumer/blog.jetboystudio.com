@@ -1,0 +1,124 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="I made a simple little clustered testing system, using NodeStressSuite. Basically, I want it to launch a bunch of instances, clobber a server, then remove all the machines.">
+    <meta name="author" content="David Konsumer">
+    <title>Automated Clustered Load Testing with EC2 &amp; node - Drunken Coder Blog</title>
+    <link rel="alternate" href="http://localhost:8080/feed.xml" type="application/rss+xml" title="a blog about code &amp; life">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.4/styles/tomorrow.min.css">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <div id="wrap">
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="http://localhost:8080">Drunken Coder Blog</a>
+          </div>
+          <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="http://localhost:8080">Home</a></li>
+              <li><a href="/archive.html">Archive</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="page-header">
+          <h2><a href="/articles/ec2-automated-testing/">Automated Clustered Load Testing with EC2 &amp; node</a></h2>
+          
+          <div class="date">May 10th, 2013</div>
+          <div class="tags"> EC2  AWS  Ubuntu  load  testing  quickie </div>
+        </div>
+        <div><p>I made a simple little clustered testing system, using <a href="https://github.com/Samuel29/NodeStressSuite">NodeStressSuite</a>. Basically, I want it to launch a bunch of instances, clobber a server, then remove all the machines.</p>
+<hr>
+<p>This is all automated, so you just run the EC2-builder, and run it. This is basically a legit use of a DDOS botnet. Here is how I did it.</p>
+<p>To get my loadtester, check out <a href="https://github.com/konsumer/loadtester">the github page</a>.</p>
+<h2 id="testing-framework">Testing Framework</h2>
+<p><a href="https://github.com/Samuel29/NodeStressSuite">NodeStressSuite</a> is a still-developed version of <a href="https://github.com/benschmaus/nodeload">nodeload</a>. It’s a lot like Apache’s ab, but written in javascript, multi-suystem concurrent, and fancy! Be sure to go check it out to get an idea of the cool stuff you can do with it.</p>
+<p>Here is how I added it to my project:</p>
+<p><code>npm install --save &quot;git://github.com/Samuel29/NodeStressSuite.git#master&quot;</code></p>
+<p>This will install nss.</p>
+<h3 id="modular-tests">Modular tests</h3>
+<p>I want to be able to just plug-in a modular test, whenever I need to test something new.  I want to include all the options needed to test a server.  Here is the basic test I wrote, which includes all the options to stress-test <a href="http://jetboystudio.com">http://jetboystudio.com</a>. I save it as <code>jetboy.js</code>:</p>
+<pre><code class="lang-javascript"><span class="comment">// simple 3 minutes test</span>
+
+module.exports = {
+    name: <span class="string">"jetboy"</span>,
+    comment:<span class="string">"Simple load test for Jetboy Studio"</span>,
+    host: <span class="string">'www.jetboystudio.com'</span>,
+    port: <span class="number">80</span>,
+    timeLimit: <span class="number">180</span>,
+    loadProfile: [[<span class="number">0</span>,<span class="number">0</span>], [<span class="number">180</span>,<span class="number">400</span>] ],
+    stats: [
+        <span class="string">'rps'</span>,
+        <span class="string">'result-codes'</span>,
+        {name: <span class="string">'latency'</span>, percentiles: [<span class="number">0.95</span>]},
+        <span class="string">'concurrency'</span>,
+        <span class="string">'request-bytes'</span>,
+        <span class="string">'response-bytes'</span>
+    ],
+    requestGenerator: <span class="function"><span class="keyword">function</span><span class="params">(client)</span> {</span>
+        <span class="keyword">return</span> client.request({method:<span class="string">'GET'</span>, path: <span class="string">'/'</span>});
+    }
+};</code></pre>
+<p>This is a simple 3 minute stress test.
+Your test will probably be a bit differnt, just have a look at <a href="https://github.com/Samuel29/NodeStressSuite">nss</a> and my test for inspiration.</p>
+<h3 id="do-some-testing">Do some testing</h3>
+<p>Make <code>~/.aws</code> to look like this:</p>
+<pre><code class="lang-json">{
+    "<span class="attribute">key</span>":<span class="value"><span class="string">"BADWOLFBADWOLFBADWOLFBADWOLF"</span></span>,
+    "<span class="attribute">secret</span>":<span class="value"><span class="string">"BADWOLFBADWOLFBADWOLFBADWOLFBADWOLFBADWOLF"</span></span>,
+    "<span class="attribute">endpoint</span>": <span class="value"><span class="string">"us-west-2"</span>
+</span>}</code></pre>
+<p>Obviously, replace the Doctor Who reference with your AWS credentials, and set endpoint to your favorite zone (us-west-2: Portland, represent!) Make a keypair called <code>deploy</code> and create a security-group called <code>loadtest</code> that opens ports 22 (ssh) and 3000 (default test port.)</p>
+<p>So, now that we have a test setup, let’s spin-up a bunch of AWS instances to run it:</p>
+<p><code>loadtest --instances=5 jetboy.js</code></p>
+<p>This will turn on 5 AWS instances, and wait for them, then send the test. You can view the output at <a href="http://localhost:3000">http://localhost:3000</a></p>
+<p>To see your available options, run <code>loadtest --help</code></p>
+</div>
+        
+      </div>
+      
+      <div class="container pageNav">
+        <ul class="pagination">
+          <li></li>
+          <li></li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="footer">
+      <div class="container">
+        <p class="text-muted credit">© 2013 David Konsumer</p>
+      </div>
+    </div>
+
+    <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.4/highlight.min.js"></script>
+
+  </body>
+</html>
+
+
+

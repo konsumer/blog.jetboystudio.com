@@ -1,0 +1,326 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Here I will teach you to make an Angular app that plays music, with reusable components that are packaged in single directories.  This will allow you to use the same audio controller in multiple apps, even if ou aren’t paying attention (drunk.)">
+    <meta name="author" content="David Konsumer">
+    <title>Music player in Angular.js - Drunken Coder Blog</title>
+    <link rel="alternate" href="http://localhost:8080/feed.xml" type="application/rss+xml" title="a blog about code &amp; life">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.4/styles/tomorrow.min.css">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <div id="wrap">
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="http://localhost:8080">Drunken Coder Blog</a>
+          </div>
+          <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="http://localhost:8080">Home</a></li>
+              <li><a href="/archive.html">Archive</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="page-header">
+          <h2><a href="/articles/angular-music-player/">Music player in Angular.js</a></h2>
+          
+          <div class="date">Nov 30th, 2013</div>
+          <div class="tags"> Angular  music  mp3  yeoman  yo  modular  components  echonest </div>
+        </div>
+        <div><p>Here I will teach you to make an Angular app that plays music, with reusable components that are packaged in single directories.  This will allow you to use the same audio controller in multiple apps, even if ou aren’t paying attention (drunk.)</p>
+<hr>
+<p>This is a complete client-side app.</p>
+<h2 id="application-design">Application Design</h2>
+<p>The basic idea is that we have an file store of our MP3 files, and a JSON file with music data in it.</p>
+<p>I want a player that features a scrolling list of album-covers, and let’s you hit next or play button. I generated my data from echonest. Eventually, this could come from a REST API, or rdio, or something, but for now, let’s keep it simple.</p>
+<p>I want to make a player component, that listens for events, triggers play/pause, and has a player UI.  This will allow me to use the player in other applications. I want all the files for this component to be in <code>app/scripts/components/audioPlayer/</code>, so that I can simply drag&amp;drop it into new projects.</p>
+<p>To get started fast, I am just going to use bootstrap stuff for UI, which will make it easy to customize the UI, later, but look pretty good, by default.</p>
+<p>Feel free to organize your files in whatever way makes sense. If you don’t care about components being lil plugins, put them in scripts/styles/etc.</p>
+<p>You may also want to use an <a href="http://mediaelementjs.com/">audio element fallback</a>.</p>
+<h2 id="yo-">Yo!</h2>
+<p>I am using yeoman to get started fast. The angular-generator includes bootstrap boilerplate code and a quick start. I don’t 100% agree with dude’s choices, but I am a lazy man. You can use grunt to build a compiled version, run a static-webserver, run testing suite, and much more! You will need npm &amp; node installed.</p>
+<p>Install yo &amp; the angular-generator with this:</p>
+<pre><code>sudo npm install -g yo generator-angular</code></pre>
+<h3 id="make-a-new-project">Make a new project</h3>
+<pre><code>mkdir music_player
+cd music_player
+yo angular</code></pre>
+<p>Answer yes, no, then enter. (use bootstrap, no scss, install all angular components)</p>
+<p>Now, start your local server with <code>grunt serve</code>. You should see a cute bootstrap page with Mr Yeoman saying “Allo”.</p>
+<p>Any changes we make to the app will trigger a refresh. Sweet!</p>
+<p>I’m not using bootstrap’s javascript or jQuery, but it’s required by this generator to not get ugly errors in teh console:</p>
+<pre><code>bower install --save sass-bootstrap</code></pre>
+<p>There is probably a better angular-generator, but I ain’t got time for nothing but the basics, gangster rap &amp; drinking cheap beer.</p>
+<h2 id="component">Component</h2>
+<p>Components are basically “extend HTML to have this new element that does all this cool shit I thought of.” We are going to make one called <code>&lt;audio-player&gt;</code> that enables an app to have a cute lil playlist-player.</p>
+<p>Make <code>app/scripts/components/audioPlayer/</code> look like this:</p>
+<p><em>component.js</em></p>
+<pre><code class="lang-javascript">angular.module(<span class="string">'audioPlayer-directive'</span>, [])
+    .directive(<span class="string">'audioPlayer'</span>, <span class="function"><span class="keyword">function</span><span class="params">($rootScope)</span> {</span>
+        <span class="keyword">return</span> {
+            restrict: <span class="string">'E'</span>,
+            scope: {},
+            controller: <span class="function"><span class="keyword">function</span><span class="params">($scope, $element)</span> {</span>
+                $scope.audio = <span class="keyword">new</span> Audio();
+                $scope.currentNum = <span class="number">0</span>;
+
+                <span class="comment">// tell others to give me my prev/next track (with audio.set message)</span>
+                $scope.next = <span class="function"><span class="keyword">function</span><span class="params">()</span>{</span> $rootScope.$broadcast(<span class="string">'audio.next'</span>); };
+                $scope.prev = <span class="function"><span class="keyword">function</span><span class="params">()</span>{</span> $rootScope.$broadcast(<span class="string">'audio.prev'</span>); };
+
+                <span class="comment">// tell audio element to play/pause, you can also use $scope.audio.play() or $scope.audio.pause();</span>
+                $scope.playpause = <span class="function"><span class="keyword">function</span><span class="params">()</span>{</span> <span class="keyword">var</span> a = $scope.audio.paused ? $scope.audio.play() : $scope.audio.pause(); };
+
+                <span class="comment">// listen for audio-element events, and broadcast stuff</span>
+                $scope.audio.addEventListener(<span class="string">'play'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span>{</span> $rootScope.$broadcast(<span class="string">'audio.play'</span>, <span class="keyword">this</span>); });
+                $scope.audio.addEventListener(<span class="string">'pause'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span>{</span> $rootScope.$broadcast(<span class="string">'audio.pause'</span>, <span class="keyword">this</span>); });
+                $scope.audio.addEventListener(<span class="string">'timeupdate'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span>{</span> $rootScope.$broadcast(<span class="string">'audio.time'</span>, <span class="keyword">this</span>); });
+                $scope.audio.addEventListener(<span class="string">'ended'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span>{</span> $rootScope.$broadcast(<span class="string">'audio.ended'</span>, <span class="keyword">this</span>); $scope.next(); });
+
+                <span class="comment">// set track &amp; crossfade to it</span>
+                $rootScope.$on(<span class="string">'audio.set'</span>, <span class="function"><span class="keyword">function</span><span class="params">(r, file, info, currentNum, totalNum)</span>{</span>
+                    <span class="keyword">var</span> playing = !$scope.audio.paused;
+                    $scope.audio.src = file;
+                    <span class="keyword">var</span> a = playing ? $scope.audio.play() : $scope.audio.pause();
+                    $scope.info = info;
+                    $scope.currentNum = currentNum;
+                    $scope.totalNum = totalNum;
+                });
+
+                <span class="comment">// update display of things - makes time-scrub work</span>
+                setInterval(<span class="function"><span class="keyword">function</span><span class="params">()</span>{</span> $scope.$apply(); }, <span class="number">500</span>);
+            },
+
+            templateUrl: <span class="string">'/scripts/components/audioPlayer/views/component.html'</span>
+        };
+    });</code></pre>
+<p>This gives our app an <code>&lt;audio-player&gt;</code> tag that does the following:</p>
+<ul>
+<li>generate an audio element.</li>
+<li>has next/prev/playpause/play/pause exposed in <code>$scope</code> of component</li>
+<li>broadcasts lots of messages on <code>$rootScope</code> for other controllers/components to respond to and tell this component what to play</li>
+<li>responds to <code>audio.set</code> broadcasts on <code>$rootScope</code> to set the current audio file</li>
+<li>jump to next song when a track finishes</li>
+</ul>
+<p><em>views/component.html</em></p>
+<pre><code class="lang-html">&lt;div class=&quot;form-group&quot;&gt;
+    &lt;label&gt;volume: &lt;input min=&quot;0&quot; max=&quot;1&quot; step=&quot;0.01&quot; type=&quot;range&quot; ng-model=&quot;audio.volume&quot; /&gt;&lt;/label&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;form-group&quot;&gt;
+    &lt;button ng-disabled=&quot;currentNum == 0&quot; class=&quot;btn btn-default prev&quot; ng-click=&quot;prev()&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-step-backward&quot;&gt;&lt;/i&gt; prev&lt;/button&gt;
+    &lt;button class=&quot;btn btn-default playpause&quot; ng-click=&quot;playpause()&quot; ng-class=&quot;{paused:audio.paused}&quot;&gt;
+        &lt;span class=&quot;play-text&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-play&quot;&gt;&lt;/i&gt; play&lt;/span&gt;
+        &lt;span class=&quot;pause-text&quot;&gt;&lt;i class=&quot;glyphicon glyphicon-pause&quot;&gt;&lt;/i&gt; pause&lt;/span&gt;
+    &lt;/button&gt;
+    &lt;button ng-disabled=&quot;currentNum &gt;= (totalNum-1)&quot; class=&quot;btn btn-default next&quot; ng-click=&quot;next()&quot;&gt;next &lt;i class=&quot;glyphicon glyphicon-step-forward&quot;&gt;&lt;/i&gt;&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;form-group time&quot;&gt;
+    &lt;label&gt;time: &lt;input min=&quot;0&quot; max=&quot;{{audio.duration}}&quot; step=&quot;0.01&quot; type=&quot;range&quot; ng-model=&quot;audio.currentTime&quot; /&gt;&lt;/label&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;form-group now-playing&quot;&gt;
+    &lt;p&gt;Now Playing: &lt;img width=&quot;30&quot; height=&quot;30&quot; src=&quot;{{info.image}}&quot; /&gt;&lt;/p&gt;
+    &lt;p&gt;{{info.artist.name}} - {{info.title}}&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+<p>This gives us a prev/play&amp;pause/next button, a volume control, a time-indicator/scrubber, and track-info. It’s all updated automatically when things change with the underlying audio element!</p>
+<p><em>component.css</em></p>
+<pre><code class="lang-css"><span class="comment">/* minimal CSS to get started with component. feel free to override in main.css */</span>
+<span class="tag">audio-player</span> <span class="class">.paused</span> <span class="class">.play-text</span>,
+<span class="tag">audio-player</span> <span class="class">.pause-text</span> <span class="rules">{
+    <span class="rule"><span class="attribute">display</span>:<span class="value">inline-block</span></span>;
+<span class="rule">}</span></span>
+<span class="tag">audio-player</span> <span class="class">.play-text</span>,
+<span class="tag">audio-player</span> <span class="class">.paused</span> <span class="class">.pause-text</span> <span class="rules">{
+    <span class="rule"><span class="attribute">display</span>:<span class="value">none</span></span>;
+<span class="rule">}</span></span>
+<span class="tag">audio-player</span> * <span class="rules">{
+    <span class="rule"><span class="attribute">-webkit-touch-callout</span>:<span class="value"> none</span></span>;
+    <span class="rule"><span class="attribute">-webkit-user-select</span>:<span class="value"> none</span></span>;
+    <span class="rule"><span class="attribute">-khtml-user-select</span>:<span class="value"> none</span></span>;
+    <span class="rule"><span class="attribute">-moz-user-select</span>:<span class="value"> none</span></span>;
+    <span class="rule"><span class="attribute">-ms-user-select</span>:<span class="value"> none</span></span>;
+    <span class="rule"><span class="attribute">user-select</span>:<span class="value"> none</span></span>;
+<span class="rule">}</span></span></code></pre>
+<p>This makes our play/pause button swap out the text &amp; icon correctly, using the <code>.paused</code> class &amp; disables user-select inside audio-player, so the buttons won’t trigger selection.</p>
+<h2 id="using-our-new-awesome">Using our new awesome</h2>
+<p>So, now we need to add stuff to our index.html &amp; main controller. Look for the build comments in <code>app/index.html</code>, and make the CSS one look like this:</p>
+<pre><code class="lang-html">&lt;!-- build:css({.tmp,app}) styles/main.css --&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;styles/bootstrap.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;scripts/components/audioPlayer/component.css&quot;&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;styles/main.css&quot;&gt;
+&lt;!-- endbuild --&gt;</code></pre>
+<p>and find the JS module build stanza near the bottom, and make it look like this:</p>
+<pre><code class="lang-html">&lt;!-- build:js scripts/modules.js --&gt;
+&lt;script src=&quot;bower_components/angular-resource/angular-resource.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;bower_components/angular-cookies/angular-cookies.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;bower_components/angular-sanitize/angular-sanitize.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;bower_components/angular-route/angular-route.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;scripts/components/audioPlayer/component.js&quot;&gt;&lt;/script&gt;
+&lt;!-- endbuild --&gt;</code></pre>
+<p>This adds our CSS &amp; javascript to the resources-tree. Next, we need to inform our app that it should use this new directive. edit <code>app/scripts/app.js</code> to look like this:</p>
+<pre><code class="lang-javascript"><span class="string">'use strict'</span>;
+
+angular.module(<span class="string">'musicPlayerApp'</span>, [
+  <span class="string">'ngCookies'</span>,
+  <span class="string">'ngResource'</span>,
+  <span class="string">'ngSanitize'</span>,
+  <span class="string">'ngRoute'</span>,
+  <span class="string">'audioPlayer-directive'</span>
+])
+  .config(<span class="function"><span class="keyword">function</span> <span class="params">($routeProvider)</span> {</span>
+    $routeProvider
+      .when(<span class="string">'/'</span>, {
+        templateUrl: <span class="string">'views/main.html'</span>,
+        controller: <span class="string">'MainCtrl'</span>
+      })
+      .otherwise({
+        redirectTo: <span class="string">'/'</span>
+      });
+  });</code></pre>
+<p>I had some MP3 files in <code>app/mp3/</code>, and ran the <a href="https://github.com/echonest/echoprint-codegen">echoprint tool</a> on them. First I installed that in my path, then wrote a <a href="https://github.com/konsumer/music_player/tree/master/fingerprinter">lil node script</a> (total overkill, related to a project) to do the work of making the list, which gets saved in <code>app/data/music.json</code>.</p>
+<p>The data I am using is formatted like this:</p>
+<pre><code class="lang-json">[
+    {
+        &quot;title&quot;: &quot;SONG TITLE&quot;,
+        &quot;artist&quot;: {&quot;name&quot;: ARTIST NAME&quot;},
+        &quot;image&quot;: &quot;ALBUM COVER&quot;,
+        &quot;file&quot;: &quot;MP3 FILE&quot; // without location name
+    }
+]</code></pre>
+<p>You will need to generate/create this file in <code>app/data/music.json</code>, and it needs to represent your music collection.</p>
+<p>This, of course, should probably later come from a local REST service (couchdb has this built in!) that does the work of tracking your collection, or whatever.</p>
+<h3 id="listing-albums">Listing albums</h3>
+<p>In order to list albums, the basic idea is that we have a list of tracks, and we will show a window of records. In order to do this, we add a startFrom filter (limitTo already exists.) Our controller also needs to load the list of tracks and tell our new audio-player what the current file is and respond to prev/next broadcasts.  Here is how I modified my main controller (in <code>app/scripts/controllers/main.js</code>):</p>
+<pre><code class="lang-javascript"><span class="string">'use strict'</span>;
+
+angular.module(<span class="string">'musicPlayerApp'</span>)
+    .filter(<span class="string">'startFrom'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+        <span class="keyword">return</span> <span class="function"><span class="keyword">function</span><span class="params">(input, start)</span> {</span>
+            start = +start; <span class="comment">//parse to int</span>
+            <span class="keyword">return</span> input.slice(start);
+        };
+    })
+
+    .controller(<span class="string">'MainCtrl'</span>, <span class="function"><span class="keyword">function</span> <span class="params">($scope, $http, $rootScope)</span> {</span>
+        $scope.currentTrack = <span class="number">0</span>;
+        $scope.pageSize = <span class="number">5</span>;
+        $scope.data=[];
+
+        <span class="keyword">var</span> updateTrack = <span class="function"><span class="keyword">function</span><span class="params">()</span>{</span>
+            $rootScope.$broadcast(<span class="string">'audio.set'</span>, <span class="string">'mp3/'</span> + $scope.data[$scope.currentTrack].file, $scope.data[$scope.currentTrack], $scope.currentTrack, $scope.data.length);
+        };
+
+        $rootScope.$on(<span class="string">'audio.next'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span>{</span>
+            $scope.currentTrack++;
+            <span class="keyword">if</span> ($scope.currentTrack &lt; $scope.data.length){
+                updateTrack();
+            }<span class="keyword">else</span>{
+                $scope.currentTrack=$scope.data.length-<span class="number">1</span>;
+            }
+        });
+
+        $rootScope.$on(<span class="string">'audio.prev'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span>{</span>
+            $scope.currentTrack--;
+            <span class="keyword">if</span> ($scope.currentTrack &gt;= <span class="number">0</span>){
+                updateTrack();
+            }<span class="keyword">else</span>{
+                $scope.currentTrack = <span class="number">0</span>;
+            }
+        });
+
+        $http.get(<span class="string">'data/music.json'</span>)
+            .success(<span class="function"><span class="keyword">function</span><span class="params">(response)</span>{</span>
+                $scope.data = response;
+                updateTrack();
+            });
+    });</code></pre>
+<p>Modify your <code>app/views/main.html</code> to show the data-window as a ng-repeat &amp; use the new audio-player:</p>
+<pre><code>&lt;header class=&quot;jumbotron&quot;&gt;
+  &lt;h1&gt;&#39;Allo, &#39;Allo!&lt;/h1&gt;
+  &lt;p class=&quot;lead&quot;&gt;
+    &lt;img src=&quot;images/yeoman.png&quot; alt=&quot;I&#39;m Yeoman&quot;&gt;&lt;br&gt;
+    Here is your sweet-ass audio player: &lt;br&gt;
+    &lt;audio-player&gt;&lt;/audio-player&gt;
+  &lt;/p&gt;
+&lt;/header&gt;
+
+&lt;ul class=&quot;albums&quot;&gt;
+  &lt;li
+    ng-repeat=&quot;item in data | startFrom:currentTrack | limitTo:pageSize&quot;
+    ng-style=&quot;{&#39;background-image&#39;:&#39;url({{item.image}})&#39;}&quot;
+    title=&quot;{{item.artist.name}} - {{item.title}}&quot;
+    data-file=&quot;{{item.file}}&quot;
+  &gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;footer class=&quot;footer&quot;&gt;
+  &lt;p&gt;&amp;hearts; from your super-bud &lt;a href=&quot;https://github.com/konsumer&quot;&gt;konsumer&lt;/a&gt;&lt;/p&gt;
+&lt;/footer&gt;</code></pre>
+<p>Last step: style the track images in <code>app/styles/main.css</code>:</p>
+<pre><code class="lang-css"><span class="class">.albums</span> <span class="rules">{
+    <span class="rule"><span class="attribute">margin</span>:<span class="value"><span class="number">0</span></span></span>;
+    <span class="rule"><span class="attribute">padding</span>:<span class="value"><span class="number">0</span></span></span>;
+<span class="rule">}</span></span>
+
+<span class="class">.albums</span> <span class="tag">li</span> <span class="rules">{
+    <span class="rule"><span class="attribute">list-style</span>:<span class="value">none</span></span>;
+    <span class="rule"><span class="attribute">margin</span>:<span class="value"><span class="number">10</span>px</span></span>;
+    <span class="rule"><span class="attribute">display</span>:<span class="value">inline-block</span></span>;
+    <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">120</span>px</span></span>;
+    <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">120</span>px</span></span>;
+    <span class="rule"><span class="attribute">background-color</span>:<span class="value"> <span class="hexcolor">#eee</span></span></span>;
+    <span class="rule"><span class="attribute">background-size</span>:<span class="value"> cover</span></span>;
+    <span class="rule"><span class="attribute">border</span>:<span class="value"> <span class="number">1</span>px solid <span class="hexcolor">#333</span></span></span>;
+<span class="rule">}</span></span></code></pre>
+<p>Dang! Not too much work, for a pretty big payoff. Angular rocks.</p>
+</div>
+        
+      </div>
+      
+      <div class="container pageNav">
+        <ul class="pagination">
+          <li></li>
+          <li></li>
+        </ul>
+      </div>
+    </div>
+
+    <div id="footer">
+      <div class="container">
+        <p class="text-muted credit">© 2013 David Konsumer</p>
+      </div>
+    </div>
+
+    <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.4/highlight.min.js"></script>
+
+  </body>
+</html>
+
+
+
