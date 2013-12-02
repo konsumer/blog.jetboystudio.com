@@ -8,7 +8,7 @@
     <meta name="description" content="Recently, I was making code on an Arduino Uno, that also needed to run on a Mega 2560. The Mega has 4 Harware serial ports, and the Uno has one.  I wanted it to auto-create Serial1, if needed, so I don’t have to change my code.">
     <meta name="author" content="David Konsumer">
     <title>Arduino Serial Port Trick - Drunken Coder Blog</title>
-    <link rel="alternate" href="http://localhost:8080/feed.xml" type="application/rss+xml" title="a blog about code &amp; life">
+    <link rel="alternate" href="http://blog.jetboystudio.com//feed.xml" type="application/rss+xml" title="a blog about code &amp; life">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.4/styles/tomorrow.min.css">
@@ -31,11 +31,11 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="http://localhost:8080">Drunken Coder Blog</a>
+            <a class="navbar-brand" href="/">Drunken Coder Blog</a>
           </div>
           <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-              <li><a href="http://localhost:8080">Home</a></li>
+              <li><a href="/">Home</a></li>
               <li><a href="/archive.html">Archive</a></li>
             </ul>
           </div>
@@ -98,13 +98,30 @@ void loop()
         
       </div>
       
-      <div class="container pageNav">
-        <ul class="pagination">
-          <li></li>
-          <li></li>
-        </ul>
-      </div>
-    </div>
+      <div class="container" id="disqus_thread"></div>
+      <script type="text/javascript">
+          var disqus_shortname = 'jetboystudio';
+          var ga_code = 'UA-2392079-5';
+          (function() {
+              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+              dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+
+          // old code, have upgraded...
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', ga_code]);
+          _gaq.push(['_trackPageview']);
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+      <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+    </div> <!-- /#wrap -->
 
     <div id="footer">
       <div class="container">

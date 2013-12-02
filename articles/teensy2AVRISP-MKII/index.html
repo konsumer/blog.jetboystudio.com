@@ -8,7 +8,7 @@
     <meta name="description" content="UPDATE see this for simpler, cleaner, better directions.I needed a way to program the XMEGA100 breakout board from Sparkfun, and didn’t have a “real programmer”.">
     <meta name="author" content="David Konsumer">
     <title>Turning a Teensy++ 2 into a full AVRISP-MKII clone - Drunken Coder Blog</title>
-    <link rel="alternate" href="http://localhost:8080/feed.xml" type="application/rss+xml" title="a blog about code &amp; life">
+    <link rel="alternate" href="http://blog.jetboystudio.com//feed.xml" type="application/rss+xml" title="a blog about code &amp; life">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.4/styles/tomorrow.min.css">
@@ -31,11 +31,11 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="http://localhost:8080">Drunken Coder Blog</a>
+            <a class="navbar-brand" href="/">Drunken Coder Blog</a>
           </div>
           <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-              <li><a href="http://localhost:8080">Home</a></li>
+              <li><a href="/">Home</a></li>
               <li><a href="/archive.html">Archive</a></li>
             </ul>
           </div>
@@ -49,7 +49,7 @@
           <div class="date">Feb 8th, 2013</div>
           <div class="tags"> electronics  micro-controllers  Arduino  XMEGA  LUFA  teensy </div>
         </div>
-        <div><p><em>UPDATE</em> see <a href="/2013/02/11/teensy2AVRISP-MKII-lufa.html">this</a> for simpler, cleaner, better directions.</p>
+        <div><p><em>UPDATE</em> see <a href="/articles/teensy2AVRISP-MKII-lufa/">this</a> for simpler, cleaner, better directions.</p>
 <p>I needed a way to program the <a href="https://www.sparkfun.com/products/9546">XMEGA100 breakout board from Sparkfun</a>, and didn’t have a “real programmer”.</p>
 <hr>
 <p>I currently use ArduinoISP running on a bare ATMEGA328 chip to program other ATMEGA chips, and it works great. If you buy a <a href="http://www.atmel.com/tools/AVRISPMKII.aspx">AVRISP-MKII</a>, it can do the same stuff, but also a special protocol (PDI) that the XMEGA board speaks, and TSI for small ATINY chips.</p>
@@ -117,19 +117,36 @@ make: *** [Descriptors.o] Error 1</code></pre>
   Current Available (mA):    500
   Current Required (mA):    Unknown (Device has not been configured)</code></pre>
 <p>Dang! So happy. <a href="http://www.youtube.com/watch?v=VazV36eWHLc">Life is rad</a>.</p>
-<p>If you want the hex for your own Teensy++ 2, <a href="/files/teensy_avrisp-mk2.zip">here</a> it is. Now you don’t have to bother with all this silly bizness.</p>
+<p>If you want the hex for your own Teensy++ 2, <a href="/articles/teensy2AVRISP-MKII/teensy_avrisp-mk2.zip">here</a> it is. Now you don’t have to bother with all this silly bizness.</p>
 <p>Looks like I may need to do something with that ‘Unknown (Device has not been configured)’ bit. dunno.</p>
 </div>
         
       </div>
       
-      <div class="container pageNav">
-        <ul class="pagination">
-          <li></li>
-          <li></li>
-        </ul>
-      </div>
-    </div>
+      <div class="container" id="disqus_thread"></div>
+      <script type="text/javascript">
+          var disqus_shortname = 'jetboystudio';
+          var ga_code = 'UA-2392079-5';
+          (function() {
+              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+              dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+
+          // old code, have upgraded...
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', ga_code]);
+          _gaq.push(['_trackPageview']);
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+      <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+    </div> <!-- /#wrap -->
 
     <div id="footer">
       <div class="container">

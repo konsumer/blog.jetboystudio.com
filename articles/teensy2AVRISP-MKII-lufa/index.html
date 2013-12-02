@@ -8,7 +8,7 @@
     <meta name="description" content="Previously I went through a lot of hoops to figure out how to compile a Teensy version of a burner for my XMEGA.  This is a simpler version of those instructions.">
     <meta name="author" content="David Konsumer">
     <title>Turning a Teensy++ 2 into a full AVRISP-MKII clone (better) - Drunken Coder Blog</title>
-    <link rel="alternate" href="http://localhost:8080/feed.xml" type="application/rss+xml" title="a blog about code &amp; life">
+    <link rel="alternate" href="http://blog.jetboystudio.com//feed.xml" type="application/rss+xml" title="a blog about code &amp; life">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.4/styles/tomorrow.min.css">
@@ -31,11 +31,11 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="http://localhost:8080">Drunken Coder Blog</a>
+            <a class="navbar-brand" href="/">Drunken Coder Blog</a>
           </div>
           <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-              <li><a href="http://localhost:8080">Home</a></li>
+              <li><a href="/">Home</a></li>
               <li><a href="/archive.html">Archive</a></li>
             </ul>
           </div>
@@ -49,9 +49,9 @@
           <div class="date">Feb 10th, 2013</div>
           <div class="tags"> electronics  micro-controllers  Arduino  XMEGA  LUFA  teensy </div>
         </div>
-        <div><p><a href="/2013/02/08/teensy2AVRISP-MKII.html">Previously</a> I went through a lot of hoops to figure out how to compile a Teensy version of a burner for my XMEGA.  This is a simpler version of those instructions.</p>
+        <div><p><a href="/articles/teensy2AVRISP-MKII/">Previously</a> I went through a lot of hoops to figure out how to compile a Teensy version of a burner for my XMEGA.  This is a simpler version of those instructions.</p>
 <hr>
-<p>And if you just want the hex file for teensy ++ 2, <a href="/files/AVRISP-MKII-AT90USB1286.hex.zip">here</a>.</p>
+<p>And if you just want the hex file for teensy ++ 2, <a href="/articles/teensy2AVRISP-MKII-lufa/AVRISP-MKII-AT90USB1286.hex.zip">here</a>.</p>
 <p>Install <a href="http://www.obdev.at/products/crosspack/index.html">CrossPack-AVR</a> to give your Mac avr-gcc. if you are on another OS, install winavr or avr-gcc however you do that.</p>
 <p>Close terminal, and open a new one to refresh your environment.  Type <code>avr-gcc --version</code> and you should see something liek this:</p>
 <pre><code>avr-gcc (GCC) 4.6.2
@@ -68,13 +68,30 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.</cod
         
       </div>
       
-      <div class="container pageNav">
-        <ul class="pagination">
-          <li></li>
-          <li></li>
-        </ul>
-      </div>
-    </div>
+      <div class="container" id="disqus_thread"></div>
+      <script type="text/javascript">
+          var disqus_shortname = 'jetboystudio';
+          var ga_code = 'UA-2392079-5';
+          (function() {
+              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+              dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+
+          // old code, have upgraded...
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', ga_code]);
+          _gaq.push(['_trackPageview']);
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+      <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+    </div> <!-- /#wrap -->
 
     <div id="footer">
       <div class="container">

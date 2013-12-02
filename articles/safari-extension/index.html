@@ -8,7 +8,7 @@
     <meta name="description" content="Earlier I talked about my awesome media/storage server named “stooge”.  I want stooge to handle all the torrents on my network. I saw some good extensions for Firefox &amp; Chrome, but not Safari. Since my new housemate prefers Mac Safari, I set out to make it awesome.">
     <meta name="author" content="David Konsumer">
     <title>Making a Safari Extension to handle torrent clicks - Drunken Coder Blog</title>
-    <link rel="alternate" href="http://localhost:8080/feed.xml" type="application/rss+xml" title="a blog about code &amp; life">
+    <link rel="alternate" href="http://blog.jetboystudio.com//feed.xml" type="application/rss+xml" title="a blog about code &amp; life">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.4/styles/tomorrow.min.css">
@@ -31,11 +31,11 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="http://localhost:8080">Drunken Coder Blog</a>
+            <a class="navbar-brand" href="/">Drunken Coder Blog</a>
           </div>
           <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-              <li><a href="http://localhost:8080">Home</a></li>
+              <li><a href="/">Home</a></li>
               <li><a href="/archive.html">Archive</a></li>
             </ul>
           </div>
@@ -49,10 +49,10 @@
           <div class="date">Apr 4th, 2013</div>
           <div class="tags"> Safari  extension  torrent  NAS </div>
         </div>
-        <div><p><a href="/2013/03/19/nas.html">Earlier</a> I talked about my awesome media/storage server named “stooge”.  I want stooge to handle all the torrents on my network. I saw some good extensions for Firefox &amp; Chrome, but not Safari. Since my new housemate prefers Mac Safari, I set out to make it awesome.</p>
+        <div><p><a href="/articles/nas/">Earlier</a> I talked about my awesome media/storage server named “stooge”.  I want stooge to handle all the torrents on my network. I saw some good extensions for Firefox &amp; Chrome, but not Safari. Since my new housemate prefers Mac Safari, I set out to make it awesome.</p>
 <hr>
 <p>I just need one for Transmission WebUI, but the principle is the same for any other web-based torrent-thing.  Basically, I want to trigger a callback for the configured back-end (only transmission implemented) and send it a torrent when the user clicks on a torrent file or magnet link.</p>
-<p>If you just want to download and use it, click <a href="/files/TorrentAdder.safariextz">here</a>.  If you are curious how I made it, continue reading. This is a simple example to get get you started making Safari extensions.</p>
+<p>If you just want to download and use it, click <a href="/articles/safari-extension/TorrentAdder.safariextz">here</a>.  If you are curious how I made it, continue reading. This is a simple example to get get you started making Safari extensions.</p>
 <p>You can checkout my github project, <a href="https://github.com/konsumer/torrentadder">here</a>.</p>
 <h2 id="step-1-rtfm">Step 1: RTFM</h2>
 <p>I needed to figure out the Safari API.  <a href="http://developer.apple.com/library/safari/#documentation/Tools/Conceptual/SafariExtensionGuide/Introduction/Introduction.html">Go read it</a>!  It’s a piece of cake.</p>
@@ -60,9 +60,9 @@
 <p>First, you will need a developer certificate. Do that <a href="https://developer.apple.com/support/mac/developer-certificates.html">here</a></p>
 <p>If you have not done any development on Safari, you may need to enable some stuff.  Here is what I did:</p>
 <p>Go to Safari/Preferences/Advanced, and enable the developer menu.</p>
-<p><img src="/files/safari1.png" alt="develop menu"></p>
+<p><img src="/articles/safari-extension/safari1.png" alt="develop menu"></p>
 <p>Under new “Develop” menu in toolbar, go to “Show Extension Builder” and add a new extension.</p>
-<p><img src="/files/safari2.png" alt="add extension"></p>
+<p><img src="/articles/safari-extension/safari2.png" alt="add extension"></p>
 <h2 id="global-page">Global Page</h2>
 <p>Safari extensions load most of their stuff in the global page file.  I added a file to the extension dir called <code>global.html</code>. Mine looked like this:</p>
 <pre><code>&lt;!DOCTYPE html&gt;
@@ -205,19 +205,36 @@ safari.self.addEventListener(&quot;message&quot;, function(msg){
 <p>You can see my handler for global page console.log()’s, at the end. Basically, the rest of this script replaces all links with torrentClick() function, which fires <code>addTorrent</code> &amp; sends an HTML5 notification. I do a <code>links[i].removeEventListener</code> because I was seeing doubled-up click handlers for whatever reason. Sweet!</p>
 <h2 id="preferences">Preferences</h2>
 <p>I wanted some preferences for the user to configure the torrent back-end. Mine (in Extension Builder) looked like this:</p>
-<p><img src="/files/safari3.png" alt="preferences"></p>
+<p><img src="/articles/safari-extension/safari3.png" alt="preferences"></p>
 <p>As you can see, I am securely storing user/password. I currently only have 1 client available (Transmission WebUI), but if you look at <code>global.html</code>, you can see how to add more, using <code>add</code> callbacks, and you can also see how I messed with my settings. Sweet!</p>
 </div>
         
       </div>
       
-      <div class="container pageNav">
-        <ul class="pagination">
-          <li></li>
-          <li></li>
-        </ul>
-      </div>
-    </div>
+      <div class="container" id="disqus_thread"></div>
+      <script type="text/javascript">
+          var disqus_shortname = 'jetboystudio';
+          var ga_code = 'UA-2392079-5';
+          (function() {
+              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+              dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+
+          // old code, have upgraded...
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', ga_code]);
+          _gaq.push(['_trackPageview']);
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+      <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+    </div> <!-- /#wrap -->
 
     <div id="footer">
       <div class="container">

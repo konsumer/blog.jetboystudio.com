@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:wfw="http://wellformedweb.org/CommentAPI/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Drunken Coder Blog</title>
-    <atom:link href="http://localhost:8080/feed.xml" rel="self" type="application/rss+xml"></atom:link>
-    <link>http://localhost:8080</link>
+    <atom:link href="http://blog.jetboystudio.com//feed.xml" rel="self" type="application/rss+xml"></atom:link>
+    <link>http://blog.jetboystudio.com/</link>
     <description>a blog about code &amp; life</description>
     <pubDate>Sat, 30 Nov 2013 06:52:00 -0800</pubDate>
     <generator>Wintersmith - https://github.com/jnordberg/wintersmith</generator>
     <language>en</language>
     <item>
       <title>Music player in Angular.js</title>
-      <link>http://localhost:8080/articles/angular-music-player/</link>
+      <link>http://blog.jetboystudio.com//articles/angular-music-player/</link>
       <pubDate>Sat, 30 Nov 2013 06:52:00 -0800</pubDate>
-      <guid isPermaLink="true">http://localhost:8080/articles/angular-music-player/</guid>
+      <guid isPermaLink="true">http://blog.jetboystudio.com//articles/angular-music-player/</guid>
       <author></author>
       <description>&lt;p&gt;Here I will teach you to make an Angular app that plays music, with reusable components that are packaged in single directories.  This will allow you to use the same audio controller in multiple apps, even if ou aren’t paying attention (drunk.)&lt;/p&gt;
 &lt;hr&gt;
@@ -266,9 +266,9 @@ angular.module(&lt;span class=&quot;string&quot;&gt;'musicPlayerApp'&lt;/span&gt
     </item>
     <item>
       <title>Bootstrap tagging</title>
-      <link>http://localhost:8080/articles/bootstrap-tagging/</link>
+      <link>http://blog.jetboystudio.com//articles/bootstrap-tagging/</link>
       <pubDate>Mon, 11 Nov 2013 16:01:00 -0800</pubDate>
-      <guid isPermaLink="true">http://localhost:8080/articles/bootstrap-tagging/</guid>
+      <guid isPermaLink="true">http://blog.jetboystudio.com//articles/bootstrap-tagging/</guid>
       <author></author>
       <description>&lt;p&gt;I had a need for a mongodb-driven tagging widget. The idea is that you get nice tags that you can add &amp;amp; remove, and it knows about tags that are already present.&lt;/p&gt;
 &lt;hr&gt;
@@ -407,13 +407,13 @@ $(&amp;quot;#tags&amp;quot;).typeahead({
     </item>
     <item>
       <title>Virtualbox Networking</title>
-      <link>http://localhost:8080/articles/virtualbox-networking/</link>
+      <link>http://blog.jetboystudio.com//articles/virtualbox-networking/</link>
       <pubDate>Wed, 17 Jul 2013 01:48:00 -0700</pubDate>
-      <guid isPermaLink="true">http://localhost:8080/articles/virtualbox-networking/</guid>
+      <guid isPermaLink="true">http://blog.jetboystudio.com//articles/virtualbox-networking/</guid>
       <author></author>
       <description>&lt;p&gt;Virtualbox networking can be tricky.&lt;/p&gt;
 &lt;hr&gt;
-&lt;p&gt;&lt;a href=&quot;http://localhost:8080/2013/01/31/easy-dev-environment.html&quot;&gt;Earlier&lt;/a&gt; I talked about setting up a VirtualBox machine for LAMP development.  It’s a great way to keep your ideas/experiments fairly atomic, and not effect your regular system.  On my Hackintosh, sometimes my network drivers are not 100%, because they are really just fooling the OS into working.  I noticed after a recent update that Virtualbox bridged networking would make the whole network stack stop working, and I couldn’t get to my Virtual Machines, or even to the internet from the host after starting a machine.  Here is how I fixed it, and made it a bit more robust, for the future.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://blog.jetboystudio.com/articles/easy-dev-environment/&quot;&gt;Earlier&lt;/a&gt; I talked about setting up a VirtualBox machine for LAMP development.  It’s a great way to keep your ideas/experiments fairly atomic, and not effect your regular system.  On my Hackintosh, sometimes my network drivers are not 100%, because they are really just fooling the OS into working.  I noticed after a recent update that Virtualbox bridged networking would make the whole network stack stop working, and I couldn’t get to my Virtual Machines, or even to the internet from the host after starting a machine.  Here is how I fixed it, and made it a bit more robust, for the future.&lt;/p&gt;
 &lt;h2 id=&quot;2-networks&quot;&gt;2 Networks&lt;/h2&gt;
 &lt;p&gt;We are going to make an internal host-only net, for serving up stuff just to the host, and an external net so the vmachine can get to the internet.&lt;/p&gt;
 &lt;p&gt;In VirtualBox, go to Virtualbox/Preferences, then Network.  Make a host-only network. Mine was called “vboxnet0”.&lt;/p&gt;
@@ -437,14 +437,14 @@ iface eth2 inet dhcp&lt;/code&gt;&lt;/pre&gt;
 192.168.56.101 project1.local project1
 192.168.56.101 project2.local project2
 192.168.56.101 project3.local project3&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;If you setup everything else, as &lt;a href=&quot;http://localhost:8080/2013/01/31/easy-dev-environment.html&quot;&gt;I did&lt;/a&gt; you should have files in ~/Sites/project1/webroot on host machine that gets served-up, and you should be able to &lt;code&gt;ping 192.168.56.101&lt;/code&gt; from the host.&lt;/p&gt;
+&lt;p&gt;If you setup everything else, as &lt;a href=&quot;http://blog.jetboystudio.com/articles/easy-dev-environment/&quot;&gt;I did&lt;/a&gt; you should have files in ~/Sites/project1/webroot on host machine that gets served-up, and you should be able to &lt;code&gt;ping 192.168.56.101&lt;/code&gt; from the host.&lt;/p&gt;
 </description>
     </item>
     <item>
       <title>Facebook PHP kinda sucks, here's how to make it better</title>
-      <link>http://localhost:8080/articles/facebook-and-php/</link>
+      <link>http://blog.jetboystudio.com//articles/facebook-and-php/</link>
       <pubDate>Fri, 12 Jul 2013 20:15:00 -0700</pubDate>
-      <guid isPermaLink="true">http://localhost:8080/articles/facebook-and-php/</guid>
+      <guid isPermaLink="true">http://blog.jetboystudio.com//articles/facebook-and-php/</guid>
       <author></author>
       <description>&lt;p&gt;Deving for Facebook apps kinda sucks using server-side PHP. PHP’s lib is not 100% with all browsers and has lil glitches if you don’t do it right, and you gotta really pay attention to a lot of details if you need info from the parent page.&lt;/p&gt;
 &lt;hr&gt;
@@ -466,7 +466,7 @@ iface eth2 inet dhcp&lt;/code&gt;&lt;/pre&gt;
     &lt;/span&gt;}
 &lt;/span&gt;}&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;This means “this app requires the dev version of facebook-sdk” and “autoload my own app’s classes from app/ folder”&lt;/p&gt;
-&lt;p&gt;Make a folder called &lt;code&gt;app/&lt;/code&gt; and a folder called &lt;code&gt;webroot/&lt;/code&gt;.  Point your webserver to &lt;code&gt;webroot&lt;/code&gt; (see &lt;a href=&quot;http://localhost:8080/2013/01/31/easy-dev-environment.html&quot;&gt;here&lt;/a&gt; for this all done automatically on a virtual machine.)&lt;/p&gt;
+&lt;p&gt;Make a folder called &lt;code&gt;app/&lt;/code&gt; and a folder called &lt;code&gt;webroot/&lt;/code&gt;.  Point your webserver to &lt;code&gt;webroot&lt;/code&gt; (see &lt;a href=&quot;http://blog.jetboystudio.com/articles/easy-dev-environment/&quot;&gt;here&lt;/a&gt; for this all done automatically on a virtual machine.)&lt;/p&gt;
 &lt;p&gt;Now, run &lt;code&gt;composer install&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;Anytime you change files in &lt;code&gt;app/&lt;/code&gt; or dependencies, run &lt;code&gt;composer update&lt;/code&gt;. I like to put this in git-hooks and git-ignore &lt;code&gt;vendor/&lt;/code&gt; &amp;amp; &lt;code&gt;composer.lock&lt;/code&gt;, so I don’t have to bother with it.&lt;/p&gt;
 &lt;h3 id=&quot;routing&quot;&gt;Routing&lt;/h3&gt;
@@ -740,9 +740,9 @@ fjs.parentNode.insertBefore(js, fjs);
     </item>
     <item>
       <title>Arduino Serial Port Trick</title>
-      <link>http://localhost:8080/articles/arduino-serial/</link>
+      <link>http://blog.jetboystudio.com//articles/arduino-serial/</link>
       <pubDate>Mon, 20 May 2013 07:42:00 -0700</pubDate>
-      <guid isPermaLink="true">http://localhost:8080/articles/arduino-serial/</guid>
+      <guid isPermaLink="true">http://blog.jetboystudio.com//articles/arduino-serial/</guid>
       <author></author>
       <description>&lt;p&gt;Recently, I was making code on an Arduino Uno, that also needed to run on a Mega 2560. The Mega has 4 Harware serial ports, and the Uno has one.  I wanted it to auto-create Serial1, if needed, so I don’t have to change my code.&lt;/p&gt;
 &lt;hr&gt;
@@ -793,9 +793,9 @@ void loop()
     </item>
     <item>
       <title>Cool SSH Trick</title>
-      <link>http://localhost:8080/articles/ec2-ssh-trick/</link>
+      <link>http://blog.jetboystudio.com//articles/ec2-ssh-trick/</link>
       <pubDate>Tue, 14 May 2013 09:07:00 -0700</pubDate>
-      <guid isPermaLink="true">http://localhost:8080/articles/ec2-ssh-trick/</guid>
+      <guid isPermaLink="true">http://blog.jetboystudio.com//articles/ec2-ssh-trick/</guid>
       <author></author>
       <description>&lt;p&gt;I have a generic disposable SSH keypair for working on projects on AWS.  I like to not have to remember dumb details (especially when I’m drunk.)&lt;/p&gt;
 &lt;hr&gt;
@@ -810,9 +810,9 @@ void loop()
     </item>
     <item>
       <title>Automated Clustered Load Testing with EC2 &amp; node</title>
-      <link>http://localhost:8080/articles/ec2-automated-testing/</link>
+      <link>http://blog.jetboystudio.com//articles/ec2-automated-testing/</link>
       <pubDate>Fri, 10 May 2013 07:42:00 -0700</pubDate>
-      <guid isPermaLink="true">http://localhost:8080/articles/ec2-automated-testing/</guid>
+      <guid isPermaLink="true">http://blog.jetboystudio.com//articles/ec2-automated-testing/</guid>
       <author></author>
       <description>&lt;p&gt;I made a simple little clustered testing system, using &lt;a href=&quot;https://github.com/Samuel29/NodeStressSuite&quot;&gt;NodeStressSuite&lt;/a&gt;. Basically, I want it to launch a bunch of instances, clobber a server, then remove all the machines.&lt;/p&gt;
 &lt;hr&gt;
@@ -864,11 +864,11 @@ Your test will probably be a bit differnt, just have a look at &lt;a href=&quot;
     </item>
     <item>
       <title>Automating TV torrent downloads</title>
-      <link>http://localhost:8080/articles/automated_tv/</link>
+      <link>http://blog.jetboystudio.com//articles/automated_tv/</link>
       <pubDate>Mon, 15 Apr 2013 12:05:00 -0700</pubDate>
-      <guid isPermaLink="true">http://localhost:8080/articles/automated_tv/</guid>
+      <guid isPermaLink="true">http://blog.jetboystudio.com//articles/automated_tv/</guid>
       <author></author>
-      <description>&lt;p&gt;I want &lt;a href=&quot;http://localhost:8080/2013/03/19/nas.html&quot;&gt;Stooge, my NAS&lt;/a&gt; to be able to keep track of my favorite shows, and download new episodes when they come out.&lt;/p&gt;
+      <description>&lt;p&gt;I want &lt;a href=&quot;http://blog.jetboystudio.com/articles/nas/&quot;&gt;Stooge, my NAS&lt;/a&gt; to be able to keep track of my favorite shows, and download new episodes when they come out.&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;I made &lt;a href=&quot;https://github.com/konsumer/tvparty&quot;&gt;TV Party&lt;/a&gt; to do this exactly how I want, which is to say: no frills, simple REST API, easy to work with, and no dependencies other than node &amp;amp; npm-installed libs.&lt;/p&gt;
 &lt;h2 id=&quot;installing-configuring-stuff&quot;&gt;Installing/Configuring Stuff&lt;/h2&gt;
@@ -896,14 +896,14 @@ git clone https://github.com/konsumer/tvparty.git /usr/local/share/tvparty &amp;
     </item>
     <item>
       <title>Making a Safari Extension to handle torrent clicks</title>
-      <link>http://localhost:8080/articles/safari-extension/</link>
+      <link>http://blog.jetboystudio.com//articles/safari-extension/</link>
       <pubDate>Thu, 04 Apr 2013 06:15:00 -0700</pubDate>
-      <guid isPermaLink="true">http://localhost:8080/articles/safari-extension/</guid>
+      <guid isPermaLink="true">http://blog.jetboystudio.com//articles/safari-extension/</guid>
       <author></author>
-      <description>&lt;p&gt;&lt;a href=&quot;http://localhost:8080/2013/03/19/nas.html&quot;&gt;Earlier&lt;/a&gt; I talked about my awesome media/storage server named “stooge”.  I want stooge to handle all the torrents on my network. I saw some good extensions for Firefox &amp;amp; Chrome, but not Safari. Since my new housemate prefers Mac Safari, I set out to make it awesome.&lt;/p&gt;
+      <description>&lt;p&gt;&lt;a href=&quot;http://blog.jetboystudio.com/articles/nas/&quot;&gt;Earlier&lt;/a&gt; I talked about my awesome media/storage server named “stooge”.  I want stooge to handle all the torrents on my network. I saw some good extensions for Firefox &amp;amp; Chrome, but not Safari. Since my new housemate prefers Mac Safari, I set out to make it awesome.&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;I just need one for Transmission WebUI, but the principle is the same for any other web-based torrent-thing.  Basically, I want to trigger a callback for the configured back-end (only transmission implemented) and send it a torrent when the user clicks on a torrent file or magnet link.&lt;/p&gt;
-&lt;p&gt;If you just want to download and use it, click &lt;a href=&quot;http://localhost:8080/files/TorrentAdder.safariextz&quot;&gt;here&lt;/a&gt;.  If you are curious how I made it, continue reading. This is a simple example to get get you started making Safari extensions.&lt;/p&gt;
+&lt;p&gt;If you just want to download and use it, click &lt;a href=&quot;http://blog.jetboystudio.com/articles/safari-extension/TorrentAdder.safariextz&quot;&gt;here&lt;/a&gt;.  If you are curious how I made it, continue reading. This is a simple example to get get you started making Safari extensions.&lt;/p&gt;
 &lt;p&gt;You can checkout my github project, &lt;a href=&quot;https://github.com/konsumer/torrentadder&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 &lt;h2 id=&quot;step-1-rtfm&quot;&gt;Step 1: RTFM&lt;/h2&gt;
 &lt;p&gt;I needed to figure out the Safari API.  &lt;a href=&quot;http://developer.apple.com/library/safari/#documentation/Tools/Conceptual/SafariExtensionGuide/Introduction/Introduction.html&quot;&gt;Go read it&lt;/a&gt;!  It’s a piece of cake.&lt;/p&gt;
@@ -911,9 +911,9 @@ git clone https://github.com/konsumer/tvparty.git /usr/local/share/tvparty &amp;
 &lt;p&gt;First, you will need a developer certificate. Do that &lt;a href=&quot;https://developer.apple.com/support/mac/developer-certificates.html&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;If you have not done any development on Safari, you may need to enable some stuff.  Here is what I did:&lt;/p&gt;
 &lt;p&gt;Go to Safari/Preferences/Advanced, and enable the developer menu.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://localhost:8080/files/safari1.png&quot; alt=&quot;develop menu&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://blog.jetboystudio.com/articles/safari-extension/safari1.png&quot; alt=&quot;develop menu&quot;&gt;&lt;/p&gt;
 &lt;p&gt;Under new “Develop” menu in toolbar, go to “Show Extension Builder” and add a new extension.&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://localhost:8080/files/safari2.png&quot; alt=&quot;add extension&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://blog.jetboystudio.com/articles/safari-extension/safari2.png&quot; alt=&quot;add extension&quot;&gt;&lt;/p&gt;
 &lt;h2 id=&quot;global-page&quot;&gt;Global Page&lt;/h2&gt;
 &lt;p&gt;Safari extensions load most of their stuff in the global page file.  I added a file to the extension dir called &lt;code&gt;global.html&lt;/code&gt;. Mine looked like this:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;&amp;lt;!DOCTYPE html&amp;gt;
@@ -1056,15 +1056,15 @@ safari.self.addEventListener(&amp;quot;message&amp;quot;, function(msg){
 &lt;p&gt;You can see my handler for global page console.log()’s, at the end. Basically, the rest of this script replaces all links with torrentClick() function, which fires &lt;code&gt;addTorrent&lt;/code&gt; &amp;amp; sends an HTML5 notification. I do a &lt;code&gt;links[i].removeEventListener&lt;/code&gt; because I was seeing doubled-up click handlers for whatever reason. Sweet!&lt;/p&gt;
 &lt;h2 id=&quot;preferences&quot;&gt;Preferences&lt;/h2&gt;
 &lt;p&gt;I wanted some preferences for the user to configure the torrent back-end. Mine (in Extension Builder) looked like this:&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://localhost:8080/files/safari3.png&quot; alt=&quot;preferences&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://blog.jetboystudio.com/articles/safari-extension/safari3.png&quot; alt=&quot;preferences&quot;&gt;&lt;/p&gt;
 &lt;p&gt;As you can see, I am securely storing user/password. I currently only have 1 client available (Transmission WebUI), but if you look at &lt;code&gt;global.html&lt;/code&gt;, you can see how to add more, using &lt;code&gt;add&lt;/code&gt; callbacks, and you can also see how I messed with my settings. Sweet!&lt;/p&gt;
 </description>
     </item>
     <item>
       <title>Merging Multiple Partitions</title>
-      <link>http://localhost:8080/articles/mhddfs/</link>
+      <link>http://blog.jetboystudio.com//articles/mhddfs/</link>
       <pubDate>Mon, 01 Apr 2013 16:43:00 -0700</pubDate>
-      <guid isPermaLink="true">http://localhost:8080/articles/mhddfs/</guid>
+      <guid isPermaLink="true">http://blog.jetboystudio.com//articles/mhddfs/</guid>
       <author></author>
       <description>&lt;p&gt;&lt;a href=&quot;http://blog.jetboystudio.com/2013/03/19/nas.html&quot;&gt;Earlier&lt;/a&gt; I talked about my awesome media/storage server named “stooge”. I got 2 new 2TB SATA drives and wanted to merge them in a cool way without data-loss &amp;amp; reverse-usability and expense issues associated with other solutions like RAID &amp;amp; xfs.&lt;/p&gt;
 &lt;hr&gt;
@@ -1108,9 +1108,9 @@ mhddfs#/mnt/store1,/mnt/store2 /share fuse defaults,allow_other,uid=65534,gid=65
     </item>
     <item>
       <title>Creating a media-enabled Ubuntu NAS</title>
-      <link>http://localhost:8080/articles/nas/</link>
+      <link>http://blog.jetboystudio.com//articles/nas/</link>
       <pubDate>Tue, 19 Mar 2013 04:43:00 -0700</pubDate>
-      <guid isPermaLink="true">http://localhost:8080/articles/nas/</guid>
+      <guid isPermaLink="true">http://blog.jetboystudio.com//articles/nas/</guid>
       <author></author>
       <description>&lt;p&gt;I wanted a media-server that would stream to any devices I have on my local network, and allow my housemates &amp;amp; I to download torrents and share files on a central shared machine.&lt;/p&gt;
 &lt;hr&gt;
@@ -1226,9 +1226,9 @@ gateway 192.168.1.1 &lt;/code&gt;&lt;/pre&gt;
 sudo adduser mediatomb nogroup&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Now, they can write to the share directory.&lt;/p&gt;
 &lt;h3 id=&quot;welcome-page&quot;&gt;Welcome page&lt;/h3&gt;
-&lt;p&gt;I made a cute lil (responsive for easy phone-use) welcome page using PHP.  I wanted it to show freespace, and give local users all the info they need to connect.  I put a nice template &lt;a href=&quot;http://localhost:8080/files/nas-welcome.zip&quot;&gt;here&lt;/a&gt;. Extract it in &lt;code&gt;/var/www&lt;/code&gt;:&lt;/p&gt;
+&lt;p&gt;I made a cute lil (responsive for easy phone-use) welcome page using PHP.  I wanted it to show freespace, and give local users all the info they need to connect.  I put a nice template &lt;a href=&quot;http://blog.jetboystudio.com/articles/nas/nas-welcome.zip&quot;&gt;here&lt;/a&gt;. Extract it in &lt;code&gt;/var/www&lt;/code&gt;:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;cd /var/www
-wget http://blog.jetboystudio.com/files/nas-welcome.zip
+wget http://blog.jetboystudio.com/articles/nas/nas-welcome.zip
 unzip nas-welcome.zip
 rm nas-welcome.zip&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;You may need some &lt;code&gt;sudo&lt;/code&gt;‘s, if you don’t have write access to &lt;code&gt;/var/www&lt;/code&gt;&lt;/p&gt;
@@ -1665,13 +1665,13 @@ exec ${EXEC} &amp;quot;${FILE}&amp;quot; ${OPTS[@]} &amp;quot;${2}&amp;quot; &am
     </item>
     <item>
       <title>Turning a Teensy++ 2 into a full AVRISP-MKII clone (better)</title>
-      <link>http://localhost:8080/articles/teensy2AVRISP-MKII-lufa/</link>
+      <link>http://blog.jetboystudio.com//articles/teensy2AVRISP-MKII-lufa/</link>
       <pubDate>Sun, 10 Feb 2013 18:00:00 -0800</pubDate>
-      <guid isPermaLink="true">http://localhost:8080/articles/teensy2AVRISP-MKII-lufa/</guid>
+      <guid isPermaLink="true">http://blog.jetboystudio.com//articles/teensy2AVRISP-MKII-lufa/</guid>
       <author></author>
-      <description>&lt;p&gt;&lt;a href=&quot;http://localhost:8080/2013/02/08/teensy2AVRISP-MKII.html&quot;&gt;Previously&lt;/a&gt; I went through a lot of hoops to figure out how to compile a Teensy version of a burner for my XMEGA.  This is a simpler version of those instructions.&lt;/p&gt;
+      <description>&lt;p&gt;&lt;a href=&quot;http://blog.jetboystudio.com/articles/teensy2AVRISP-MKII/&quot;&gt;Previously&lt;/a&gt; I went through a lot of hoops to figure out how to compile a Teensy version of a burner for my XMEGA.  This is a simpler version of those instructions.&lt;/p&gt;
 &lt;hr&gt;
-&lt;p&gt;And if you just want the hex file for teensy ++ 2, &lt;a href=&quot;http://localhost:8080/files/AVRISP-MKII-AT90USB1286.hex.zip&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;And if you just want the hex file for teensy ++ 2, &lt;a href=&quot;http://blog.jetboystudio.com/articles/teensy2AVRISP-MKII-lufa/AVRISP-MKII-AT90USB1286.hex.zip&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Install &lt;a href=&quot;http://www.obdev.at/products/crosspack/index.html&quot;&gt;CrossPack-AVR&lt;/a&gt; to give your Mac avr-gcc. if you are on another OS, install winavr or avr-gcc however you do that.&lt;/p&gt;
 &lt;p&gt;Close terminal, and open a new one to refresh your environment.  Type &lt;code&gt;avr-gcc --version&lt;/code&gt; and you should see something liek this:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;avr-gcc (GCC) 4.6.2
@@ -1688,11 +1688,11 @@ warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.&lt;/
     </item>
     <item>
       <title>Turning a Teensy++ 2 into a full AVRISP-MKII clone</title>
-      <link>http://localhost:8080/articles/teensy2AVRISP-MKII/</link>
+      <link>http://blog.jetboystudio.com//articles/teensy2AVRISP-MKII/</link>
       <pubDate>Fri, 08 Feb 2013 10:00:00 -0800</pubDate>
-      <guid isPermaLink="true">http://localhost:8080/articles/teensy2AVRISP-MKII/</guid>
+      <guid isPermaLink="true">http://blog.jetboystudio.com//articles/teensy2AVRISP-MKII/</guid>
       <author></author>
-      <description>&lt;p&gt;&lt;em&gt;UPDATE&lt;/em&gt; see &lt;a href=&quot;http://localhost:8080/2013/02/11/teensy2AVRISP-MKII-lufa.html&quot;&gt;this&lt;/a&gt; for simpler, cleaner, better directions.&lt;/p&gt;
+      <description>&lt;p&gt;&lt;em&gt;UPDATE&lt;/em&gt; see &lt;a href=&quot;http://blog.jetboystudio.com/articles/teensy2AVRISP-MKII-lufa/&quot;&gt;this&lt;/a&gt; for simpler, cleaner, better directions.&lt;/p&gt;
 &lt;p&gt;I needed a way to program the &lt;a href=&quot;https://www.sparkfun.com/products/9546&quot;&gt;XMEGA100 breakout board from Sparkfun&lt;/a&gt;, and didn’t have a “real programmer”.&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;I currently use ArduinoISP running on a bare ATMEGA328 chip to program other ATMEGA chips, and it works great. If you buy a &lt;a href=&quot;http://www.atmel.com/tools/AVRISPMKII.aspx&quot;&gt;AVRISP-MKII&lt;/a&gt;, it can do the same stuff, but also a special protocol (PDI) that the XMEGA board speaks, and TSI for small ATINY chips.&lt;/p&gt;
@@ -1760,15 +1760,15 @@ make: *** [Descriptors.o] Error 1&lt;/code&gt;&lt;/pre&gt;
   Current Available (mA):    500
   Current Required (mA):    Unknown (Device has not been configured)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Dang! So happy. &lt;a href=&quot;http://www.youtube.com/watch?v=VazV36eWHLc&quot;&gt;Life is rad&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;If you want the hex for your own Teensy++ 2, &lt;a href=&quot;http://localhost:8080/files/teensy_avrisp-mk2.zip&quot;&gt;here&lt;/a&gt; it is. Now you don’t have to bother with all this silly bizness.&lt;/p&gt;
+&lt;p&gt;If you want the hex for your own Teensy++ 2, &lt;a href=&quot;http://blog.jetboystudio.com/articles/teensy2AVRISP-MKII/teensy_avrisp-mk2.zip&quot;&gt;here&lt;/a&gt; it is. Now you don’t have to bother with all this silly bizness.&lt;/p&gt;
 &lt;p&gt;Looks like I may need to do something with that ‘Unknown (Device has not been configured)’ bit. dunno.&lt;/p&gt;
 </description>
     </item>
     <item>
       <title>Dev Tools</title>
-      <link>http://localhost:8080/articles/tools/</link>
+      <link>http://blog.jetboystudio.com//articles/tools/</link>
       <pubDate>Thu, 07 Feb 2013 06:30:00 -0800</pubDate>
-      <guid isPermaLink="true">http://localhost:8080/articles/tools/</guid>
+      <guid isPermaLink="true">http://blog.jetboystudio.com//articles/tools/</guid>
       <author></author>
       <description>&lt;p&gt;I am very particular about my environment. It’s not Mac-specific things. I use a cross-platform text-editor &lt;a href=&quot;http://www.sublimetext.com/2&quot;&gt;Sublime Text 2&lt;/a&gt; and you can use/add bash on any OS/computer. It’s specific interfacey things, like keys in the terminal, and the tools installed.&lt;/p&gt;
 &lt;h2 id=&quot;sublime-text&quot;&gt;Sublime Text&lt;/h2&gt;
@@ -1848,9 +1848,9 @@ git checkout python3&lt;/code&gt;&lt;/pre&gt;
     </item>
     <item>
       <title>How to quickly fix a mis-named user</title>
-      <link>http://localhost:8080/articles/fix-user/</link>
+      <link>http://blog.jetboystudio.com//articles/fix-user/</link>
       <pubDate>Wed, 06 Feb 2013 13:55:00 -0800</pubDate>
-      <guid isPermaLink="true">http://localhost:8080/articles/fix-user/</guid>
+      <guid isPermaLink="true">http://blog.jetboystudio.com//articles/fix-user/</guid>
       <author></author>
       <description>&lt;p&gt;Recently, I was setting up an Ubuntu VirtualMachine, and drukenly mistyped the primary username.&lt;/p&gt;
 &lt;p&gt;This is pretty easy to fix very quickly, thought I would share.&lt;/p&gt;
@@ -1881,9 +1881,9 @@ done&lt;/code&gt;&lt;/pre&gt;
     </item>
     <item>
       <title>updated node.js on Ubuntu</title>
-      <link>http://localhost:8080/articles/update-node/</link>
+      <link>http://blog.jetboystudio.com//articles/update-node/</link>
       <pubDate>Sun, 03 Feb 2013 12:58:00 -0800</pubDate>
-      <guid isPermaLink="true">http://localhost:8080/articles/update-node/</guid>
+      <guid isPermaLink="true">http://blog.jetboystudio.com//articles/update-node/</guid>
       <author></author>
       <description>&lt;p&gt;I was having funny little issues on Ubuntu 12.10 64bit, and realized that it was using a really old version of node.&lt;/p&gt;
 &lt;hr&gt;
@@ -1896,9 +1896,9 @@ done&lt;/code&gt;&lt;/pre&gt;
     </item>
     <item>
       <title>Gameboy development environment</title>
-      <link>http://localhost:8080/articles/gameboy-dev-environment/</link>
+      <link>http://blog.jetboystudio.com//articles/gameboy-dev-environment/</link>
       <pubDate>Thu, 31 Jan 2013 16:30:00 -0800</pubDate>
-      <guid isPermaLink="true">http://localhost:8080/articles/gameboy-dev-environment/</guid>
+      <guid isPermaLink="true">http://blog.jetboystudio.com//articles/gameboy-dev-environment/</guid>
       <author></author>
       <description>&lt;p&gt;I do a lot of weird code stuff.  Recently, I was writing a &lt;a href=&quot;https://github.com/konsumer/dkart&quot;&gt;ROM for a Gameboy hardware-platform&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Here is how I set it up my dev environment on Mac OS 10.8.2.&lt;/p&gt;
@@ -1985,9 +1985,9 @@ all:   $(BINS)
     </item>
     <item>
       <title>Easy dev environment, on any computer</title>
-      <link>http://localhost:8080/articles/easy-dev-environment/</link>
+      <link>http://blog.jetboystudio.com//articles/easy-dev-environment/</link>
       <pubDate>Thu, 31 Jan 2013 15:02:00 -0800</pubDate>
-      <guid isPermaLink="true">http://localhost:8080/articles/easy-dev-environment/</guid>
+      <guid isPermaLink="true">http://blog.jetboystudio.com//articles/easy-dev-environment/</guid>
       <author></author>
       <description>&lt;p&gt;If you are like me, you want a full LAMP stack on your box while developing, and don’t want it to mess with your other stuff.&lt;/p&gt;
 &lt;hr&gt;

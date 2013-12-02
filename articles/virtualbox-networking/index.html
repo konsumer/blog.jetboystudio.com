@@ -8,7 +8,7 @@
     <meta name="description" content="Virtualbox networking can be tricky.">
     <meta name="author" content="David Konsumer">
     <title>Virtualbox Networking - Drunken Coder Blog</title>
-    <link rel="alternate" href="http://localhost:8080/feed.xml" type="application/rss+xml" title="a blog about code &amp; life">
+    <link rel="alternate" href="http://blog.jetboystudio.com//feed.xml" type="application/rss+xml" title="a blog about code &amp; life">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.4/styles/tomorrow.min.css">
@@ -31,11 +31,11 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="http://localhost:8080">Drunken Coder Blog</a>
+            <a class="navbar-brand" href="/">Drunken Coder Blog</a>
           </div>
           <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-              <li><a href="http://localhost:8080">Home</a></li>
+              <li><a href="/">Home</a></li>
               <li><a href="/archive.html">Archive</a></li>
             </ul>
           </div>
@@ -51,7 +51,7 @@
         </div>
         <div><p>Virtualbox networking can be tricky.</p>
 <hr>
-<p><a href="/2013/01/31/easy-dev-environment.html">Earlier</a> I talked about setting up a VirtualBox machine for LAMP development.  It’s a great way to keep your ideas/experiments fairly atomic, and not effect your regular system.  On my Hackintosh, sometimes my network drivers are not 100%, because they are really just fooling the OS into working.  I noticed after a recent update that Virtualbox bridged networking would make the whole network stack stop working, and I couldn’t get to my Virtual Machines, or even to the internet from the host after starting a machine.  Here is how I fixed it, and made it a bit more robust, for the future.</p>
+<p><a href="/articles/easy-dev-environment/">Earlier</a> I talked about setting up a VirtualBox machine for LAMP development.  It’s a great way to keep your ideas/experiments fairly atomic, and not effect your regular system.  On my Hackintosh, sometimes my network drivers are not 100%, because they are really just fooling the OS into working.  I noticed after a recent update that Virtualbox bridged networking would make the whole network stack stop working, and I couldn’t get to my Virtual Machines, or even to the internet from the host after starting a machine.  Here is how I fixed it, and made it a bit more robust, for the future.</p>
 <h2 id="2-networks">2 Networks</h2>
 <p>We are going to make an internal host-only net, for serving up stuff just to the host, and an external net so the vmachine can get to the internet.</p>
 <p>In VirtualBox, go to Virtualbox/Preferences, then Network.  Make a host-only network. Mine was called “vboxnet0”.</p>
@@ -75,18 +75,35 @@ iface eth2 inet dhcp</code></pre>
 192.168.56.101 project1.local project1
 192.168.56.101 project2.local project2
 192.168.56.101 project3.local project3</code></pre>
-<p>If you setup everything else, as <a href="/2013/01/31/easy-dev-environment.html">I did</a> you should have files in ~/Sites/project1/webroot on host machine that gets served-up, and you should be able to <code>ping 192.168.56.101</code> from the host.</p>
+<p>If you setup everything else, as <a href="/articles/easy-dev-environment/">I did</a> you should have files in ~/Sites/project1/webroot on host machine that gets served-up, and you should be able to <code>ping 192.168.56.101</code> from the host.</p>
 </div>
         
       </div>
       
-      <div class="container pageNav">
-        <ul class="pagination">
-          <li></li>
-          <li></li>
-        </ul>
-      </div>
-    </div>
+      <div class="container" id="disqus_thread"></div>
+      <script type="text/javascript">
+          var disqus_shortname = 'jetboystudio';
+          var ga_code = 'UA-2392079-5';
+          (function() {
+              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+              dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+
+          // old code, have upgraded...
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', ga_code]);
+          _gaq.push(['_trackPageview']);
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+      <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+    </div> <!-- /#wrap -->
 
     <div id="footer">
       <div class="container">
