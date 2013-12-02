@@ -48,5 +48,5 @@ Type `ifconfig` to get the IP address that were assigned to each interface. On m
     192.168.56.101 project2.local project2
     192.168.56.101 project3.local project3
 
-If you setup everything else, as [I did](/articles/easy-dev-environment) you should have files in ~/Sites/project1/webroot on host machine that gets served-up, and you should be able to `ping 192.168.56.101` from the host.
+If you setup everything else, as [I did](/articles/easy-dev-environment/) you should have files in ~/Sites/project1/webroot on host machine that gets served-up, and you should be able to `ping 192.168.56.101` from the host.
     

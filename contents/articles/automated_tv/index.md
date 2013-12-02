@@ -5,7 +5,7 @@ date:   2013-04-15 19:05:00
 tags: [torrent,NAS,TV,quickie]
 ---
 
-I want [Stooge, my NAS](/articles/nas) to be able to keep track of my favorite shows, and download new episodes when they come out.
+I want [Stooge, my NAS](/articles/nas/) to be able to keep track of my favorite shows, and download new episodes when they come out.
 
 ---
 

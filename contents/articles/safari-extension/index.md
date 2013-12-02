@@ -5,7 +5,7 @@ date:   2013-04-04 13:15:00
 tags: [Safari, extension, torrent, NAS]
 ---
 
-[Earlier](/articles/nas) I talked about my awesome media/storage server named "stooge".  I want stooge to handle all the torrents on my network. I saw some good extensions for Firefox & Chrome, but not Safari. Since my new housemate prefers Mac Safari, I set out to make it awesome.
+[Earlier](/articles/nas/) I talked about my awesome media/storage server named "stooge".  I want stooge to handle all the torrents on my network. I saw some good extensions for Firefox & Chrome, but not Safari. Since my new housemate prefers Mac Safari, I set out to make it awesome.
 
 ---
 
