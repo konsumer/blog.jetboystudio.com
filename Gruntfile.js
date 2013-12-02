@@ -14,17 +14,23 @@ module.exports = function (grunt) {
 		},
 		
 		'gh-pages': {
-			options: {
-				base: 'build'
+			'options': {
+				'base': 'build'
 			},
-			src: '**/*'
+			'src': '**/*'
 		},
 		
 		'clean': {
 			'default': ["build"],
 		},
+		
+		'copy': {
+			'cname':{
+				'files': [{src: ['CNAME'], dest: 'build/CNAME'}]
+			}
+		}
 	});
 
-	grunt.registerTask('deploy', ['wintersmith:build', 'gh-pages']);
+	grunt.registerTask('deploy', ['wintersmith:build', 'copy:cname', 'gh-pages']);
 	grunt.registerTask('default', ['clean', 'deploy']);
 };
