@@ -1,0 +1,108 @@
+---
+template: article.html
+title:  "Dev Tools"
+date:   2013-02-07 14:30:00
+tags: [mac, development]
+---
+
+I am very particular about my environment. It's not Mac-specific things. I use a cross-platform text-editor [Sublime Text 2](http://www.sublimetext.com/2) and you can use/add bash on any OS/computer. It's specific interfacey things, like keys in the terminal, and the tools installed.
+
+## Sublime Text
+
+This is a solid cross-platform editor (works the same in Linux, Windows and Mac.) It has a lot of features, and a lot of packages to extend it's functionality.  It's easy to write new packages, too, using python.
+
+One of the things I like the most about it is that although it has a menu, you can hit the action key combo (⌘-SHIFT-P) and you have access to every command available.
+
+### Sublime Text 3
+
+The beta is here: [Sublime Text 3](http://www.sublimetext.com/3)
+
+I couldn't get a few packages installing correct, so I think I will hold off on ST3, for now, until Package Manager is better in sync.
+
+It's a paid upgrade from Sublime Text 2, after the beta, but you can try it out now if you are a daring & licensed ST2 user.
+
+#### Packages
+
+Here is how you install it, if you want to try:
+
+```
+cd "$HOME/Library/Application Support/Sublime Text 3/Packages/"
+git clone https://github.com/wbond/sublime_package_control.git "Package Control"
+cd "Package Control"
+git checkout python3
+```
+
+### Sublime Text 2
+
+Stable version here: [Sublime Text 2](http://www.sublimetext.com/2)
+
+#### Packages
+
+*  Open editor and hit Ctrl-\` (like ~ in Doom/Quake) to open a python console.  In it, paste this:
+
+```python
+import urllib2,os; pf='Package Control.sublime-package'; ipp=sublime.installed_packages_path(); os.makedirs(ipp) if not os.path.exists(ipp) else None; urllib2.install_opener(urllib2.build_opener(urllib2.ProxyHandler())); open(os.path.join(ipp,pf),'wb').write(urllib2.urlopen('http://sublime.wbond.net/'+pf.replace(' ','%20')).read()); print('Please restart Sublime Text to finish installation')
+```
+
+### Installing Packages
+
+*  Restart sublime, and you have access to a crap-ton of packages.
+*  Hit ⌘-SHIFT-P to bring up a list of all available commands.
+*  Start typing "Install" until you see the "Install Package" option, hit ENTER.
+*  Install anything you need. Just start typing what you do ("HTML", "CSS", "javascript", "node", color", etc)
+
+Here are some packages I use:
+
+*  Processing
+*  AVR-ASM-Sublime
+*  M68K Assembly
+*  Arduino
+*  NESASM
+*  HexViewer
+*  SideBarGit
+*  DocBlockr
+*  Gitignore
+*  ColorPicker
+*  Open Folder
+*  HextoASCII
+*  SideBarEnhancements
+*  Color Highlighter
+*  JsFormat
+*  CMake
+*  URLEncode
+*  AMDtools
+*  Markdown Preview
+*  LESS-build
+*  SASS build
+*  Parallel Builder
+*  LoremIpsum
+
+Basically, once installed, just hit ⌘-SHIFT-P, start typing the name. Obviously, you won;t need these, and will need others.  Just use teh package manager to find what you need.  Be sure to search for them on google and read about them. They are all pretty awesome, and these are my choices when there are multiple ways to do the same thing (I have tested them all.)
+
+## Chrome
+
+I install these extensions for development:
+
+*  [Window Resizer](https://chrome.google.com/webstore/detail/window-resizer/kkelicaakdanhinjdeammmilcgefonfh)
+*  [ChromeVox](https://chrome.google.com/webstore/detail/chromevox/kgejglhpjiefppelpmljglcjbhoiplfn)
+*  [Chrome Daltonize](https://chrome.google.com/webstore/detail/chrome-daltonize/efeladnkafmoofnbagdbfaieabmejfcf)
+*  [YSlow](https://chrome.google.com/webstore/detail/yslow/ninejjcohidippngpapiilnmkgllmakh)
+*  [Hasher](https://chrome.google.com/webstore/detail/hasher/kignjplbjlocolcfldfhbonmbblpfbjb)
+*  [SASS Inspector](https://chrome.google.com/webstore/detail/sass-inspector/lkofmbmllpgfbnonmnenkiakimpgoamn)
+*  [Live CSS Mod](https://chrome.google.com/webstore/detail/live-css-mod/pcfngkdgaccedbamgamojgomaibafdcg)
+
+Mostly, I leave them disabled, and just enable what I need, when I need it.
+
+## Drupal
+
+For drupal, I use devel, drush, and features on every site. I use [site definitions](http://drupal.org/node/670460) to deploy files/sql to target systems.
+
+## Keys
+
+I am often frustrated with the default keybindings on a Mac. Home, End, PageUp & PageDown do not work the way I think they should in terminal or text editors.
+
+Let's fix them.
+
+In programs, I want Home/End to apply to a line, not the document (like Win/Linux.) [Here](http://mwholt.blogspot.com/2012/09/fix-home-and-end-keys-on-mac-os-x.html) is how.
+
+Terminal works a little different. [Here](http://fplanque.com/dev/mac/mac-osx-terminal-page-up-down-home-end-of-line) is instructions for editing terminal keybindings.

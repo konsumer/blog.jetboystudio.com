@@ -47,6 +47,7 @@
           <h2><a href="{{page.url}}">{{page.title}}</a></h2>
           {{#if page.metadata.author}}<div class="text-muted credit">Written by: {{page.metadata.author}}</div>{{/if}}
           <div class="date">{{date page.date}}</div>
+          <div class="tags">{{#each page.metadata.tags}} {{ this }} {{/each}}</div>
         </div>
         <div>{{{page.html}}}</div>
         {{#hasMore}}<a class="more" href="{{url}}">more</a>{{/hasMore}}

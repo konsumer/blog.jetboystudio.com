@@ -1,4 +1,3 @@
+# Drunken Coder Blog
 
-# Blog
-
-The default [wintersmith](https://github.com/jnordberg/wintersmith) template modified to use handlebars for pages.
+I keep [my blog](http://blog.jetboystudio.com) in github, using wintersmith.

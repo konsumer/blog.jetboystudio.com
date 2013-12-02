@@ -1,9 +1,9 @@
 {
   "locals": {
     "url": "http://localhost:8080",
-    "name": "The Wintersmith's blog",
-    "owner": "Someone",
-    "description": "Ramblings of an immor(t)al demigod"
+    "name": "Drunken Coder Blog",
+    "owner": "David Konsumer",
+    "description": "a blog about code & life"
   },
   "plugins": [
     "./plugins/paginator.coffee",
@@ -22,7 +22,7 @@
     "smartypants": true
   },
   "paginator": {
-    "perPage": 3,
+    "perPage": 5,
     "template":"index.html"
   },
   "handlebars": {

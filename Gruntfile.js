@@ -6,7 +6,7 @@ module.exports = function (grunt) {
 	grunt.initConfig({
 		'wintersmith': {
 			'build': {},
-			'preview': {
+			'serve': {
 				'options': {
 					'action': "preview"
 				}
@@ -33,4 +33,5 @@ module.exports = function (grunt) {
 
 	grunt.registerTask('deploy', ['wintersmith:build', 'copy:cname', 'gh-pages']);
 	grunt.registerTask('default', ['clean', 'deploy']);
+	grunt.registerTask('serve', ['wintersmith:serve']);
 };
