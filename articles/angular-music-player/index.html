@@ -107,7 +107,7 @@ yo angular</code></pre>
                 $scope.audio.addEventListener(<span class="string">'timeupdate'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span>{</span> $rootScope.$broadcast(<span class="string">'audio.time'</span>, <span class="keyword">this</span>); });
                 $scope.audio.addEventListener(<span class="string">'ended'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span>{</span> $rootScope.$broadcast(<span class="string">'audio.ended'</span>, <span class="keyword">this</span>); $scope.next(); });
 
-                <span class="comment">// set track &amp; crossfade to it</span>
+                <span class="comment">// set track &amp; play it</span>
                 $rootScope.$on(<span class="string">'audio.set'</span>, <span class="function"><span class="keyword">function</span><span class="params">(r, file, info, currentNum, totalNum)</span>{</span>
                     <span class="keyword">var</span> playing = !$scope.audio.paused;
                     $scope.audio.src = file;

@@ -64,7 +64,7 @@ yo angular&lt;/code&gt;&lt;/pre&gt;
                 $scope.audio.addEventListener(&lt;span class=&quot;string&quot;&gt;'timeupdate'&lt;/span&gt;, &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;()&lt;/span&gt;{&lt;/span&gt; $rootScope.$broadcast(&lt;span class=&quot;string&quot;&gt;'audio.time'&lt;/span&gt;, &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;); });
                 $scope.audio.addEventListener(&lt;span class=&quot;string&quot;&gt;'ended'&lt;/span&gt;, &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;()&lt;/span&gt;{&lt;/span&gt; $rootScope.$broadcast(&lt;span class=&quot;string&quot;&gt;'audio.ended'&lt;/span&gt;, &lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;); $scope.next(); });
 
-                &lt;span class=&quot;comment&quot;&gt;// set track &amp;amp; crossfade to it&lt;/span&gt;
+                &lt;span class=&quot;comment&quot;&gt;// set track &amp;amp; play it&lt;/span&gt;
                 $rootScope.$on(&lt;span class=&quot;string&quot;&gt;'audio.set'&lt;/span&gt;, &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(r, file, info, currentNum, totalNum)&lt;/span&gt;{&lt;/span&gt;
                     &lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; playing = !$scope.audio.paused;
                     $scope.audio.src = file;
