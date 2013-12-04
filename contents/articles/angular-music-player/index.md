@@ -90,7 +90,7 @@ angular.module('audioPlayer-directive', [])
                 $scope.audio.addEventListener('timeupdate', function(){ $rootScope.$broadcast('audio.time', this); });
                 $scope.audio.addEventListener('ended', function(){ $rootScope.$broadcast('audio.ended', this); $scope.next(); });
 
-                // set track & crossfade to it
+                // set track & play it
                 $rootScope.$on('audio.set', function(r, file, info, currentNum, totalNum){
                     var playing = !$scope.audio.paused;
                     $scope.audio.src = file;
