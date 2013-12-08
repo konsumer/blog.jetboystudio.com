@@ -82,3 +82,7 @@ ul.tags li:last-child{
 .addthis_button_compact {
   padding-top: 10px;
 }
+
+.addthis_32x32_style .addthis_counter.addthis_bubble_style {
+  border-right: 1px solid #C5C5C5;
+}
