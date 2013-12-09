@@ -76,8 +76,8 @@ ul.tags li:last-child{
   border:none;
 }
 
-.social a {
-  margin-top: 10px;
+.social {
+  padding-top: 10px;
 }
 
 .addthis_32x32_style .addthis_counter.addthis_bubble_style {
