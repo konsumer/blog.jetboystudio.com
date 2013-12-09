@@ -76,11 +76,8 @@ ul.tags li:last-child{
   border:none;
 }
 
-.addthis_button_facebook,
-.addthis_button_twitter,
-.addthis_button_google_plusone_share,
-.addthis_button_compact {
-  padding-top: 10px;
+.addthis_button{
+  margin-top: 10px;
 }
 
 .addthis_32x32_style .addthis_counter.addthis_bubble_style {
