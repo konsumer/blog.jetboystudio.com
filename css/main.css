@@ -76,7 +76,7 @@ ul.tags li:last-child{
   border:none;
 }
 
-.social li {
+.social a {
   padding-top: 10px;
 }
 
