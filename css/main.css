@@ -77,7 +77,12 @@ ul.tags li:last-child{
 }
 
 ul.social {
-  padding-top: 10px;
+  margin-top:10px;
+}
+
+ul.social li {
+  list-style:none;
+  display:inline-block;
 }
 
 .addthis_32x32_style .addthis_counter.addthis_bubble_style {
