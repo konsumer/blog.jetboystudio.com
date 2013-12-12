@@ -78,6 +78,8 @@ ul.tags li:last-child{
 
 ul.social {
   margin-top:10px;
+  margin-bottom: 0;
+  margin-left: 10px;
 }
 
 ul.social li {
@@ -87,6 +89,14 @@ ul.social li {
 
 .addthis_32x32_style .addthis_counter.addthis_bubble_style {
   border-right: 1px solid #C5C5C5;
+}
+
+.intro {
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  padding: 20px;
+  background: #eee;
+  font-size: 1.2em;
 }
 
 @media (min-width: 768px) {
