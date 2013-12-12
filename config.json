@@ -3,7 +3,7 @@
     "url": "http://blog.jetboystudio.com/",
     "name": "Drunken Coder Blog",
     "owner": "David Konsumer",
-    "description": "a blog about code & life"
+    "description": "you can do it well, even if you're drunk"
   },
   "plugins": [
     "./plugins/paginator.coffee",
