@@ -8,14 +8,14 @@
     <meta name="description" content="Recently, I was setting up an Ubuntu VirtualMachine, and drukenly mistyped the primary username.This is pretty easy to fix very quickly, thought I would share.">
     <meta name="author" content="David Konsumer">
     <title>How to quickly fix a mis-named user - Drunken Coder Blog</title>
-    <link rel="alternate" href="http://blog.jetboystudio.com//feed.xml" type="application/rss+xml" title="you can do it well, even if you&#x27;re drunk">
+    <link rel="alternate" href="http://blog.jetboystudio.com/feed.xml" type="application/rss+xml" title="you can do it well, even if you&#x27;re drunk">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.4/styles/tomorrow.min.css">
     <meta property="og:site_name" content="Drunken Coder Blog"/>
     <meta property="og:description" content="Recently, I was setting up an Ubuntu VirtualMachine, and drukenly mistyped the primary username.This is pretty easy to fix very quickly, thought I would share.">
-    <meta property="og:image" content="http://blog.jetboystudio.com//favicon.ico"/>
+    <meta property="og:image" content="http://blog.jetboystudio.com/favicon.ico"/>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -102,15 +102,12 @@ done</code></pre>
               (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
           })();
 
-          // old code, have upgraded...
-          var _gaq = _gaq || [];
-          _gaq.push(['_setAccount', ga_code]);
-          _gaq.push(['_trackPageview']);
-          (function() {
-            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-          })();
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-2392079-5', 'jetboystudio.com');
+        ga('send', 'pageview');
       </script>
       <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
       <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
