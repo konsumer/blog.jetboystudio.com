@@ -17,3 +17,19 @@ I have a bunch of [Humble Bundle](https://www.humblebundle.com/) Android games t
 *  Download [Humble Bundle app](https://www.humblebundle.com/getapp)
 *  Install with `adb install ~/Downloads/HumbleBundle-1.6.2.apk`
 *  Login & install whatever you like!
+
+This may not be useful, as many games wouldn't run/install which might be "Intel Atom x86" CPU type (which is needed by accelerated emulator.) I have an Ouya, so I might end up just using that, even though I was trying avoid having to switch cables.
+
+Here are the games I tried, that seemed to run full speed!
+
+*  Gunslugs (good keyboard support)
+*  Kareteka Classic (weird with on-screen controls)
+
+These had issues:
+
+*  Funky Smugglers (crashed on run)
+*  Vector (crashed on run)
+*  Punch Quest (crashed on run)
+*  Jack Lumber (wouldn't install)
+*  Hero Academy (wouldn't install)
+*  Kingdom Rush (wouldn't install)
