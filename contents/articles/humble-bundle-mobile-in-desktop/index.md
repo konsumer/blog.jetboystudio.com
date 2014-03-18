@@ -1,6 +1,6 @@
 ---
 template: article.html
-title:  "App Store & Humble Bundle in Emulator"
+title:  "Humble Bundle in Emulator"
 date:   2014-03-17 16:29
 tags: [Android,emulation,games,Humble Bundle,quickie]
 ---
@@ -24,11 +24,11 @@ Here are the games I tried, that seemed to run full speed!
 
 *  Gunslugs (good keyboard support)
 *  Kareteka Classic (weird with on-screen controls)
-*  BADLAND Premium
-*  Bloons TD 5
 
 These had issues:
 
+*  BADLAND Premium (crashed on run)
+*  Bloons TD 5 (crashed on run)
 *  Funky Smugglers (crashed on run)
 *  Vector (crashed on run)
 *  Punch Quest (crashed on run)
@@ -38,3 +38,4 @@ These had issues:
 *  Ravensword: Shadowlands (crashed on run)
 *  Swords & Soldiers HD (crashed on run)
 *  Bard's Tale (installed, anddownloaded content,then crashed)
+*  Breach & Clear (crashed on run)
