@@ -9,7 +9,7 @@
     <language>en</language>
 
 	    <item>
-	    	<title>App Store &amp; Humble Bundle in Emulator</title>
+	    	<title>Humble Bundle in Emulator</title>
 	    	<link>http://blog.jetboystudio.com/articles/humble-bundle-mobile-in-desktop/</link>
 	    	<guid isPermaLink="true">http://blog.jetboystudio.com/articles/humble-bundle-mobile-in-desktop/</guid>
 	    	<pubDate>Mon, 17 Mar 2014 16:29:00 -0700</pubDate>
@@ -32,11 +32,11 @@
 &lt;ul&gt;
 &lt;li&gt;Gunslugs (good keyboard support)&lt;/li&gt;
 &lt;li&gt;Kareteka Classic (weird with on-screen controls)&lt;/li&gt;
-&lt;li&gt;BADLAND Premium&lt;/li&gt;
-&lt;li&gt;Bloons TD 5&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;These had issues:&lt;/p&gt;
 &lt;ul&gt;
+&lt;li&gt;BADLAND Premium (crashed on run)&lt;/li&gt;
+&lt;li&gt;Bloons TD 5 (crashed on run)&lt;/li&gt;
 &lt;li&gt;Funky Smugglers (crashed on run)&lt;/li&gt;
 &lt;li&gt;Vector (crashed on run)&lt;/li&gt;
 &lt;li&gt;Punch Quest (crashed on run)&lt;/li&gt;
@@ -46,6 +46,7 @@
 &lt;li&gt;Ravensword: Shadowlands (crashed on run)&lt;/li&gt;
 &lt;li&gt;Swords &amp;amp; Soldiers HD (crashed on run)&lt;/li&gt;
 &lt;li&gt;Bard’s Tale (installed, anddownloaded content,then crashed)&lt;/li&gt;
+&lt;li&gt;Breach &amp;amp; Clear (crashed on run)&lt;/li&gt;
 &lt;/ul&gt;
 </description>
 		</item>
