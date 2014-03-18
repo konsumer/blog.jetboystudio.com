@@ -69,6 +69,27 @@
       
         <div class="container">
           <div class="page-header">
+            <h2><a href="/articles/humble-bundle-mobile-in-desktop/">App Store &amp; Humble Bundle in Emulator</a></h2>
+          </div>
+          <div class="lead"><p>I have a bunch of <a href="https://www.humblebundle.com/">Humble Bundle</a> Android games that I wanted to play on our house entertainment computer (hooked up to a projector!) Here is how I did it. This is also a guide if you want a really fast &amp; performant Android emulator.</p>
+<ul>
+<li>Install the <a href="http://developer.android.com/sdk/index.html">Android SDK</a>. I put it in ~/bin/android-sdk-macosx/ and added ~/bin/android-sdk-macosx/tools to my path.  This is for mac, but should apply to whatever you use.</li>
+<li>run <code>tools/android</code>. Install “Android SDK Tools”, one of the Android packs (I did “Android 4.4.2”), and “Intel x86 Emulator Accelerator (HAXM)”</li>
+<li>Exit when it completes, and run <code>android avd</code></li>
+<li>Make a new AVD called “Nexus10” and set “Device” to “Nexus 10”, CPU to “Intel Atom x86”, check “Hardware keyboard present”, set it to “No skin” and check “Use Host GPU”</li>
+<li>Exit AVDManager</li>
+<li>Install the <a href="http://software.intel.com/en-us/android/articles/intel-hardware-accelerated-execution-manager">Intel HAXM patch</a></li>
+<li>run <code>LD_LIBRARY_PATH=~/bin/android-sdk-macosx/tools/lib/ ~/bin/android-sdk-macosx/tools/emulator64-x86 -avd Nexus10</code></li>
+<li>Download <a href="https://www.humblebundle.com/getapp">Humble Bundle app</a></li>
+<li>Install with <code>adb install ~/Downloads/HumbleBundle-1.6.2.apk</code></li>
+<li>Login &amp; install whatever you like!</li>
+</ul>
+</div>
+          
+        </div>
+      
+        <div class="container">
+          <div class="page-header">
             <h2><a href="/articles/angular-music-player/">Music player in Angular.js</a></h2>
           </div>
           <div class="lead"><p>Here I will teach you to make an Angular app that plays music, with reusable components that are packaged in single directories.  This will allow you to use the same audio controller in multiple apps, even if ou aren’t paying attention (drunk.)</p>
@@ -103,15 +124,6 @@
           <a class="more" href="/articles/facebook-and-php/">more</a>
         </div>
       
-        <div class="container">
-          <div class="page-header">
-            <h2><a href="/articles/arduino-serial/">Arduino Serial Port Trick</a></h2>
-          </div>
-          <div class="lead"><p>Recently, I was making code on an Arduino Uno, that also needed to run on a Mega 2560. The Mega has 4 Harware serial ports, and the Uno has one.  I wanted it to auto-create Serial1, if needed, so I don’t have to change my code.</p>
-</div>
-          <a class="more" href="/articles/arduino-serial/">more</a>
-        </div>
-      
       
       <div class="container pageNav">
         <ul class="pagination">
@@ -133,7 +145,7 @@
 
     <div id="footer">
       <div class="container">
-        <p class="text-muted credit">© 2013 David Konsumer</p>
+        <p class="text-muted credit">© 2014 David Konsumer</p>
       </div>
     </div>
 

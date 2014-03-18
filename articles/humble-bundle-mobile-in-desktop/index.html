@@ -5,16 +5,16 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Recently, I was making code on an Arduino Uno, that also needed to run on a Mega 2560. The Mega has 4 Harware serial ports, and the Uno has one.  I wanted it to auto-create Serial1, if needed, so I don’t have to change my code.">
+    <meta name="description" content="I have a bunch of Humble Bundle Android games that I wanted to play on our house entertainment computer (hooked up to a projector!) Here is how I did it. This is also a guide if you want a really fast &amp; performant Android emulator.Install the Android SDK. I put it in ~/bin/android-sdk-macosx/ and added ~/bin/android-sdk-macosx/tools to my path.  This is for mac, but should apply to whatever you use.run tools/android. Install “Android SDK Tools”, one of the Android packs (I did “Android 4.4.2”), and “Intel x86 Emulator Accelerator (HAXM)”Exit when it completes, and run android avdMake a new AVD called “Nexus10” and set “Device” to “Nexus 10”, CPU to “Intel Atom x86”, check “Hardware keyboard present”, set it to “No skin” and check “Use Host GPU”Exit AVDManagerInstall the Intel HAXM patchrun LD_LIBRARY_PATH=~/bin/android-sdk-macosx/tools/lib/ ~/bin/android-sdk-macosx/tools/emulator64-x86 -avd Nexus10Download Humble Bundle appInstall with adb install ~/Downloads/HumbleBundle-1.6.2.apkLogin &amp; install whatever you like!">
     <meta name="author" content="David Konsumer">
-    <title>Arduino Serial Port Trick - Drunken Coder Blog</title>
+    <title>App Store &amp; Humble Bundle in Emulator - Drunken Coder Blog</title>
     <link rel="alternate" href="http://blog.jetboystudio.com/feed.xml" type="application/rss+xml" title="you can do it well, even if you&#x27;re drunk">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.4/styles/tomorrow.min.css">
     <meta property="og:site_name" content="Drunken Coder Blog"/>
-    <meta property="og:description" content="Recently, I was making code on an Arduino Uno, that also needed to run on a Mega 2560. The Mega has 4 Harware serial ports, and the Uno has one.  I wanted it to auto-create Serial1, if needed, so I don’t have to change my code.">
+    <meta property="og:description" content="I have a bunch of Humble Bundle Android games that I wanted to play on our house entertainment computer (hooked up to a projector!) Here is how I did it. This is also a guide if you want a really fast &amp; performant Android emulator.Install the Android SDK. I put it in ~/bin/android-sdk-macosx/ and added ~/bin/android-sdk-macosx/tools to my path.  This is for mac, but should apply to whatever you use.run tools/android. Install “Android SDK Tools”, one of the Android packs (I did “Android 4.4.2”), and “Intel x86 Emulator Accelerator (HAXM)”Exit when it completes, and run android avdMake a new AVD called “Nexus10” and set “Device” to “Nexus 10”, CPU to “Intel Atom x86”, check “Hardware keyboard present”, set it to “No skin” and check “Use Host GPU”Exit AVDManagerInstall the Intel HAXM patchrun LD_LIBRARY_PATH=~/bin/android-sdk-macosx/tools/lib/ ~/bin/android-sdk-macosx/tools/emulator64-x86 -avd Nexus10Download Humble Bundle appInstall with adb install ~/Downloads/HumbleBundle-1.6.2.apkLogin &amp; install whatever you like!">
     <meta property="og:image" content="http://blog.jetboystudio.com/favicon.ico"/>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -58,56 +58,24 @@
 
       <div class="container">
         <div class="page-header">
-          <h2><a href="/articles/arduino-serial/">Arduino Serial Port Trick</a></h2>
+          <h2><a href="/articles/humble-bundle-mobile-in-desktop/">App Store &amp; Humble Bundle in Emulator</a></h2>
           
-          <ul class="tags"> <li>quickie</li>  <li>Arduino</li>  <li>C++</li> </ul>
-          <div class="date">May 20th, 2013</div>
+          <ul class="tags"> <li>Android</li>  <li>emulation</li>  <li>games</li>  <li>Humble Bundle</li>  <li>quickie</li> </ul>
+          <div class="date">Mar 17th, 2014</div>
         </div>
-        <div><p>Recently, I was making code on an Arduino Uno, that also needed to run on a Mega 2560. The Mega has 4 Harware serial ports, and the Uno has one.  I wanted it to auto-create Serial1, if needed, so I don’t have to change my code.</p>
-<hr>
-<p>Having a look at HardwareSerial.h, I saw this:</p>
-<pre><code class="lang-c++">#if defined(UBRRH) || defined(UBRR0H)
-  extern HardwareSerial Serial;
-#elif defined(USBCON)
-  #include &quot;USBAPI.h&quot;
-//  extern HardwareSerial Serial_;  
-#endif
-#if defined(UBRR1H)
-  extern HardwareSerial Serial1;
-#endif
-#if defined(UBRR2H)
-  extern HardwareSerial Serial2;
-#endif
-#if defined(UBRR3H)
-  extern HardwareSerial Serial3;
-#endif</code></pre>
-<p>So, at the top of my sketch, I put this:</p>
-<pre><code class="lang-c++">#ifndef UBRR1H
-#include &lt;SoftwareSerial.h&gt;
-SoftwareSerial Serial1(10, 11); // RX, TX
-#endif</code></pre>
-<p>Which will load a SoftwareSerial (on pins 10 &amp; 11) at Serial1 (which is the same as the name on the Mega.)</p>
-<p>Now, I can do this:</p>
-<pre><code class="lang-c++">#ifndef UBRR1H
-#include &lt;SoftwareSerial.h&gt;
-SoftwareSerial Serial1(10, 11); // RX, TX
-#endif
-
-void setup()  
-{
-  Serial.begin(19200);
-  Serial1.begin(19200);
-}
-
-void loop()
-{
-  if (Serial1.available()) {
-      Serial.write((char)Serial1.read());
-  }
-  if (Serial.available()) {
-      Serial1.write((char)Serial.read());
-  }
-}</code></pre>
+        <div><p>I have a bunch of <a href="https://www.humblebundle.com/">Humble Bundle</a> Android games that I wanted to play on our house entertainment computer (hooked up to a projector!) Here is how I did it. This is also a guide if you want a really fast &amp; performant Android emulator.</p>
+<ul>
+<li>Install the <a href="http://developer.android.com/sdk/index.html">Android SDK</a>. I put it in ~/bin/android-sdk-macosx/ and added ~/bin/android-sdk-macosx/tools to my path.  This is for mac, but should apply to whatever you use.</li>
+<li>run <code>tools/android</code>. Install “Android SDK Tools”, one of the Android packs (I did “Android 4.4.2”), and “Intel x86 Emulator Accelerator (HAXM)”</li>
+<li>Exit when it completes, and run <code>android avd</code></li>
+<li>Make a new AVD called “Nexus10” and set “Device” to “Nexus 10”, CPU to “Intel Atom x86”, check “Hardware keyboard present”, set it to “No skin” and check “Use Host GPU”</li>
+<li>Exit AVDManager</li>
+<li>Install the <a href="http://software.intel.com/en-us/android/articles/intel-hardware-accelerated-execution-manager">Intel HAXM patch</a></li>
+<li>run <code>LD_LIBRARY_PATH=~/bin/android-sdk-macosx/tools/lib/ ~/bin/android-sdk-macosx/tools/emulator64-x86 -avd Nexus10</code></li>
+<li>Download <a href="https://www.humblebundle.com/getapp">Humble Bundle app</a></li>
+<li>Install with <code>adb install ~/Downloads/HumbleBundle-1.6.2.apk</code></li>
+<li>Login &amp; install whatever you like!</li>
+</ul>
 </div>
         
       </div>
