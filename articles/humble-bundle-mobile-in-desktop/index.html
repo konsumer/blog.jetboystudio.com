@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="I have a bunch of Humble Bundle Android games that I wanted to play on our house entertainment computer (hooked up to a projector!) Here is how I did it. This is also a guide if you want a really fast &amp; performant Android emulator.Install the Android SDK. I put it in ~/bin/android-sdk-macosx/ and added ~/bin/android-sdk-macosx/tools to my path.  This is for mac, but should apply to whatever you use.run android. Install “Android SDK Tools”, one of the Android packs (I did “Android 4.4.2”), and “Intel x86 Emulator Accelerator (HAXM)”Exit when it completes, and run android avdMake a new AVD called “Nexus10” and set “Device” to “Nexus 10”, CPU to “Intel Atom x86”, check “Hardware keyboard present”, set it to “No skin” and check “Use Host GPU”Exit AVDManagerInstall the Intel HAXM patchrun LD_LIBRARY_PATH=~/bin/android-sdk-macosx/tools/lib/ ~/bin/android-sdk-macosx/tools/emulator64-x86 -avd Nexus10Download Humble Bundle appInstall with adb install ~/Downloads/HumbleBundle-1.6.2.apkLogin &amp; install whatever you like!">
+    <meta name="description" content="I have a bunch of Humble Bundle Android games that I wanted to play on our house entertainment computer (hooked up to a projector!) Here is how I did it. This is also a guide if you want a really fast &amp; performant Android emulator.Install the Android SDK. I put it in ~/bin/android-sdk-macosx/ and added ~/bin/android-sdk-macosx/tools to my path.  This is for mac, but should apply to whatever you use.run android. Install “Android SDK Tools”, one of the Android packs (I did “Android 4.4.2”), and “Intel x86 Emulator Accelerator (HAXM)”Exit when it completes, and run android avdMake a new AVD called “Nexus10” and set “Device” to “Nexus 10”, CPU to “Intel Atom x86”, check “Hardware keyboard present”, set it to “No skin” and check “Use Host GPU”Exit AVDManagerInstall the Intel HAXM patchrun LD_LIBRARY_PATH=~/bin/android-sdk-macosx/tools/lib/ ~/bin/android-sdk-macosx/tools/emulator64-x86 -avd Nexus10Download Humble Bundle appInstall with adb install ~/Downloads/HumbleBundle-1.6.2.apkLogin &amp; install whatever you like!This may not be useful, as many games wouldn’t run/install which might be “Intel Atom x86” CPU type (which is needed by accelerated emulator.) I have an Ouya, so I might end up just using that, even though I was trying avoid having to switch cables.Here are the games I tried, that seemed to run full speed!Gunslugs (good keyboard support)Kareteka Classic (weird with on-screen controls)These had issues:Funky Smugglers (crashed on run)Vector (crashed on run)Punch Quest (crashed on run)Jack Lumber (wouldn’t install)Hero Academy (wouldn’t install)Kingdom Rush (wouldn’t install)">
     <meta name="author" content="David Konsumer">
     <title>App Store &amp; Humble Bundle in Emulator - Drunken Coder Blog</title>
     <link rel="alternate" href="http://blog.jetboystudio.com/feed.xml" type="application/rss+xml" title="you can do it well, even if you&#x27;re drunk">
@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.4/styles/tomorrow.min.css">
     <meta property="og:site_name" content="Drunken Coder Blog"/>
-    <meta property="og:description" content="I have a bunch of Humble Bundle Android games that I wanted to play on our house entertainment computer (hooked up to a projector!) Here is how I did it. This is also a guide if you want a really fast &amp; performant Android emulator.Install the Android SDK. I put it in ~/bin/android-sdk-macosx/ and added ~/bin/android-sdk-macosx/tools to my path.  This is for mac, but should apply to whatever you use.run android. Install “Android SDK Tools”, one of the Android packs (I did “Android 4.4.2”), and “Intel x86 Emulator Accelerator (HAXM)”Exit when it completes, and run android avdMake a new AVD called “Nexus10” and set “Device” to “Nexus 10”, CPU to “Intel Atom x86”, check “Hardware keyboard present”, set it to “No skin” and check “Use Host GPU”Exit AVDManagerInstall the Intel HAXM patchrun LD_LIBRARY_PATH=~/bin/android-sdk-macosx/tools/lib/ ~/bin/android-sdk-macosx/tools/emulator64-x86 -avd Nexus10Download Humble Bundle appInstall with adb install ~/Downloads/HumbleBundle-1.6.2.apkLogin &amp; install whatever you like!">
+    <meta property="og:description" content="I have a bunch of Humble Bundle Android games that I wanted to play on our house entertainment computer (hooked up to a projector!) Here is how I did it. This is also a guide if you want a really fast &amp; performant Android emulator.Install the Android SDK. I put it in ~/bin/android-sdk-macosx/ and added ~/bin/android-sdk-macosx/tools to my path.  This is for mac, but should apply to whatever you use.run android. Install “Android SDK Tools”, one of the Android packs (I did “Android 4.4.2”), and “Intel x86 Emulator Accelerator (HAXM)”Exit when it completes, and run android avdMake a new AVD called “Nexus10” and set “Device” to “Nexus 10”, CPU to “Intel Atom x86”, check “Hardware keyboard present”, set it to “No skin” and check “Use Host GPU”Exit AVDManagerInstall the Intel HAXM patchrun LD_LIBRARY_PATH=~/bin/android-sdk-macosx/tools/lib/ ~/bin/android-sdk-macosx/tools/emulator64-x86 -avd Nexus10Download Humble Bundle appInstall with adb install ~/Downloads/HumbleBundle-1.6.2.apkLogin &amp; install whatever you like!This may not be useful, as many games wouldn’t run/install which might be “Intel Atom x86” CPU type (which is needed by accelerated emulator.) I have an Ouya, so I might end up just using that, even though I was trying avoid having to switch cables.Here are the games I tried, that seemed to run full speed!Gunslugs (good keyboard support)Kareteka Classic (weird with on-screen controls)These had issues:Funky Smugglers (crashed on run)Vector (crashed on run)Punch Quest (crashed on run)Jack Lumber (wouldn’t install)Hero Academy (wouldn’t install)Kingdom Rush (wouldn’t install)">
     <meta property="og:image" content="http://blog.jetboystudio.com/favicon.ico"/>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -75,6 +75,21 @@
 <li>Download <a href="https://www.humblebundle.com/getapp">Humble Bundle app</a></li>
 <li>Install with <code>adb install ~/Downloads/HumbleBundle-1.6.2.apk</code></li>
 <li>Login &amp; install whatever you like!</li>
+</ul>
+<p>This may not be useful, as many games wouldn’t run/install which might be “Intel Atom x86” CPU type (which is needed by accelerated emulator.) I have an Ouya, so I might end up just using that, even though I was trying avoid having to switch cables.</p>
+<p>Here are the games I tried, that seemed to run full speed!</p>
+<ul>
+<li>Gunslugs (good keyboard support)</li>
+<li>Kareteka Classic (weird with on-screen controls)</li>
+</ul>
+<p>These had issues:</p>
+<ul>
+<li>Funky Smugglers (crashed on run)</li>
+<li>Vector (crashed on run)</li>
+<li>Punch Quest (crashed on run)</li>
+<li>Jack Lumber (wouldn’t install)</li>
+<li>Hero Academy (wouldn’t install)</li>
+<li>Kingdom Rush (wouldn’t install)</li>
 </ul>
 </div>
         

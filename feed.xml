@@ -27,6 +27,21 @@
 &lt;li&gt;Install with &lt;code&gt;adb install ~/Downloads/HumbleBundle-1.6.2.apk&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;Login &amp;amp; install whatever you like!&lt;/li&gt;
 &lt;/ul&gt;
+&lt;p&gt;This may not be useful, as many games wouldn’t run/install which might be “Intel Atom x86” CPU type (which is needed by accelerated emulator.) I have an Ouya, so I might end up just using that, even though I was trying avoid having to switch cables.&lt;/p&gt;
+&lt;p&gt;Here are the games I tried, that seemed to run full speed!&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Gunslugs (good keyboard support)&lt;/li&gt;
+&lt;li&gt;Kareteka Classic (weird with on-screen controls)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;These had issues:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Funky Smugglers (crashed on run)&lt;/li&gt;
+&lt;li&gt;Vector (crashed on run)&lt;/li&gt;
+&lt;li&gt;Punch Quest (crashed on run)&lt;/li&gt;
+&lt;li&gt;Jack Lumber (wouldn’t install)&lt;/li&gt;
+&lt;li&gt;Hero Academy (wouldn’t install)&lt;/li&gt;
+&lt;li&gt;Kingdom Rush (wouldn’t install)&lt;/li&gt;
+&lt;/ul&gt;
 </description>
 		</item>
 
