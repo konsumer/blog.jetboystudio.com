@@ -72,6 +72,7 @@
             <h2><a href="/articles/humble-bundle-mobile-in-desktop/">App Store &amp; Humble Bundle in Emulator</a></h2>
           </div>
           <div class="lead"><p>I have a bunch of <a href="https://www.humblebundle.com/">Humble Bundle</a> Android games that I wanted to play on our house entertainment computer (hooked up to a projector!) Here is how I did it. This is also a guide if you want a really fast &amp; performant Android emulator.</p>
+<p>This may not be useful for gaming, actually, as many games wouldn’t run/install which might be “Intel Atom x86” CPU type (which is needed by accelerated emulator.) I have an Ouya, so I might end up just using that, even though I was trying avoid having to switch cables. For the games that did work, I didn’t bother installing a controller, but that would probably greatly improve overall experience.</p>
 <ul>
 <li>Install the <a href="http://developer.android.com/sdk/index.html">Android SDK</a>. I put it in ~/bin/android-sdk-macosx/ and added ~/bin/android-sdk-macosx/tools to my path.  This is for mac, but should apply to whatever you use.</li>
 <li>run <code>android</code>. Install “Android SDK Tools”, one of the Android packs (I did “Android 4.4.2”), and “Intel x86 Emulator Accelerator (HAXM)”</li>
@@ -84,11 +85,12 @@
 <li>Install with <code>adb install ~/Downloads/HumbleBundle-1.6.2.apk</code></li>
 <li>Login &amp; install whatever you like!</li>
 </ul>
-<p>This may not be useful, as many games wouldn’t run/install which might be “Intel Atom x86” CPU type (which is needed by accelerated emulator.) I have an Ouya, so I might end up just using that, even though I was trying avoid having to switch cables.</p>
 <p>Here are the games I tried, that seemed to run full speed!</p>
 <ul>
 <li>Gunslugs (good keyboard support)</li>
 <li>Kareteka Classic (weird with on-screen controls)</li>
+<li>BADLAND Premium</li>
+<li>Bloons TD 5</li>
 </ul>
 <p>These had issues:</p>
 <ul>
@@ -98,6 +100,9 @@
 <li>Jack Lumber (wouldn’t install)</li>
 <li>Hero Academy (wouldn’t install)</li>
 <li>Kingdom Rush (wouldn’t install)</li>
+<li>Ravensword: Shadowlands (crashed on run)</li>
+<li>Swords &amp; Soldiers HD (crashed on run)</li>
+<li>Bard’s Tale (installed, anddownloaded content,then crashed)</li>
 </ul>
 </div>
           

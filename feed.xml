@@ -15,6 +15,7 @@
 	    	<pubDate>Mon, 17 Mar 2014 16:29:00 -0700</pubDate>
 	    	<author></author>
 	    	<description>&lt;p&gt;I have a bunch of &lt;a href=&quot;https://www.humblebundle.com/&quot;&gt;Humble Bundle&lt;/a&gt; Android games that I wanted to play on our house entertainment computer (hooked up to a projector!) Here is how I did it. This is also a guide if you want a really fast &amp;amp; performant Android emulator.&lt;/p&gt;
+&lt;p&gt;This may not be useful for gaming, actually, as many games wouldn’t run/install which might be “Intel Atom x86” CPU type (which is needed by accelerated emulator.) I have an Ouya, so I might end up just using that, even though I was trying avoid having to switch cables. For the games that did work, I didn’t bother installing a controller, but that would probably greatly improve overall experience.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Install the &lt;a href=&quot;http://developer.android.com/sdk/index.html&quot;&gt;Android SDK&lt;/a&gt;. I put it in ~/bin/android-sdk-macosx/ and added ~/bin/android-sdk-macosx/tools to my path.  This is for mac, but should apply to whatever you use.&lt;/li&gt;
 &lt;li&gt;run &lt;code&gt;android&lt;/code&gt;. Install “Android SDK Tools”, one of the Android packs (I did “Android 4.4.2”), and “Intel x86 Emulator Accelerator (HAXM)”&lt;/li&gt;
@@ -27,11 +28,12 @@
 &lt;li&gt;Install with &lt;code&gt;adb install ~/Downloads/HumbleBundle-1.6.2.apk&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;Login &amp;amp; install whatever you like!&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;This may not be useful, as many games wouldn’t run/install which might be “Intel Atom x86” CPU type (which is needed by accelerated emulator.) I have an Ouya, so I might end up just using that, even though I was trying avoid having to switch cables.&lt;/p&gt;
 &lt;p&gt;Here are the games I tried, that seemed to run full speed!&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Gunslugs (good keyboard support)&lt;/li&gt;
 &lt;li&gt;Kareteka Classic (weird with on-screen controls)&lt;/li&gt;
+&lt;li&gt;BADLAND Premium&lt;/li&gt;
+&lt;li&gt;Bloons TD 5&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;These had issues:&lt;/p&gt;
 &lt;ul&gt;
@@ -41,6 +43,9 @@
 &lt;li&gt;Jack Lumber (wouldn’t install)&lt;/li&gt;
 &lt;li&gt;Hero Academy (wouldn’t install)&lt;/li&gt;
 &lt;li&gt;Kingdom Rush (wouldn’t install)&lt;/li&gt;
+&lt;li&gt;Ravensword: Shadowlands (crashed on run)&lt;/li&gt;
+&lt;li&gt;Swords &amp;amp; Soldiers HD (crashed on run)&lt;/li&gt;
+&lt;li&gt;Bard’s Tale (installed, anddownloaded content,then crashed)&lt;/li&gt;
 &lt;/ul&gt;
 </description>
 		</item>
