@@ -14,7 +14,8 @@
 	    	<guid isPermaLink="true">http://blog.jetboystudio.com/articles/brunch-daydrunk/</guid>
 	    	<pubDate>Sat, 14 Jun 2014 12:57:00 -0700</pubDate>
 	    	<author></author>
-	    	<description>&lt;p&gt;So, lately I have been super-into &lt;a href=&quot;http://brunch.io/&quot;&gt;brunch&lt;/a&gt;. Less configuration, same amount of power as &lt;a href=&quot;http://gruntjs.com/&quot;&gt;grunt&lt;/a&gt; or &lt;a href=&quot;http://gulpjs.com/&quot;&gt;gulp&lt;/a&gt;. It does efficient streaming builds like &lt;a href=&quot;http://gulpjs.com/&quot;&gt;gulp&lt;/a&gt;, so it’s faster than &lt;a href=&quot;http://gruntjs.com/&quot;&gt;grunt&lt;/a&gt;, but so much simpler to use than the rest! It’s been a while since I had enough time to write a blog post, so I thought I should maybe talk about my new infatuation.&lt;/p&gt;
+	    	<description>&lt;p&gt;So, lately I have been super-into &lt;a href=&quot;http://brunch.io/&quot;&gt;brunch&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Less configuration, same amount of power as &lt;a href=&quot;http://gruntjs.com/&quot;&gt;grunt&lt;/a&gt; or &lt;a href=&quot;http://gulpjs.com/&quot;&gt;gulp&lt;/a&gt;. It does efficient streaming builds like &lt;a href=&quot;http://gulpjs.com/&quot;&gt;gulp&lt;/a&gt;, so it’s faster than &lt;a href=&quot;http://gruntjs.com/&quot;&gt;grunt&lt;/a&gt;, but so much simpler to use than the rest! It’s been a while since I had enough time to write a blog post, so I thought I should maybe talk about my new infatuation.&lt;/p&gt;
 &lt;p&gt;I made a &lt;a href=&quot;https://github.com/konsumer/brunch-daydrunk&quot;&gt;quick start skeleton&lt;/a&gt; that uses all kinds of cool things to make projects very quickly.&lt;/p&gt;
 &lt;p&gt;Let’s make an app that includes authentication, registration, and a few pages.&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;brunch new gh:konsumer/brunch-daydrunk killa
