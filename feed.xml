@@ -50,7 +50,7 @@ heroku config:pull --overwrite&lt;/code&gt;&lt;/pre&gt;
         redirectTo: &lt;span class=&quot;string&quot;&gt;&#x27;/&#x27;&lt;/span&gt;
     });
 })&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Ok, cool. When you are ready to deploy do a &lt;code&gt;git add -A &amp;amp;&amp;amp; git commit -am &amp;quot;deploy&amp;quot; &amp;amp;&amp;amp; git push heroku master&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Ok, cool. When you are ready to deploy do a &lt;code&gt;git add -A &amp;amp;&amp;amp; git commit -am &amp;quot;deploy&amp;quot; &amp;amp;&amp;amp; git push heroku master&lt;/code&gt;. This will send it up to heroku, and minify all your sourcecode like a boss.&lt;/p&gt;
 &lt;p&gt;This is a super-basic overview. Hopefully, I’ll have time to write more, soon.&lt;/p&gt;
 </description>
 		</item>
