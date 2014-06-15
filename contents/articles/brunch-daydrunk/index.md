@@ -26,6 +26,9 @@ heroku config:pull --overwrite
 
 So, now we have email service, a database, and an app all ready to get started with. It's all free & awesome. Let's fire up a local dev server that compiles our LESS & concats our javascript, so we can flesh out our app.
 
+Since we have mailgun, we can go uncomment the dummy email stuff [here](https://github.com/konsumer/brunch-daydrunk/blob/a5e3943c9d3d913247073165800c35040fc6bbee/server/routes/auth.js#L6-L7).
+
+
 ```
 npm start
 ```
