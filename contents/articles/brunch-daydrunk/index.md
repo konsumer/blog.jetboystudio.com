@@ -28,7 +28,7 @@ npm start
 
 Ok, so go edit stuff. Whatever you do in `front/` will get built into `generated/`.
 
-Step 1 is to remove the junk from `front/assets/partials/index.html`.  Make a nice welcome page. Add any angular stuff you need in `front/js/controllers/index.js`, and main.js is the parent-scope, if you need to share something between controllers.
+Step 1 is to remove the junk from `front/assets/partials/index.html`.  Make a nice welcome page. Add any angular stuff you need in `front/js/controllers/index.js`, and `main.js` is the parent-scope, if you need to share something between controllers.
 
 Let's add some cool pages at `#/hello` & `#/ohai`. Add templates to `front/assets/partials/`. Since they all basically do the same thing, we can just assign them to the same controller in `front/js/site.js`. Make your route config look like this:
 
