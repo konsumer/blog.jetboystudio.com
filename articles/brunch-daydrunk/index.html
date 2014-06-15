@@ -1,0 +1,144 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="So, lately I have been super-into brunch. Less configuration, same amount of power as grunt or gulp. It does efficient streaming builds like gulp, so it’s faster than grunt, but so much simpler to use than the rest! It’s been a while since I had enough time to write a blog post, so I thought I should maybe talk about my new infatuation.I made a quick start skeleton that uses all kinds of cool things to make projects very quickly.Let’s make an app that includes authentication, registration, and a few pages.brunch new gh:konsumer/brunch-daydrunk killacd killaheroku createheroku addons:add mailgunheroku addons:add mongolabheroku config:pull --overwriteSo, now we have email service, a database, and an app all ready to get started with. It’s all free &amp; awesome. Let’s fire up a local dev server that compiles our LESS &amp; concats our javascript, so we can flesh out our app.npm startOk, so go edit stuff. Whatever you do in front/ will get built into generated/.Step 1 is to remove the junk from front/assets/partials/index.html.  Make a nice welcome page. Add any angular stuff you need in front/js/controllers/index.js, and main.js is the parent-scope, if you need to share something between controllers.Let’s add some cool pages at #/hello &amp; #/ohai. Add templates to front/assets/partials/. Since they all basically do the same thing, we can just assign them to the same controller in front/js/site.js. Make your route config look like this:.config(function($routeProvider) {    $routeProvider    .when(&amp;#39;/&amp;#39;, {        templateUrl: &amp;#39;partials/index.html&amp;#39;,        controller: &amp;#39;IndexCtrl&amp;#39;    })    .when(&amp;#39;/hello&amp;#39;, {        templateUrl: &amp;#39;partials/hello.html&amp;#39;,        controller: &amp;#39;IndexCtrl&amp;#39;    })    .when(&amp;#39;/ohai&amp;#39;, {        templateUrl: &amp;#39;partials/ohai.html&amp;#39;,        controller: &amp;#39;IndexCtrl&amp;#39;    })    .otherwise({        redirectTo: &amp;#39;/&amp;#39;    });})Ok, cool. When you are ready to deploy do a git add -A &amp;&amp; git commit -am &quot;deploy&quot; &amp;&amp; git push heroku masterThis is a super-basic overview. Hopefully, I’ll have time to write more, soon.">
+    <meta name="author" content="David Konsumer">
+    <title>Daydrunk Hipsters Rejoice - Drunken Coder Blog</title>
+    <link rel="alternate" href="http://blog.jetboystudio.com/feed.xml" type="application/rss+xml" title="you can do it well, even if you&#x27;re drunk">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.4/styles/tomorrow.min.css">
+    <meta property="og:site_name" content="Drunken Coder Blog"/>
+    <meta property="og:description" content="So, lately I have been super-into brunch. Less configuration, same amount of power as grunt or gulp. It does efficient streaming builds like gulp, so it’s faster than grunt, but so much simpler to use than the rest! It’s been a while since I had enough time to write a blog post, so I thought I should maybe talk about my new infatuation.I made a quick start skeleton that uses all kinds of cool things to make projects very quickly.Let’s make an app that includes authentication, registration, and a few pages.brunch new gh:konsumer/brunch-daydrunk killacd killaheroku createheroku addons:add mailgunheroku addons:add mongolabheroku config:pull --overwriteSo, now we have email service, a database, and an app all ready to get started with. It’s all free &amp; awesome. Let’s fire up a local dev server that compiles our LESS &amp; concats our javascript, so we can flesh out our app.npm startOk, so go edit stuff. Whatever you do in front/ will get built into generated/.Step 1 is to remove the junk from front/assets/partials/index.html.  Make a nice welcome page. Add any angular stuff you need in front/js/controllers/index.js, and main.js is the parent-scope, if you need to share something between controllers.Let’s add some cool pages at #/hello &amp; #/ohai. Add templates to front/assets/partials/. Since they all basically do the same thing, we can just assign them to the same controller in front/js/site.js. Make your route config look like this:.config(function($routeProvider) {    $routeProvider    .when(&amp;#39;/&amp;#39;, {        templateUrl: &amp;#39;partials/index.html&amp;#39;,        controller: &amp;#39;IndexCtrl&amp;#39;    })    .when(&amp;#39;/hello&amp;#39;, {        templateUrl: &amp;#39;partials/hello.html&amp;#39;,        controller: &amp;#39;IndexCtrl&amp;#39;    })    .when(&amp;#39;/ohai&amp;#39;, {        templateUrl: &amp;#39;partials/ohai.html&amp;#39;,        controller: &amp;#39;IndexCtrl&amp;#39;    })    .otherwise({        redirectTo: &amp;#39;/&amp;#39;    });})Ok, cool. When you are ready to deploy do a git add -A &amp;&amp; git commit -am &quot;deploy&quot; &amp;&amp; git push heroku masterThis is a super-basic overview. Hopefully, I’ll have time to write more, soon.">
+    <meta property="og:image" content="http://blog.jetboystudio.com/favicon.ico"/>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <div class="page-article" id="wrap">
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/"><img width="20" height="20" src="/favicon.ico"> Drunken Coder Blog</a>
+          </div>
+          <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav addthis_toolbox addthis_default_style addthis_32x32_style">
+              <li><a href="/">Home</a></li>
+              <li><a href="/archive.html">Archive</a></li>
+            </ul>
+            <ul class="social addthis_toolbox addthis_default_style addthis_32x32_style">
+              <li><a class="addthis_button_facebook"></a></li>
+              <li><a class="addthis_button_twitter"></a></li>
+              <li><a class="addthis_button_google_plusone_share"></a></li>
+              <li><a class="addthis_button_compact"></a><a class="addthis_counter addthis_bubble_style"></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=xa-52a4a9a2159a1d9a"></script>
+
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+      <div class="container">
+        <div class="page-header">
+          <h2><a href="/articles/brunch-daydrunk/">Daydrunk Hipsters Rejoice</a></h2>
+          
+          <ul class="tags"> <li>brunch</li>  <li>quickie</li> </ul>
+          <div class="date">May 14th, 2014</div>
+        </div>
+        <div><p>So, lately I have been super-into <a href="http://brunch.io/">brunch</a>. Less configuration, same amount of power as <a href="http://gruntjs.com/">grunt</a> or <a href="http://gulpjs.com/">gulp</a>. It does efficient streaming builds like <a href="http://gulpjs.com/">gulp</a>, so it’s faster than <a href="http://gruntjs.com/">grunt</a>, but so much simpler to use than the rest! It’s been a while since I had enough time to write a blog post, so I thought I should maybe talk about my new infatuation.</p>
+<p>I made a <a href="https://github.com/konsumer/brunch-daydrunk">quick start skeleton</a> that uses all kinds of cool things to make projects very quickly.</p>
+<p>Let’s make an app that includes authentication, registration, and a few pages.</p>
+<pre><code>brunch new gh:konsumer/brunch-daydrunk killa
+cd killa
+heroku create
+heroku addons:add mailgun
+heroku addons:add mongolab
+heroku config:pull --overwrite</code></pre>
+<p>So, now we have email service, a database, and an app all ready to get started with. It’s all free &amp; awesome. Let’s fire up a local dev server that compiles our LESS &amp; concats our javascript, so we can flesh out our app.</p>
+<pre><code>npm start</code></pre>
+<p>Ok, so go edit stuff. Whatever you do in <code>front/</code> will get built into <code>generated/</code>.</p>
+<p>Step 1 is to remove the junk from <code>front/assets/partials/index.html</code>.  Make a nice welcome page. Add any angular stuff you need in <code>front/js/controllers/index.js</code>, and main.js is the parent-scope, if you need to share something between controllers.</p>
+<p>Let’s add some cool pages at <code>#/hello</code> &amp; <code>#/ohai</code>. Add templates to <code>front/assets/partials/</code>. Since they all basically do the same thing, we can just assign them to the same controller in <code>front/js/site.js</code>. Make your route config look like this:</p>
+<pre><code>.config(function($routeProvider) {
+    $routeProvider
+
+    .when(&#39;/&#39;, {
+        templateUrl: &#39;partials/index.html&#39;,
+        controller: &#39;IndexCtrl&#39;
+    })
+
+    .when(&#39;/hello&#39;, {
+        templateUrl: &#39;partials/hello.html&#39;,
+        controller: &#39;IndexCtrl&#39;
+    })
+
+    .when(&#39;/ohai&#39;, {
+        templateUrl: &#39;partials/ohai.html&#39;,
+        controller: &#39;IndexCtrl&#39;
+    })
+
+    .otherwise({
+        redirectTo: &#39;/&#39;
+    });
+})</code></pre>
+<p>Ok, cool. When you are ready to deploy do a <code>git add -A &amp;&amp; git commit -am &quot;deploy&quot; &amp;&amp; git push heroku master</code></p>
+<p>This is a super-basic overview. Hopefully, I’ll have time to write more, soon.</p>
+</div>
+        
+      </div>
+      
+      <div class="container" id="disqus_thread"></div>
+      <script type="text/javascript">
+          var disqus_shortname = 'jetboystudio';
+          var ga_code = 'UA-2392079-5';
+          (function() {
+              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+              dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-2392079-5', 'jetboystudio.com');
+        ga('send', 'pageview');
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+      <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+    </div> <!-- /#wrap -->
+
+    <div id="footer">
+      <div class="container">
+        <p class="text-muted credit">© 2014 David Konsumer</p>
+      </div>
+    </div>
+
+    <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.4/highlight.min.js"></script>
+
+  </body>
+</html>
+
+
+

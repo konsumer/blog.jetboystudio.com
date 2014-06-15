@@ -69,6 +69,52 @@
       
         <div class="container">
           <div class="page-header">
+            <h2><a href="/articles/brunch-daydrunk/">Daydrunk Hipsters Rejoice</a></h2>
+          </div>
+          <div class="lead"><p>So, lately I have been super-into <a href="http://brunch.io/">brunch</a>. Less configuration, same amount of power as <a href="http://gruntjs.com/">grunt</a> or <a href="http://gulpjs.com/">gulp</a>. It does efficient streaming builds like <a href="http://gulpjs.com/">gulp</a>, so it’s faster than <a href="http://gruntjs.com/">grunt</a>, but so much simpler to use than the rest! It’s been a while since I had enough time to write a blog post, so I thought I should maybe talk about my new infatuation.</p>
+<p>I made a <a href="https://github.com/konsumer/brunch-daydrunk">quick start skeleton</a> that uses all kinds of cool things to make projects very quickly.</p>
+<p>Let’s make an app that includes authentication, registration, and a few pages.</p>
+<pre><code>brunch new gh:konsumer/brunch-daydrunk killa
+cd killa
+heroku create
+heroku addons:add mailgun
+heroku addons:add mongolab
+heroku config:pull --overwrite</code></pre>
+<p>So, now we have email service, a database, and an app all ready to get started with. It’s all free &amp; awesome. Let’s fire up a local dev server that compiles our LESS &amp; concats our javascript, so we can flesh out our app.</p>
+<pre><code>npm start</code></pre>
+<p>Ok, so go edit stuff. Whatever you do in <code>front/</code> will get built into <code>generated/</code>.</p>
+<p>Step 1 is to remove the junk from <code>front/assets/partials/index.html</code>.  Make a nice welcome page. Add any angular stuff you need in <code>front/js/controllers/index.js</code>, and main.js is the parent-scope, if you need to share something between controllers.</p>
+<p>Let’s add some cool pages at <code>#/hello</code> &amp; <code>#/ohai</code>. Add templates to <code>front/assets/partials/</code>. Since they all basically do the same thing, we can just assign them to the same controller in <code>front/js/site.js</code>. Make your route config look like this:</p>
+<pre><code>.config(function($routeProvider) {
+    $routeProvider
+
+    .when(&#39;/&#39;, {
+        templateUrl: &#39;partials/index.html&#39;,
+        controller: &#39;IndexCtrl&#39;
+    })
+
+    .when(&#39;/hello&#39;, {
+        templateUrl: &#39;partials/hello.html&#39;,
+        controller: &#39;IndexCtrl&#39;
+    })
+
+    .when(&#39;/ohai&#39;, {
+        templateUrl: &#39;partials/ohai.html&#39;,
+        controller: &#39;IndexCtrl&#39;
+    })
+
+    .otherwise({
+        redirectTo: &#39;/&#39;
+    });
+})</code></pre>
+<p>Ok, cool. When you are ready to deploy do a <code>git add -A &amp;&amp; git commit -am &quot;deploy&quot; &amp;&amp; git push heroku master</code></p>
+<p>This is a super-basic overview. Hopefully, I’ll have time to write more, soon.</p>
+</div>
+          
+        </div>
+      
+        <div class="container">
+          <div class="page-header">
             <h2><a href="/articles/humble-bundle-mobile-in-desktop/">Humble Bundle in Emulator</a></h2>
           </div>
           <div class="lead"><p>I have a bunch of <a href="https://www.humblebundle.com/">Humble Bundle</a> Android games that I wanted to play on our house entertainment computer (hooked up to a projector!) Here is how I did it. This is also a guide if you want a really fast &amp; performant Android emulator.</p>
@@ -134,15 +180,6 @@
           <div class="lead"><p>Virtualbox networking can be tricky.</p>
 </div>
           <a class="more" href="/articles/virtualbox-networking/">more</a>
-        </div>
-      
-        <div class="container">
-          <div class="page-header">
-            <h2><a href="/articles/facebook-and-php/">Facebook PHP kinda sucks, here&#x27;s how to make it better</a></h2>
-          </div>
-          <div class="lead"><p>Deving for Facebook apps kinda sucks using server-side PHP. PHP’s lib is not 100% with all browsers and has lil glitches if you don’t do it right, and you gotta really pay attention to a lot of details if you need info from the parent page.</p>
-</div>
-          <a class="more" href="/articles/facebook-and-php/">more</a>
         </div>
       
       

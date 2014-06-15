@@ -9,6 +9,53 @@
     <language>en</language>
 
 	    <item>
+	    	<title>Daydrunk Hipsters Rejoice</title>
+	    	<link>http://blog.jetboystudio.com/articles/brunch-daydrunk/</link>
+	    	<guid isPermaLink="true">http://blog.jetboystudio.com/articles/brunch-daydrunk/</guid>
+	    	<pubDate>Wed, 14 May 2014 12:57:00 -0700</pubDate>
+	    	<author></author>
+	    	<description>&lt;p&gt;So, lately I have been super-into &lt;a href=&quot;http://brunch.io/&quot;&gt;brunch&lt;/a&gt;. Less configuration, same amount of power as &lt;a href=&quot;http://gruntjs.com/&quot;&gt;grunt&lt;/a&gt; or &lt;a href=&quot;http://gulpjs.com/&quot;&gt;gulp&lt;/a&gt;. It does efficient streaming builds like &lt;a href=&quot;http://gulpjs.com/&quot;&gt;gulp&lt;/a&gt;, so it’s faster than &lt;a href=&quot;http://gruntjs.com/&quot;&gt;grunt&lt;/a&gt;, but so much simpler to use than the rest! It’s been a while since I had enough time to write a blog post, so I thought I should maybe talk about my new infatuation.&lt;/p&gt;
+&lt;p&gt;I made a &lt;a href=&quot;https://github.com/konsumer/brunch-daydrunk&quot;&gt;quick start skeleton&lt;/a&gt; that uses all kinds of cool things to make projects very quickly.&lt;/p&gt;
+&lt;p&gt;Let’s make an app that includes authentication, registration, and a few pages.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;brunch new gh:konsumer/brunch-daydrunk killa
+cd killa
+heroku create
+heroku addons:add mailgun
+heroku addons:add mongolab
+heroku config:pull --overwrite&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;So, now we have email service, a database, and an app all ready to get started with. It’s all free &amp;amp; awesome. Let’s fire up a local dev server that compiles our LESS &amp;amp; concats our javascript, so we can flesh out our app.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;npm start&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Ok, so go edit stuff. Whatever you do in &lt;code&gt;front/&lt;/code&gt; will get built into &lt;code&gt;generated/&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Step 1 is to remove the junk from &lt;code&gt;front/assets/partials/index.html&lt;/code&gt;.  Make a nice welcome page. Add any angular stuff you need in &lt;code&gt;front/js/controllers/index.js&lt;/code&gt;, and main.js is the parent-scope, if you need to share something between controllers.&lt;/p&gt;
+&lt;p&gt;Let’s add some cool pages at &lt;code&gt;#/hello&lt;/code&gt; &amp;amp; &lt;code&gt;#/ohai&lt;/code&gt;. Add templates to &lt;code&gt;front/assets/partials/&lt;/code&gt;. Since they all basically do the same thing, we can just assign them to the same controller in &lt;code&gt;front/js/site.js&lt;/code&gt;. Make your route config look like this:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;.config(function($routeProvider) {
+    $routeProvider
+
+    .when(&amp;#39;/&amp;#39;, {
+        templateUrl: &amp;#39;partials/index.html&amp;#39;,
+        controller: &amp;#39;IndexCtrl&amp;#39;
+    })
+
+    .when(&amp;#39;/hello&amp;#39;, {
+        templateUrl: &amp;#39;partials/hello.html&amp;#39;,
+        controller: &amp;#39;IndexCtrl&amp;#39;
+    })
+
+    .when(&amp;#39;/ohai&amp;#39;, {
+        templateUrl: &amp;#39;partials/ohai.html&amp;#39;,
+        controller: &amp;#39;IndexCtrl&amp;#39;
+    })
+
+    .otherwise({
+        redirectTo: &amp;#39;/&amp;#39;
+    });
+})&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Ok, cool. When you are ready to deploy do a &lt;code&gt;git add -A &amp;amp;&amp;amp; git commit -am &amp;quot;deploy&amp;quot; &amp;amp;&amp;amp; git push heroku master&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;This is a super-basic overview. Hopefully, I’ll have time to write more, soon.&lt;/p&gt;
+</description>
+		</item>
+
+	    <item>
 	    	<title>Humble Bundle in Emulator</title>
 	    	<link>http://blog.jetboystudio.com/articles/humble-bundle-mobile-in-desktop/</link>
 	    	<guid isPermaLink="true">http://blog.jetboystudio.com/articles/humble-bundle-mobile-in-desktop/</guid>
