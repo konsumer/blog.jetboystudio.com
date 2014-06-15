@@ -15,6 +15,7 @@
 	    	<pubDate>Sat, 14 Jun 2014 12:57:00 -0700</pubDate>
 	    	<author></author>
 	    	<description>&lt;p&gt;So, lately I have been super-into &lt;a href=&quot;http://brunch.io/&quot;&gt;brunch&lt;/a&gt;.&lt;/p&gt;
+&lt;hr&gt;
 &lt;p&gt;Less configuration, same amount of power as &lt;a href=&quot;http://gruntjs.com/&quot;&gt;grunt&lt;/a&gt; or &lt;a href=&quot;http://gulpjs.com/&quot;&gt;gulp&lt;/a&gt;. It does efficient streaming builds like &lt;a href=&quot;http://gulpjs.com/&quot;&gt;gulp&lt;/a&gt;, so it’s faster than &lt;a href=&quot;http://gruntjs.com/&quot;&gt;grunt&lt;/a&gt;, but so much simpler to use than the rest! It’s been a while since I had enough time to write a blog post, so I thought I should maybe talk about my new infatuation.&lt;/p&gt;
 &lt;p&gt;I made a &lt;a href=&quot;https://github.com/konsumer/brunch-daydrunk&quot;&gt;quick start skeleton&lt;/a&gt; that uses all kinds of cool things to make projects very quickly.&lt;/p&gt;
 &lt;p&gt;Let’s make an app that includes authentication, registration, and a few pages.&lt;/p&gt;
@@ -63,6 +64,7 @@ heroku config:pull --overwrite&lt;/code&gt;&lt;/pre&gt;
 	    	<pubDate>Mon, 17 Mar 2014 16:29:00 -0700</pubDate>
 	    	<author></author>
 	    	<description>&lt;p&gt;I have a bunch of &lt;a href=&quot;https://www.humblebundle.com/&quot;&gt;Humble Bundle&lt;/a&gt; Android games that I wanted to play on our house entertainment computer (hooked up to a projector!) Here is how I did it. This is also a guide if you want a really fast &amp;amp; performant Android emulator.&lt;/p&gt;
+&lt;hr&gt;
 &lt;p&gt;This may not be useful for gaming, actually, as many games wouldn’t run/install which might be “Intel Atom x86” CPU type (which is needed by accelerated emulator.) I have an Ouya, so I might end up just using that, even though I was trying avoid having to switch cables. For the games that did work, I didn’t bother installing a controller, but that would probably greatly improve overall experience.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Install the &lt;a href=&quot;http://developer.android.com/sdk/index.html&quot;&gt;Android SDK&lt;/a&gt;. I put it in ~/bin/android-sdk-macosx/ and added ~/bin/android-sdk-macosx/tools to my path.  This is for mac, but should apply to whatever you use.&lt;/li&gt;

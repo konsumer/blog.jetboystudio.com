@@ -72,46 +72,8 @@
             <h2><a href="/articles/brunch-daydrunk/">Daydrunk Hipsters Rejoice</a></h2>
           </div>
           <div class="lead"><p>So, lately I have been super-into <a href="http://brunch.io/">brunch</a>.</p>
-<p>Less configuration, same amount of power as <a href="http://gruntjs.com/">grunt</a> or <a href="http://gulpjs.com/">gulp</a>. It does efficient streaming builds like <a href="http://gulpjs.com/">gulp</a>, so it’s faster than <a href="http://gruntjs.com/">grunt</a>, but so much simpler to use than the rest! It’s been a while since I had enough time to write a blog post, so I thought I should maybe talk about my new infatuation.</p>
-<p>I made a <a href="https://github.com/konsumer/brunch-daydrunk">quick start skeleton</a> that uses all kinds of cool things to make projects very quickly.</p>
-<p>Let’s make an app that includes authentication, registration, and a few pages.</p>
-<pre><code>brunch new gh:konsumer/brunch-daydrunk killa
-cd killa
-heroku create
-heroku addons:add mailgun
-heroku addons:add mongolab
-heroku config:pull --overwrite</code></pre>
-<p>So, now we have email service, a database, and an app all ready to get started with. It’s all free &amp; awesome. Let’s fire up a local dev server that compiles our LESS &amp; concats our javascript, so we can flesh out our app.</p>
-<pre><code>npm start</code></pre>
-<p>Ok, so go edit stuff. Whatever you do in <code>front/</code> will get built into <code>generated/</code>.</p>
-<p>Step 1 is to remove the junk from <code>front/assets/partials/index.html</code>.  Make a nice welcome page. Add any angular stuff you need in <code>front/js/controllers/index.js</code>, and <code>main.js</code> is the parent-scope, if you need to share something between controllers.</p>
-<p>Let’s add some cool pages at <code>#/hello</code> &amp; <code>#/ohai</code>. Add templates to <code>front/assets/partials/</code>. Since they all basically do the same thing, we can just assign them to the same controller in <code>front/js/site.js</code>. Make your route config look like this:</p>
-<pre><code class="lang-javascript">.config(<span class="function"><span class="keyword">function</span><span class="params">($routeProvider)</span> {</span>
-    $routeProvider
-
-    .when(<span class="string">'/'</span>, {
-        templateUrl: <span class="string">'partials/index.html'</span>,
-        controller: <span class="string">'IndexCtrl'</span>
-    })
-
-    .when(<span class="string">'/hello'</span>, {
-        templateUrl: <span class="string">'partials/hello.html'</span>,
-        controller: <span class="string">'IndexCtrl'</span>
-    })
-
-    .when(<span class="string">'/ohai'</span>, {
-        templateUrl: <span class="string">'partials/ohai.html'</span>,
-        controller: <span class="string">'IndexCtrl'</span>
-    })
-
-    .otherwise({
-        redirectTo: <span class="string">'/'</span>
-    });
-})</code></pre>
-<p>Ok, cool. When you are ready to deploy do a <code>git add -A &amp;&amp; git commit -am &quot;deploy&quot; &amp;&amp; git push heroku master</code>. This will send it up to heroku, and minify all your sourcecode like a boss.</p>
-<p>This is a super-basic overview. Hopefully, I’ll have time to write more, soon.</p>
 </div>
-          
+          <a class="more" href="/articles/brunch-daydrunk/">more</a>
         </div>
       
         <div class="container">
@@ -119,41 +81,8 @@ heroku config:pull --overwrite</code></pre>
             <h2><a href="/articles/humble-bundle-mobile-in-desktop/">Humble Bundle in Emulator</a></h2>
           </div>
           <div class="lead"><p>I have a bunch of <a href="https://www.humblebundle.com/">Humble Bundle</a> Android games that I wanted to play on our house entertainment computer (hooked up to a projector!) Here is how I did it. This is also a guide if you want a really fast &amp; performant Android emulator.</p>
-<p>This may not be useful for gaming, actually, as many games wouldn’t run/install which might be “Intel Atom x86” CPU type (which is needed by accelerated emulator.) I have an Ouya, so I might end up just using that, even though I was trying avoid having to switch cables. For the games that did work, I didn’t bother installing a controller, but that would probably greatly improve overall experience.</p>
-<ul>
-<li>Install the <a href="http://developer.android.com/sdk/index.html">Android SDK</a>. I put it in ~/bin/android-sdk-macosx/ and added ~/bin/android-sdk-macosx/tools to my path.  This is for mac, but should apply to whatever you use.</li>
-<li>run <code>android</code>. Install “Android SDK Tools”, one of the Android packs (I did “Android 4.4.2”), and “Intel x86 Emulator Accelerator (HAXM)”</li>
-<li>Exit when it completes, and run <code>android avd</code></li>
-<li>Make a new AVD called “Nexus10” and set “Device” to “Nexus 10”, CPU to “Intel Atom x86”, check “Hardware keyboard present”, set it to “No skin” and check “Use Host GPU”</li>
-<li>Exit AVDManager</li>
-<li>Install the <a href="http://software.intel.com/en-us/android/articles/intel-hardware-accelerated-execution-manager">Intel HAXM patch</a></li>
-<li>run <code>LD_LIBRARY_PATH=~/bin/android-sdk-macosx/tools/lib/ ~/bin/android-sdk-macosx/tools/emulator64-x86 -avd Nexus10</code></li>
-<li>Download <a href="https://www.humblebundle.com/getapp">Humble Bundle app</a></li>
-<li>Install with <code>adb install ~/Downloads/HumbleBundle-1.6.2.apk</code></li>
-<li>Login &amp; install whatever you like!</li>
-</ul>
-<p>Here are the games I tried, that seemed to run full speed!</p>
-<ul>
-<li>Gunslugs (good keyboard support)</li>
-<li>Kareteka Classic (weird with on-screen controls)</li>
-</ul>
-<p>These had issues:</p>
-<ul>
-<li>BADLAND Premium (crashed on run)</li>
-<li>Bloons TD 5 (crashed on run)</li>
-<li>Funky Smugglers (crashed on run)</li>
-<li>Vector (crashed on run)</li>
-<li>Punch Quest (crashed on run)</li>
-<li>Jack Lumber (wouldn’t install)</li>
-<li>Hero Academy (wouldn’t install)</li>
-<li>Kingdom Rush (wouldn’t install)</li>
-<li>Ravensword: Shadowlands (crashed on run)</li>
-<li>Swords &amp; Soldiers HD (crashed on run)</li>
-<li>Bard’s Tale (installed, anddownloaded content,then crashed)</li>
-<li>Breach &amp; Clear (crashed on run)</li>
-</ul>
 </div>
-          
+          <a class="more" href="/articles/humble-bundle-mobile-in-desktop/">more</a>
         </div>
       
         <div class="container">
