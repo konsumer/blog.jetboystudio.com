@@ -85,26 +85,26 @@ heroku config:pull --overwrite</code></pre>
 <p>Ok, so go edit stuff. Whatever you do in <code>front/</code> will get built into <code>generated/</code>.</p>
 <p>Step 1 is to remove the junk from <code>front/assets/partials/index.html</code>.  Make a nice welcome page. Add any angular stuff you need in <code>front/js/controllers/index.js</code>, and main.js is the parent-scope, if you need to share something between controllers.</p>
 <p>Let’s add some cool pages at <code>#/hello</code> &amp; <code>#/ohai</code>. Add templates to <code>front/assets/partials/</code>. Since they all basically do the same thing, we can just assign them to the same controller in <code>front/js/site.js</code>. Make your route config look like this:</p>
-<pre><code>.config(function($routeProvider) {
+<pre><code class="lang-javascript">.config(<span class="function"><span class="keyword">function</span><span class="params">($routeProvider)</span> {</span>
     $routeProvider
 
-    .when(&#39;/&#39;, {
-        templateUrl: &#39;partials/index.html&#39;,
-        controller: &#39;IndexCtrl&#39;
+    .when(<span class="string">'/'</span>, {
+        templateUrl: <span class="string">'partials/index.html'</span>,
+        controller: <span class="string">'IndexCtrl'</span>
     })
 
-    .when(&#39;/hello&#39;, {
-        templateUrl: &#39;partials/hello.html&#39;,
-        controller: &#39;IndexCtrl&#39;
+    .when(<span class="string">'/hello'</span>, {
+        templateUrl: <span class="string">'partials/hello.html'</span>,
+        controller: <span class="string">'IndexCtrl'</span>
     })
 
-    .when(&#39;/ohai&#39;, {
-        templateUrl: &#39;partials/ohai.html&#39;,
-        controller: &#39;IndexCtrl&#39;
+    .when(<span class="string">'/ohai'</span>, {
+        templateUrl: <span class="string">'partials/ohai.html'</span>,
+        controller: <span class="string">'IndexCtrl'</span>
     })
 
     .otherwise({
-        redirectTo: &#39;/&#39;
+        redirectTo: <span class="string">'/'</span>
     });
 })</code></pre>
 <p>Ok, cool. When you are ready to deploy do a <code>git add -A &amp;&amp; git commit -am &quot;deploy&quot; &amp;&amp; git push heroku master</code></p>

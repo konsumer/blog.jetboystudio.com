@@ -28,26 +28,26 @@ heroku config:pull --overwrite&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Ok, so go edit stuff. Whatever you do in &lt;code&gt;front/&lt;/code&gt; will get built into &lt;code&gt;generated/&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;Step 1 is to remove the junk from &lt;code&gt;front/assets/partials/index.html&lt;/code&gt;.  Make a nice welcome page. Add any angular stuff you need in &lt;code&gt;front/js/controllers/index.js&lt;/code&gt;, and main.js is the parent-scope, if you need to share something between controllers.&lt;/p&gt;
 &lt;p&gt;Let’s add some cool pages at &lt;code&gt;#/hello&lt;/code&gt; &amp;amp; &lt;code&gt;#/ohai&lt;/code&gt;. Add templates to &lt;code&gt;front/assets/partials/&lt;/code&gt;. Since they all basically do the same thing, we can just assign them to the same controller in &lt;code&gt;front/js/site.js&lt;/code&gt;. Make your route config look like this:&lt;/p&gt;
-&lt;pre&gt;&lt;code&gt;.config(function($routeProvider) {
+&lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;.config(&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;($routeProvider)&lt;/span&gt; {&lt;/span&gt;
     $routeProvider
 
-    .when(&amp;#39;/&amp;#39;, {
-        templateUrl: &amp;#39;partials/index.html&amp;#39;,
-        controller: &amp;#39;IndexCtrl&amp;#39;
+    .when(&lt;span class=&quot;string&quot;&gt;&#x27;/&#x27;&lt;/span&gt;, {
+        templateUrl: &lt;span class=&quot;string&quot;&gt;&#x27;partials/index.html&#x27;&lt;/span&gt;,
+        controller: &lt;span class=&quot;string&quot;&gt;&#x27;IndexCtrl&#x27;&lt;/span&gt;
     })
 
-    .when(&amp;#39;/hello&amp;#39;, {
-        templateUrl: &amp;#39;partials/hello.html&amp;#39;,
-        controller: &amp;#39;IndexCtrl&amp;#39;
+    .when(&lt;span class=&quot;string&quot;&gt;&#x27;/hello&#x27;&lt;/span&gt;, {
+        templateUrl: &lt;span class=&quot;string&quot;&gt;&#x27;partials/hello.html&#x27;&lt;/span&gt;,
+        controller: &lt;span class=&quot;string&quot;&gt;&#x27;IndexCtrl&#x27;&lt;/span&gt;
     })
 
-    .when(&amp;#39;/ohai&amp;#39;, {
-        templateUrl: &amp;#39;partials/ohai.html&amp;#39;,
-        controller: &amp;#39;IndexCtrl&amp;#39;
+    .when(&lt;span class=&quot;string&quot;&gt;&#x27;/ohai&#x27;&lt;/span&gt;, {
+        templateUrl: &lt;span class=&quot;string&quot;&gt;&#x27;partials/ohai.html&#x27;&lt;/span&gt;,
+        controller: &lt;span class=&quot;string&quot;&gt;&#x27;IndexCtrl&#x27;&lt;/span&gt;
     })
 
     .otherwise({
-        redirectTo: &amp;#39;/&amp;#39;
+        redirectTo: &lt;span class=&quot;string&quot;&gt;&#x27;/&#x27;&lt;/span&gt;
     });
 })&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Ok, cool. When you are ready to deploy do a &lt;code&gt;git add -A &amp;amp;&amp;amp; git commit -am &amp;quot;deploy&amp;quot; &amp;amp;&amp;amp; git push heroku master&lt;/code&gt;&lt;/p&gt;
