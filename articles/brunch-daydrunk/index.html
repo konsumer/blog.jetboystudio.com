@@ -75,6 +75,7 @@ heroku addons:add mailgun
 heroku addons:add mongolab
 heroku config:pull --overwrite</code></pre>
 <p>So, now we have email service, a database, and an app all ready to get started with. It’s all free &amp; awesome. Let’s fire up a local dev server that compiles our LESS &amp; concats our javascript, so we can flesh out our app.</p>
+<p>Since we have mailgun, we can go uncomment the dummy email stuff <a href="https://github.com/konsumer/brunch-daydrunk/blob/a5e3943c9d3d913247073165800c35040fc6bbee/server/routes/auth.js#L6-L7">here</a>.</p>
 <pre><code>npm start</code></pre>
 <p>Ok, so go edit stuff. Whatever you do in <code>front/</code> will get built into <code>generated/</code>.</p>
 <p>Step 1 is to remove the junk from <code>front/assets/partials/index.html</code>.  Make a nice welcome page. Add any angular stuff you need in <code>front/js/controllers/index.js</code>, and <code>main.js</code> is the parent-scope, if you need to share something between controllers.</p>
