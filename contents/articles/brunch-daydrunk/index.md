@@ -1,7 +1,7 @@
 ---
 template: article.html
 title:  "Daydrunk Hipsters Rejoice"
-date:   2014-05-14 19:57:00
+date:   2014-06-14 19:57:00
 tags: [brunch, quickie]
 ---
 
