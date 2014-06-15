@@ -75,7 +75,7 @@ heroku config:pull --overwrite</code></pre>
 <p>So, now we have email service, a database, and an app all ready to get started with. It’s all free &amp; awesome. Let’s fire up a local dev server that compiles our LESS &amp; concats our javascript, so we can flesh out our app.</p>
 <pre><code>npm start</code></pre>
 <p>Ok, so go edit stuff. Whatever you do in <code>front/</code> will get built into <code>generated/</code>.</p>
-<p>Step 1 is to remove the junk from <code>front/assets/partials/index.html</code>.  Make a nice welcome page. Add any angular stuff you need in <code>front/js/controllers/index.js</code>, and main.js is the parent-scope, if you need to share something between controllers.</p>
+<p>Step 1 is to remove the junk from <code>front/assets/partials/index.html</code>.  Make a nice welcome page. Add any angular stuff you need in <code>front/js/controllers/index.js</code>, and <code>main.js</code> is the parent-scope, if you need to share something between controllers.</p>
 <p>Let’s add some cool pages at <code>#/hello</code> &amp; <code>#/ohai</code>. Add templates to <code>front/assets/partials/</code>. Since they all basically do the same thing, we can just assign them to the same controller in <code>front/js/site.js</code>. Make your route config look like this:</p>
 <pre><code class="lang-javascript">.config(<span class="function"><span class="keyword">function</span><span class="params">($routeProvider)</span> {</span>
     $routeProvider
