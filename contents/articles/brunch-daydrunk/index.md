@@ -7,6 +7,7 @@ tags: [brunch, quickie]
 
 So, lately I have been super-into [brunch](http://brunch.io).
 
+---
 
 Less configuration, same amount of power as [grunt](http://gruntjs.com/) or [gulp](http://gulpjs.com/). It does efficient streaming builds like [gulp](http://gulpjs.com/), so it's faster than [grunt](http://gruntjs.com/), but so much simpler to use than the rest! It's been a while since I had enough time to write a blog post, so I thought I should maybe talk about my new infatuation.
 
