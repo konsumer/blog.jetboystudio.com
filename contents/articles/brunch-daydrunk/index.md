@@ -32,7 +32,7 @@ Step 1 is to remove the junk from `front/assets/partials/index.html`.  Make a ni
 
 Let's add some cool pages at `#/hello` & `#/ohai`. Add templates to `front/assets/partials/`. Since they all basically do the same thing, we can just assign them to the same controller in `front/js/site.js`. Make your route config look like this:
 
-```
+```javascript
 .config(function($routeProvider) {
     $routeProvider
 
