@@ -1,0 +1,124 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="I needed to make a list of my audiobooks for my girlfriend. Since I am an obsessed software engineer, here is how I did it. Let this be a lesson in software problem-solving.">
+    <meta name="author" content="David Konsumer">
+    <title>Make a List of Books with GooglDOcs - Drunken Coder Blog</title>
+    <link rel="alternate" href="http://blog.jetboystudio.com/feed.xml" type="application/rss+xml" title="you can do it well, even if you&#x27;re drunk">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.4/styles/tomorrow.min.css">
+    <meta property="og:site_name" content="Drunken Coder Blog"/>
+    <meta property="og:description" content="I needed to make a list of my audiobooks for my girlfriend. Since I am an obsessed software engineer, here is how I did it. Let this be a lesson in software problem-solving.">
+    <meta property="og:image" content="http://blog.jetboystudio.com/favicon.ico"/>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <div class="page-article" id="wrap">
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/"><img width="20" height="20" src="/favicon.ico"> Drunken Coder Blog</a>
+          </div>
+          <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav addthis_toolbox addthis_default_style addthis_32x32_style">
+              <li><a href="/">Home</a></li>
+              <li><a href="/archive.html">Archive</a></li>
+            </ul>
+            <ul class="social addthis_toolbox addthis_default_style addthis_32x32_style">
+              <li><a class="addthis_button_facebook"></a></li>
+              <li><a class="addthis_button_twitter"></a></li>
+              <li><a class="addthis_button_google_plusone_share"></a></li>
+              <li><a class="addthis_button_compact"></a><a class="addthis_counter addthis_bubble_style"></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=xa-52a4a9a2159a1d9a"></script>
+
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+      <div class="container">
+        <div class="page-header">
+          <h2><a href="/articles/googledocs-amazonbooks/">Make a List of Books with GooglDOcs</a></h2>
+          
+          <ul class="tags"> <li>quickie</li>  <li>googledocs</li>  <li>amazon</li>  <li>methodology</li> </ul>
+          <div class="date">Jun 18th, 2014</div>
+        </div>
+        <div><p>I needed to make a list of my audiobooks for my girlfriend. Since I am an obsessed software engineer, here is how I did it. Let this be a lesson in software problem-solving.</p>
+<hr>
+<h2 id="usecase">Usecase</h2>
+<p>I have a <a href="https://docs.google.com/spreadsheets/d/1t0D8d-8HBzKDGGcDlIi7BIPHLI0wqmECkT0ob2DJ4r4/edit?usp=sharing">bunch of audiobooks</a> and my girlfriend wanted to peruse them, and choose which ones to listen to in the car.  I wanted her to be able to see the books on Amazon, so she could decide which she wanted.</p>
+<p>This is a totally simple spreadsheet usecase, but I thought I might take a moment to go into how I broke the problem down and solved it.</p>
+<h2 id="breakdown">Breakdown</h2>
+<p>The problem is made of several pieces:</p>
+<h3 id="get-search-url">Get search URL</h3>
+<p>The search url is built from a search of “books” section, using <code>encodeURIComponent(AUTHOR + &quot; - &quot; + TITLE)</code>. I did a search of the first in the list on Amazon. I couldn’t find an <code>encodeURIComponent()</code> analog, so I made one like this (in Tools/Script Editor):</p>
+<pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">URI</span><span class="params">(text)</span>{</span>
+  <span class="keyword">return</span> encodeURIComponent(text);
+}</code></pre>
+<p>Next, I constructed a URL, like this:</p>
+<pre><code>=CONCATENATE(&quot;http://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Dstripbooks&amp;field-keywords=&quot;, URI(A2), &quot;+-+&quot;, URI(B2))</code></pre>
+<h3 id="create-a-link">Create a link</h3>
+<p>Now, we need to create  a link from formatted text of <code>AUTHOR + &quot; - &quot; + TITLE</code>:</p>
+<pre><code>=HYPERLINK(C2, CONCATENATE(A2, &quot; - &quot;, B2))</code></pre>
+<p>After this, I copied <code>D2</code> and pasted into <code>D3:D25</code>, I copied <code>D2:D25</code>, and that gave me a nice table to paste into an email.</p>
+</div>
+        
+      </div>
+      
+      <div class="container" id="disqus_thread"></div>
+      <script type="text/javascript">
+          var disqus_shortname = 'jetboystudio';
+          var ga_code = 'UA-2392079-5';
+          (function() {
+              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+              dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-2392079-5', 'jetboystudio.com');
+        ga('send', 'pageview');
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+      <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+    </div> <!-- /#wrap -->
+
+    <div id="footer">
+      <div class="container">
+        <p class="text-muted credit">© 2014 David Konsumer</p>
+      </div>
+    </div>
+
+    <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.4/highlight.min.js"></script>
+
+  </body>
+</html>
+
+
+
