@@ -30,10 +30,10 @@
 &lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;URI&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(text)&lt;/span&gt;{&lt;/span&gt;
   &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; encodeURIComponent(text);
 }&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Next, I constructed a URL, like this:&lt;/p&gt;
+&lt;p&gt;Next, I constructed a URL, like this in &lt;code&gt;C2&lt;/code&gt;:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;=CONCATENATE(&amp;quot;http://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Dstripbooks&amp;amp;field-keywords=&amp;quot;, URI(A2), &amp;quot;+-+&amp;quot;, URI(B2))&lt;/code&gt;&lt;/pre&gt;
 &lt;h3 id=&quot;create-a-link&quot;&gt;Create a link&lt;/h3&gt;
-&lt;p&gt;Now, we need to create  a link from formatted text of &lt;code&gt;AUTHOR + &amp;quot; - &amp;quot; + TITLE&lt;/code&gt;:&lt;/p&gt;
+&lt;p&gt;Now, we need to create  a link from formatted text of &lt;code&gt;AUTHOR + &amp;quot; - &amp;quot; + TITLE&lt;/code&gt; in &lt;code&gt;D2&lt;/code&gt;:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;=HYPERLINK(C2, CONCATENATE(A2, &amp;quot; - &amp;quot;, B2))&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;After this, I copied &lt;code&gt;D2&lt;/code&gt; and pasted into &lt;code&gt;D3:D25&lt;/code&gt;, I copied &lt;code&gt;D2:D25&lt;/code&gt;, and that gave me a nice table to paste into an email.&lt;/p&gt;
 </description>

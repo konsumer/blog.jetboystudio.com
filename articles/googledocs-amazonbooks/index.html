@@ -79,10 +79,10 @@
 <pre><code class="lang-javascript"><span class="function"><span class="keyword">function</span> <span class="title">URI</span><span class="params">(text)</span>{</span>
   <span class="keyword">return</span> encodeURIComponent(text);
 }</code></pre>
-<p>Next, I constructed a URL, like this:</p>
+<p>Next, I constructed a URL, like this in <code>C2</code>:</p>
 <pre><code>=CONCATENATE(&quot;http://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Dstripbooks&amp;field-keywords=&quot;, URI(A2), &quot;+-+&quot;, URI(B2))</code></pre>
 <h3 id="create-a-link">Create a link</h3>
-<p>Now, we need to create  a link from formatted text of <code>AUTHOR + &quot; - &quot; + TITLE</code>:</p>
+<p>Now, we need to create  a link from formatted text of <code>AUTHOR + &quot; - &quot; + TITLE</code> in <code>D2</code>:</p>
 <pre><code>=HYPERLINK(C2, CONCATENATE(A2, &quot; - &quot;, B2))</code></pre>
 <p>After this, I copied <code>D2</code> and pasted into <code>D3:D25</code>, I copied <code>D2:D25</code>, and that gave me a nice table to paste into an email.</p>
 </div>
