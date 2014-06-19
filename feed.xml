@@ -9,7 +9,7 @@
     <language>en</language>
 
 	    <item>
-	    	<title>Make a List of Books with GooglDOcs</title>
+	    	<title>Make a List of Books with GooglDocs</title>
 	    	<link>http://blog.jetboystudio.com/articles/googledocs-amazonbooks/</link>
 	    	<guid isPermaLink="true">http://blog.jetboystudio.com/articles/googledocs-amazonbooks/</guid>
 	    	<pubDate>Wed, 18 Jun 2014 10:13:00 -0700</pubDate>
@@ -17,10 +17,14 @@
 	    	<description>&lt;p&gt;I needed to make a list of my audiobooks for my girlfriend. Since I am an obsessed software engineer, here is how I did it. Let this be a lesson in software problem-solving.&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2 id=&quot;usecase&quot;&gt;Usecase&lt;/h2&gt;
-&lt;p&gt;I have a &lt;a href=&quot;https://docs.google.com/spreadsheets/d/1t0D8d-8HBzKDGGcDlIi7BIPHLI0wqmECkT0ob2DJ4r4/edit?usp=sharing&quot;&gt;bunch of audiobooks&lt;/a&gt; and my girlfriend wanted to peruse them, and choose which ones to listen to in the car.  I wanted her to be able to see the books on Amazon, so she could decide which she wanted.&lt;/p&gt;
+&lt;p&gt;I have a &lt;a href=&quot;https://docs.google.com/spreadsheets/d/1t0D8d-8HBzKDGGcDlIi7BIPHLI0wqmECkT0ob2DJ4r4&quot;&gt;bunch of audiobooks&lt;/a&gt; and my girlfriend wanted to peruse them, and choose which ones to listen to in the car.  I wanted her to be able to see the books on Amazon, so she could decide which she wanted.&lt;/p&gt;
 &lt;p&gt;This is a totally simple spreadsheet usecase, but I thought I might take a moment to go into how I broke the problem down and solved it.&lt;/p&gt;
 &lt;h2 id=&quot;breakdown&quot;&gt;Breakdown&lt;/h2&gt;
 &lt;p&gt;The problem is made of several pieces:&lt;/p&gt;
+&lt;h3 id=&quot;get-list-of-audiobooks&quot;&gt;Get list of audiobooks&lt;/h3&gt;
+&lt;p&gt;I have my audiobooks in a directory, all named like this: &lt;code&gt;AUTHOR -  TITLE&lt;/code&gt;. To get a nice list for GoogleDocs, I did this on command-line:&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;ls |sed s/\ -\ /,/g &amp;gt; ~/Desktop/audiobooks.csv&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;I import the resulting CSV.&lt;/p&gt;
 &lt;h3 id=&quot;get-search-url&quot;&gt;Get search URL&lt;/h3&gt;
 &lt;p&gt;The search url is built from a search of “books” section, using &lt;code&gt;encodeURIComponent(AUTHOR + &amp;quot; - &amp;quot; + TITLE)&lt;/code&gt;. I did a search of the first in the list on Amazon. I couldn’t find an &lt;code&gt;encodeURIComponent()&lt;/code&gt; analog, so I made one like this (in Tools/Script Editor):&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&quot;lang-javascript&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;URI&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(text)&lt;/span&gt;{&lt;/span&gt;
