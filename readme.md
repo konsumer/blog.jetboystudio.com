@@ -1,6 +1,7 @@
-# Drunken Coder Blog
+# blog
 
-I keep [my blog](http://blog.jetboystudio.com) in github, using wintersmith.
+I keep [my blog](http://blog.jetboystudio.com) here.
 
-* Run locally with `npm start`.
+* Run a local webserver with `npm start`
+* Build with `npm run build`
 * Deploy with `npm run deploy`
