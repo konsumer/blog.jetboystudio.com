@@ -1,0 +1,146 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Here is how I setup my staging server to show clients progress.It’s been a really very long time since I wrote something. Sorry about that. Been super-busy drinking &amp; coding!">
+    <meta name="author" content="David Konsumer">
+    <title>Staging Server with Dokku - Drunken Coder Blog</title>
+    <link rel="alternate" href="http://blog.jetboystudio.com/feed.xml" type="application/rss+xml" title="you can do it well, even if you&#x27;re drunk">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.4/styles/tomorrow.min.css">
+    <meta property="og:site_name" content="Drunken Coder Blog"/>
+    <meta property="og:description" content="Here is how I setup my staging server to show clients progress.It’s been a really very long time since I wrote something. Sorry about that. Been super-busy drinking &amp; coding!">
+    <meta property="og:image" content="http://blog.jetboystudio.com/favicon.ico"/>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <div class="page-article" id="wrap">
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/"><img width="20" height="20" src="/favicon.ico"> Drunken Coder Blog</a>
+          </div>
+          <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav addthis_toolbox addthis_default_style addthis_32x32_style">
+              <li><a href="/">Home</a></li>
+              <li><a href="/archive.html">Archive</a></li>
+            </ul>
+            <ul class="social addthis_toolbox addthis_default_style addthis_32x32_style">
+              <li><a class="addthis_button_facebook"></a></li>
+              <li><a class="addthis_button_twitter"></a></li>
+              <li><a class="addthis_button_google_plusone_share"></a></li>
+              <li><a class="addthis_button_compact"></a><a class="addthis_counter addthis_bubble_style"></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=xa-52a4a9a2159a1d9a"></script>
+
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+      <div class="container">
+        <div class="page-header">
+          <h2><a href="/articles/dokku/">Staging Server with Dokku</a></h2>
+          
+          <ul class="tags"> <li>React</li>  <li>digital ocean</li>  <li>heroku</li>  <li>node</li>  <li>quickie</li> </ul>
+          <div class="date">Jun 30th, 2016</div>
+        </div>
+        <div><p>Here is how I setup my staging server to show clients progress.</p>
+<p>It’s been a really very long time since I wrote something. Sorry about that. Been super-busy drinking &amp; coding!</p>
+<h2 id="what-are-you-tryng-to-do-">what are you tryng to do?</h2>
+<p>I manage systems like this:</p>
+<ul>
+<li>local development, tracked with git, current on master: run <code>npm start</code> for dev server, <code>npm test</code> to run unit-tests.</li>
+<li>git push to staging (either master or a branch)</li>
+<li>git push to production (either master or a branch)</li>
+</ul>
+<p>I really like the ease of deploying to <a href="https://www.heroku.com/">heroku</a>, but thought I could run my own cheaper. I also want to be able to deploy <a href="https://www.docker.com/">docker</a> apps.</p>
+<h2 id="dokku">dokku</h2>
+<p><a href="https://github.com/dokku/dokku">dokku</a> lets you do all these things. I set mine up on <a href="https://www.digitalocean.com/?refcode=333f9dfd59df&amp;utm_campaign=Referral_Invite&amp;utm_medium=Referral_Program">Digital Ocean</a> on the cheap (about $20 a month.) I use this to host all my staging sites.</p>
+<h3 id="setting-up-the-server">setting up the server</h3>
+<ul>
+<li>Go to <a href="https://www.digitalocean.com/?refcode=333f9dfd59df&amp;utm_campaign=Referral_Invite&amp;utm_medium=Referral_Program">Digital Ocean</a> to setup an account (that link gives you $10 credit.)</li>
+<li>Click “Create Droplet” and “One-click Apps” choose the $20/month size &amp; “Dokku 0.6.2 on 14.04”.</li>
+<li>Set your SSH key and hostname, click “Create”</li>
+<li>Once it spins up, add all your user’s SSH public-keys with this command: <code>cat /path/to/public_key | ssh root@yourdokkuinstance &quot;sudo sshcommand acl-add dokku [description]&quot;</code></li>
+</ul>
+<h3 id="setup-dns">setup DNS</h3>
+<p>The IP of my Digial Ocean instance is <code>192.241.239.28</code>. I use enom for DNS. I setup a host record like this:</p>
+<pre><code>*  - A  -  192.241.239.28
+</code></pre><p>This means “send everyone who asks for a domain that hasn’t been accounted for to my digital oceon box.”</p>
+<p>I have the bare domain and www setup, so now I can make <code>http://whatever.jetboystudio.com</code></p>
+<h3 id="setup-a-project">setup a project</h3>
+<p>We are going to make a simple lil mostly-static site that gives instructions, and let’s users quickly send an email to me to add their key (with the above command.) I could make a fancy admin, but I just want it to be fast and simple. You can see what I did at <a href="http://dev.jetboystudio.com/">dev.jetboystudio.com</a>. For the sake of simplicity, I will just use my domain below, but you will need to change it to yours.</p>
+<ol>
+<li>Get site with <code>git clone https://github.com/konsumer/dev.git &amp;&amp; cd dev &amp;&amp; npm i</code></li>
+<li>Run local with <code>npm start</code></li>
+<li>Put in your own name, email, and configure stuff. Make it useful to devs.</li>
+<li>Add your staging server with <code>git remote add dev dokku@dev.jetboystudio.com:dev</code></li>
+<li>Push with <code>git push dev master</code></li>
+</ol>
+<p>Now the default is the info-site for deploying to dev. You can add a remote like <code>git remote add staging dokku@dev.jetboystudio.com:WHATEVER</code> to any project and it will be at <code>http://WHATEVER.jetboystudio.com</code>, and you can push with <code>git push staging master</code>.</p>
+<h4 id="notes">notes</h4>
+<ul>
+<li>I am using a node Dockerfile (ficusio/node-alpine:onbuild) with <a href="https://github.com/ForbesLindesay/browserify-middleware">browserify-middleware</a>, instead of building on deploy once with static service. It builds and caches on first access, so I don’t really mind and it seemed simpler than getting builds working and setting up nginx static forwarding, but that would be better (more efficient, faster, etc.)</li>
+<li>I used <a href="https://auth0.com/">auth0</a> to provide auth for github (so people can get a list of their public keys really quickly)</li>
+<li><a href="https://github.com/konsumer/dev">Here</a> is the code.</li>
+</ul>
+</div>
+        
+      </div>
+      
+      <div class="container" id="disqus_thread"></div>
+      <script type="text/javascript">
+          var disqus_shortname = 'jetboystudio';
+          var ga_code = 'UA-2392079-5';
+          (function() {
+              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+              dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-2392079-5', 'jetboystudio.com');
+        ga('send', 'pageview');
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+      <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+    </div> <!-- /#wrap -->
+
+    <div id="footer">
+      <div class="container">
+        <p class="text-muted credit">© 2016 David Konsumer</p>
+      </div>
+    </div>
+
+    <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.4/highlight.min.js"></script>
+
+  </body>
+</html>
+
+
+
