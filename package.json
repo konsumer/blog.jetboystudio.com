@@ -3,16 +3,14 @@
     "moment": "2.3.x",
     "underscore": "1.4.x",
     "typogr": "0.5.x",
-    "wintersmith-handlebars": "0.0.3"
+    "wintersmith-handlebars": "0.0.3",
+    "gh-pages": "^0.11.0",
+    "wintersmith": "^2.3.2"
   },
   "private": "true",
   "scripts": {
     "start": "wintersmith preview",
     "build": "wintersmith build",
     "deploy": "npm run build && gh-pages -d build"
-  },
-  "devDependencies": {
-    "gh-pages": "^0.11.0",
-    "wintersmith": "^2.3.2"
   }
 }
