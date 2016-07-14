@@ -9,11 +9,11 @@ Here is how I setup my staging server to show clients progress.
 
 It's been a really very long time since I wrote something. Sorry about that. Been super-busy drinking & coding!
 
-## what are you tryng to do?
+## what are you trying to do?
 
 I manage systems like this:
 
-*  local development, tracked with git, current on master: run `npm start` for dev server, `npm test` to run unit-tests.
+*  local development, tracked with git, current on master: run `npm start` for dev server
 *  git push to staging (either master or a branch)
 *  git push to production (either master or a branch)
 
@@ -56,6 +56,6 @@ Now the default is the info-site for deploying to dev. You can add a remote like
 
 #### notes
 
-*  I am using a node Dockerfile (ficusio/node-alpine:onbuild) with [browserify-middleware](https://github.com/ForbesLindesay/browserify-middleware), instead of building on deploy once with static service. It builds and caches on first access, so I don't really mind and it seemed simpler than getting builds working and setting up nginx static forwarding, but that would be better (more efficient, faster, etc.)
+*  I am using a node-based static server. A proper nginx static server would probably be better, but ths was easier to setup
 *  I used [auth0](https://auth0.com/) to provide auth for github (so people can get a list of their public keys really quickly)
 *  [Here](https://github.com/konsumer/dev) is the code.
