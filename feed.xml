@@ -44,8 +44,8 @@
 &lt;li&gt;Get site with &lt;code&gt;git clone https://github.com/konsumer/dev.git &amp;amp;&amp;amp; cd dev &amp;amp;&amp;amp; npm i&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;Run local with &lt;code&gt;npm start&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;Put in your own name, email, and configure stuff. Make it useful to devs.&lt;/li&gt;
-&lt;li&gt;Add your staging server with &lt;code&gt;git remote add dev dokku@dev.jetboystudio.com:dev&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Push with &lt;code&gt;git push dev master&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Add your staging server with &lt;code&gt;git remote add dokku dokku@dev.jetboystudio.com:dev&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Push with &lt;code&gt;git push dokku master&lt;/code&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;Now the default is the info-site for deploying to dev. You can add a remote like &lt;code&gt;git remote add staging dokku@dev.jetboystudio.com:WHATEVER&lt;/code&gt; to any project and it will be at &lt;code&gt;http://WHATEVER.jetboystudio.com&lt;/code&gt;, and you can push with &lt;code&gt;git push staging master&lt;/code&gt;.&lt;/p&gt;
 &lt;h4 id=&quot;notes&quot;&gt;notes&lt;/h4&gt;
