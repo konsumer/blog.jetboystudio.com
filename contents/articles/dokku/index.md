@@ -49,8 +49,8 @@ We are going to make a simple lil mostly-static site that gives instructions, an
 1. Get site with `git clone https://github.com/konsumer/dev.git && cd dev && npm i`
 2. Run local with `npm start`
 3. Put in your own name, email, and configure stuff. Make it useful to devs.
-4. Add your staging server with `git remote add dev dokku@dev.jetboystudio.com:dev`
-5. Push with `git push dev master`
+4. Add your staging server with `git remote add dokku dokku@dev.jetboystudio.com:dev`
+5. Push with `git push dokku master`
 
 Now the default is the info-site for deploying to dev. You can add a remote like `git remote add staging dokku@dev.jetboystudio.com:WHATEVER` to any project and it will be at `http://WHATEVER.jetboystudio.com`, and you can push with `git push staging master`.
 
