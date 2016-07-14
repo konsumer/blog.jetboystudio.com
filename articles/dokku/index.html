@@ -65,10 +65,10 @@
         </div>
         <div><p>Here is how I setup my staging server to show clients progress.</p>
 <p>It’s been a really very long time since I wrote something. Sorry about that. Been super-busy drinking &amp; coding!</p>
-<h2 id="what-are-you-tryng-to-do-">what are you tryng to do?</h2>
+<h2 id="what-are-you-trying-to-do-">what are you trying to do?</h2>
 <p>I manage systems like this:</p>
 <ul>
-<li>local development, tracked with git, current on master: run <code>npm start</code> for dev server, <code>npm test</code> to run unit-tests.</li>
+<li>local development, tracked with git, current on master: run <code>npm start</code> for dev server</li>
 <li>git push to staging (either master or a branch)</li>
 <li>git push to production (either master or a branch)</li>
 </ul>
@@ -99,7 +99,7 @@
 <p>Now the default is the info-site for deploying to dev. You can add a remote like <code>git remote add staging dokku@dev.jetboystudio.com:WHATEVER</code> to any project and it will be at <code>http://WHATEVER.jetboystudio.com</code>, and you can push with <code>git push staging master</code>.</p>
 <h4 id="notes">notes</h4>
 <ul>
-<li>I am using a node Dockerfile (ficusio/node-alpine:onbuild) with <a href="https://github.com/ForbesLindesay/browserify-middleware">browserify-middleware</a>, instead of building on deploy once with static service. It builds and caches on first access, so I don’t really mind and it seemed simpler than getting builds working and setting up nginx static forwarding, but that would be better (more efficient, faster, etc.)</li>
+<li>I am using a node-based static server. A proper nginx static server would probably be better, but ths was easier to setup</li>
 <li>I used <a href="https://auth0.com/">auth0</a> to provide auth for github (so people can get a list of their public keys really quickly)</li>
 <li><a href="https://github.com/konsumer/dev">Here</a> is the code.</li>
 </ul>

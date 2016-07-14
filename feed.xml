@@ -16,10 +16,10 @@
 	    	<author></author>
 	    	<description>&lt;p&gt;Here is how I setup my staging server to show clients progress.&lt;/p&gt;
 &lt;p&gt;It’s been a really very long time since I wrote something. Sorry about that. Been super-busy drinking &amp;amp; coding!&lt;/p&gt;
-&lt;h2 id=&quot;what-are-you-tryng-to-do-&quot;&gt;what are you tryng to do?&lt;/h2&gt;
+&lt;h2 id=&quot;what-are-you-trying-to-do-&quot;&gt;what are you trying to do?&lt;/h2&gt;
 &lt;p&gt;I manage systems like this:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;local development, tracked with git, current on master: run &lt;code&gt;npm start&lt;/code&gt; for dev server, &lt;code&gt;npm test&lt;/code&gt; to run unit-tests.&lt;/li&gt;
+&lt;li&gt;local development, tracked with git, current on master: run &lt;code&gt;npm start&lt;/code&gt; for dev server&lt;/li&gt;
 &lt;li&gt;git push to staging (either master or a branch)&lt;/li&gt;
 &lt;li&gt;git push to production (either master or a branch)&lt;/li&gt;
 &lt;/ul&gt;
@@ -50,7 +50,7 @@
 &lt;p&gt;Now the default is the info-site for deploying to dev. You can add a remote like &lt;code&gt;git remote add staging dokku@dev.jetboystudio.com:WHATEVER&lt;/code&gt; to any project and it will be at &lt;code&gt;http://WHATEVER.jetboystudio.com&lt;/code&gt;, and you can push with &lt;code&gt;git push staging master&lt;/code&gt;.&lt;/p&gt;
 &lt;h4 id=&quot;notes&quot;&gt;notes&lt;/h4&gt;
 &lt;ul&gt;
-&lt;li&gt;I am using a node Dockerfile (ficusio/node-alpine:onbuild) with &lt;a href=&quot;https://github.com/ForbesLindesay/browserify-middleware&quot;&gt;browserify-middleware&lt;/a&gt;, instead of building on deploy once with static service. It builds and caches on first access, so I don’t really mind and it seemed simpler than getting builds working and setting up nginx static forwarding, but that would be better (more efficient, faster, etc.)&lt;/li&gt;
+&lt;li&gt;I am using a node-based static server. A proper nginx static server would probably be better, but ths was easier to setup&lt;/li&gt;
 &lt;li&gt;I used &lt;a href=&quot;https://auth0.com/&quot;&gt;auth0&lt;/a&gt; to provide auth for github (so people can get a list of their public keys really quickly)&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;https://github.com/konsumer/dev&quot;&gt;Here&lt;/a&gt; is the code.&lt;/li&gt;
 &lt;/ul&gt;
