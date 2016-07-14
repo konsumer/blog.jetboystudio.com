@@ -10,7 +10,7 @@
   "private": "true",
   "scripts": {
     "start": "wintersmith preview",
-    "build": "wintersmith build",
+    "build": "wintersmith --ignore=**/.* build",
     "deploy": "npm run build && gh-pages -d build"
   }
 }
