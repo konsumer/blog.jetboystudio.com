@@ -2,3 +2,7 @@ node_modules
 .DS_Store
 build
 *.log
+archive.html
+favicon.ico
+feed.xml
+index.html
