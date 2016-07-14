@@ -1,0 +1,144 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Earlier I talked about my awesome media/storage server named “stooge”. I got 2 new 2TB SATA drives and wanted to merge them in a cool way without data-loss &amp; reverse-usability and expense issues associated with other solutions like RAID &amp; xfs.">
+    <meta name="author" content="David Konsumer">
+    <title>Merging Multiple Partitions - Drunken Coder Blog</title>
+    <link rel="alternate" href="http://blog.jetboystudio.com/feed.xml" type="application/rss+xml" title="you can do it well, even if you&#x27;re drunk">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.4/styles/tomorrow.min.css">
+    <meta property="og:site_name" content="Drunken Coder Blog"/>
+    <meta property="og:description" content="Earlier I talked about my awesome media/storage server named “stooge”. I got 2 new 2TB SATA drives and wanted to merge them in a cool way without data-loss &amp; reverse-usability and expense issues associated with other solutions like RAID &amp; xfs.">
+    <meta property="og:image" content="http://blog.jetboystudio.com/favicon.ico"/>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <div class="page-article" id="wrap">
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/"><img width="20" height="20" src="/favicon.ico"> Drunken Coder Blog</a>
+          </div>
+          <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav addthis_toolbox addthis_default_style addthis_32x32_style">
+              <li><a href="/">Home</a></li>
+              <li><a href="/archive.html">Archive</a></li>
+            </ul>
+            <ul class="social addthis_toolbox addthis_default_style addthis_32x32_style">
+              <li><a class="addthis_button_facebook"></a></li>
+              <li><a class="addthis_button_twitter"></a></li>
+              <li><a class="addthis_button_google_plusone_share"></a></li>
+              <li><a class="addthis_button_compact"></a><a class="addthis_counter addthis_bubble_style"></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=xa-52a4a9a2159a1d9a"></script>
+
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+      <div class="container">
+        <div class="page-header">
+          <h2><a href="/articles/mhddfs/">Merging Multiple Partitions</a></h2>
+          
+          <ul class="tags"> <li>Ubuntu</li>  <li>Linux</li>  <li>NAS</li>  <li>quickie</li> </ul>
+          <div class="date">Apr 1st, 2013</div>
+        </div>
+        <div><p><a href="http://blog.jetboystudio.com/2013/03/19/nas.html">Earlier</a> I talked about my awesome media/storage server named “stooge”. I got 2 new 2TB SATA drives and wanted to merge them in a cool way without data-loss &amp; reverse-usability and expense issues associated with other solutions like RAID &amp; xfs.</p>
+<hr>
+<p>My focus is storage capacity, not primarily data integrity, but I want it to be fairly secure, too. I want to be able to recover things on a per-drive basis, if I get any problems, so striping the 2 drives together is not an option. Basically, here is what I want: I want partitions that can stand-alone on their own, meaning that if I take a drive out of stooge, I want the filesystem to be readable and portable. I want one big mount that has media and incoming files (my largest file-collections,) split between the 2. </p>
+<h2 id="joining-drives">Joining Drives</h2>
+<p> I started by looking into <a href="http://en.wikipedia.org/wiki/UnionFS">unionfs</a>, which lets you mount seperate partitions as if they are one.  The problem is that it’s not balanced, so whichever partion is priority1 will just fill up. I thought maybe I could do some hackery around ctime at boot to move older files to priority2 drive, and priority1 drive does all the write operations in running-mode, but this seemed awfully hacky.  I then learned about <a href="http://romanrm.ru/en/mhddfs">mhddfs</a> which allows something very similar to <a href="http://en.wikipedia.org/wiki/UnionFS">unionfs</a> but balances on a file-structure level between multiple partitions. This is what I want.</p>
+<h2 id="volume-mounts">Volume mounts</h2>
+<p>My 2 volumes are ext4, so they have some journaling recovery options for data-security. Here are their <code>/etc/fstab</code> entries. The options <code>nodev,noexec,nobootwait</code> make them be storage-only (<code>nodev,noexec</code>) I set nobootwait, so it will boot unattended, and I can ssh, even if the drives are funky. Your partitions are probably different. I used UUIDs <code>sudo blkid</code> so it won’t mismount the wrong partition, but you can also use the dev name.</p>
+<pre><code># /mnt/store1 on /dev/sda6
+UUID=ac0b74b9-36e4-4897-9e44-53e397310681 /mnt/store1     ext4    nodev,noexec,nobootwait 0       2
+# /mnt/store2 on /dev/sdb1
+UUID=43db0993-98bd-4cfe-8243-9ab4b12271fd /mnt/store2     ext4    nodev,noexec,nobootwait 0       2
+</code></pre><p>If you haven’t made the directories yet, let’s do that &amp; ensure the directory permissions are cool:</p>
+<pre><code>sudo mkdir /mnt/store1 /mnt/store2 /share
+sudo chown nobody:nogroup /mnt/store1 /mnt/store2 /share
+sudo chmod 6775 /mnt/store1 /mnt/store2 /share
+</code></pre><p>Empty out these dirs by moving files, if they have stuff before you mount. Now, mount them (or you can just reboot)</p>
+<pre><code>sudo mount /mnt/store1
+sudo mount /mnt/store2
+</code></pre><p>I double-checkled permissions of contained files/dirs, to ensure no probs, later:</p>
+<pre><code>sudo chown -R nobody:nogroup /mnt/store?
+sudo chmod -R 775 /mnt/store?
+sudo find /mnt/store? -type f -exec chmod 6664 {} +
+sudo find /mnt/store? -type d -exec chmod 6775 {} +
+</code></pre><h2 id="mhddfs">mhddfs</h2>
+<p>First, let’s install the needed tools:</p>
+<pre><code>sudo apt-get install mhddfs
+</code></pre><p>Now, we can test it out (your partitions are probably different):</p>
+<pre><code>sudo mhddfs /mnt/store1,/mnt/store2 /share -o allow_other,uid=65534,gid=65534
+</code></pre><p>You should get something that looks like this:</p>
+<pre><code>mhddfs: directory &#39;/mnt/store1&#39; added to list
+mhddfs: directory &#39;/mnt/store2&#39; added to list
+mhddfs: mount to: /share
+mhddfs: move size limit 4294967296 bytes
+</code></pre><p>Sweet! 4TBs of semi-reliable data!</p>
+<p>I used <code>uid=65534,gid=65534</code> to set mount perms to nobody:nogroup.</p>
+<p>Ok, let’s make it work on boot. Add this to fstab:</p>
+<pre><code># unioned /share
+mhddfs#/mnt/store1,/mnt/store2 /share fuse defaults,allow_other,uid=65534,gid=65534,mode=0775,nobootwait 0 0
+</code></pre></div>
+        
+      </div>
+      
+      <div class="container" id="disqus_thread"></div>
+      <script type="text/javascript">
+          var disqus_shortname = 'jetboystudio';
+          var ga_code = 'UA-2392079-5';
+          (function() {
+              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+              dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-2392079-5', 'jetboystudio.com');
+        ga('send', 'pageview');
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+      <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+    </div> <!-- /#wrap -->
+
+    <div id="footer">
+      <div class="container">
+        <p class="text-muted credit">© 2016 David Konsumer</p>
+      </div>
+    </div>
+
+    <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.4/highlight.min.js"></script>
+
+  </body>
+</html>
+
+
+

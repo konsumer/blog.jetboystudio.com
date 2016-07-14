@@ -1,0 +1,655 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="I wanted a media-server that would stream to any devices I have on my local network, and allow my housemates &amp; I to download torrents and share files on a central shared machine.">
+    <meta name="author" content="David Konsumer">
+    <title>Creating a media-enabled Ubuntu NAS - Drunken Coder Blog</title>
+    <link rel="alternate" href="http://blog.jetboystudio.com/feed.xml" type="application/rss+xml" title="you can do it well, even if you&#x27;re drunk">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.4/styles/tomorrow.min.css">
+    <meta property="og:site_name" content="Drunken Coder Blog"/>
+    <meta property="og:description" content="I wanted a media-server that would stream to any devices I have on my local network, and allow my housemates &amp; I to download torrents and share files on a central shared machine.">
+    <meta property="og:image" content="http://blog.jetboystudio.com/favicon.ico"/>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <div class="page-article" id="wrap">
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/"><img width="20" height="20" src="/favicon.ico"> Drunken Coder Blog</a>
+          </div>
+          <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav addthis_toolbox addthis_default_style addthis_32x32_style">
+              <li><a href="/">Home</a></li>
+              <li><a href="/archive.html">Archive</a></li>
+            </ul>
+            <ul class="social addthis_toolbox addthis_default_style addthis_32x32_style">
+              <li><a class="addthis_button_facebook"></a></li>
+              <li><a class="addthis_button_twitter"></a></li>
+              <li><a class="addthis_button_google_plusone_share"></a></li>
+              <li><a class="addthis_button_compact"></a><a class="addthis_counter addthis_bubble_style"></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=xa-52a4a9a2159a1d9a"></script>
+
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+      <div class="container">
+        <div class="page-header">
+          <h2><a href="/articles/nas/">Creating a media-enabled Ubuntu NAS</a></h2>
+          
+          <ul class="tags"> <li>Ubuntu</li>  <li>Linux</li>  <li>Media</li>  <li>SAMBA</li>  <li>NAS</li> </ul>
+          <div class="date">Mar 19th, 2013</div>
+        </div>
+        <div><p>I wanted a media-server that would stream to any devices I have on my local network, and allow my housemates &amp; I to download torrents and share files on a central shared machine.</p>
+<hr>
+<p>I have a Wii that is jailbroken, and running WiiMC.  These instructions will also enable media-playing for XBOX360 &amp; a PS3.  I also don’t really like Webmin, but wanted web-based administration to be simple, with advanced stuff requiring SSH. This tutorial can also give you an overview of quick debian-based server administration.</p>
+<p><img src="http://tamsonweston.com/wordpress/wp-content/uploads/stooge.jpg" alt="Curly"></p>
+<p>NAS-box’s name is “Stooge”. There are many like him, but his name is “Stooge”.</p>
+<p>He’s gonna be head-and-shoulders better than any ready-made device, fer reals. I made mine from a ultra-low-power microITX box I had laying around. Let’s go!</p>
+<h2 id="get-stooge-talkin-on-your-network">Get stooge talkin’ on your network</h2>
+<h3 id="basic-software">Basic software</h3>
+<p>First, I installed Ubuntu Server 12.10. Do this the normal way. Make sure you are hooked up to your network, and all drives are attached, and mount your massive storage partition on <code>/share</code>. When you get to the “Software selection” (tasksel) menu, choose “OpenSSH server” and “Samba file server”. If you want to use LAMP for a “welcome” page &amp; mysql for mediatomb, choose that, too.</p>
+<h3 id="root-password">Root password</h3>
+<p>Login as your primary user, and give yourself a root password:</p>
+<pre><code>sudo passwd root
+</code></pre><h3 id="share-directory">Share Directory</h3>
+<p>Make a directory where you keep all your goodies.  I mounted a big drive in <code>/share</code>. I also wanted permissions to not really be a problem. Since samba guest is nobody.nogroup, and I want all to be able to mess with stuff, I did it like this:</p>
+<pre><code>sudo mkdir -p /share/incoming/incomplete
+sudo chown -R nobody.nogroup /share
+sudo find /share -type f -exec chmod 6664 {} +
+sudo find /share -type d -exec chmod 6775 {} +
+</code></pre><p>Now, everything in that dir will be totally read/writable to peeps with the right permissions, and have suid-bit set, so nobody.nogroup ends up owning it, and all files saved there have correct permissions.</p>
+<h3 id="network">Network</h3>
+<p>We need a reliable address to get to our server.  You can use a DNS, static DHCP lease (based on MAC) or a static IP on the NAS.</p>
+<p>I wanted my router to be aware of my domain-name (so people can type <a href="http://stooge.local">http://stooge.local</a> into browser to see welcome page.) I also wanted to be able to move the address around from my router, and have it work for all &amp; also be default on new linux setup on this box. I used DHCP, and setup a static lease on my router (which has a mini DNS server.) Another option would be to edit <code>/etc/network/interfaces</code> on the NAS, and add a static IP, like this:</p>
+<pre><code>iface eth0 inet static
+address 192.168.1.5
+netmask 255.255.255.0
+gateway 192.168.1.1 
+</code></pre><p>You already did this during the setup phase, if you set a static IP.</p>
+<p>Reboot, and you should be able to SSH to your new box from the comfort of your regular computer.</p>
+<h2 id="install-stuff">Install stuff</h2>
+<p>Before we start, lets just install everything we are going to need. I did this by SSHing to my NAS:</p>
+<pre><code>ssh stooge.local
+</code></pre><p>Now, I installed all the tools I would use to configure it.</p>
+<pre><code>sudo apt-get install swat mediatomb transmission-remote-cli transmission-daemon
+</code></pre><h2 id="transmission-torrents-">Transmission (torrents)</h2>
+<p>I wanted everything to go into <code>/share/incoming/incomplete</code>, and get moved to <code>/share/incoming</code>, so people could tell that things aren’t done.</p>
+<p>Transmission will overwrite configuration, so stop it, first: <code>sudo stop transmission-daemon</code></p>
+<p>Make your config (<code>sudo vim /etc/transmission-daemon/settings.json</code>) looks like this:</p>
+<pre><code>{
+    &quot;rpc-username&quot;: &quot;YOUR_USER&quot;,
+    &quot;rpc-password&quot;: &quot;SECRET&quot;, 
+    &quot;alt-speed-down&quot;: 50, 
+    &quot;alt-speed-enabled&quot;: false, 
+    &quot;alt-speed-time-begin&quot;: 540, 
+    &quot;alt-speed-time-day&quot;: 127, 
+    &quot;alt-speed-time-enabled&quot;: false, 
+    &quot;alt-speed-time-end&quot;: 1020, 
+    &quot;alt-speed-up&quot;: 50, 
+    &quot;bind-address-ipv4&quot;: &quot;0.0.0.0&quot;, 
+    &quot;bind-address-ipv6&quot;: &quot;::&quot;, 
+    &quot;blocklist-enabled&quot;: true, 
+    &quot;blocklist-url&quot;: &quot;http://list.iblocklist.com/?list=nzldzlpkgrcncdomnttb&amp;fileformat=p2p&amp;archiveformat=gz&quot;, 
+    &quot;cache-size-mb&quot;: 4, 
+    &quot;dht-enabled&quot;: true, 
+    &quot;download-dir&quot;: &quot;/share/incoming&quot;, 
+    &quot;download-limit&quot;: 100, 
+    &quot;download-limit-enabled&quot;: 0, 
+    &quot;download-queue-enabled&quot;: true, 
+    &quot;download-queue-size&quot;: 5, 
+    &quot;encryption&quot;: 1, 
+    &quot;idle-seeding-limit&quot;: 30, 
+    &quot;idle-seeding-limit-enabled&quot;: false, 
+    &quot;incomplete-dir&quot;: &quot;/share/incoming/incomplete&quot;, 
+    &quot;incomplete-dir-enabled&quot;: true, 
+    &quot;lpd-enabled&quot;: false, 
+    &quot;max-peers-global&quot;: 200, 
+    &quot;message-level&quot;: 2, 
+    &quot;peer-congestion-algorithm&quot;: &quot;&quot;, 
+    &quot;peer-limit-global&quot;: 240, 
+    &quot;peer-limit-per-torrent&quot;: 60, 
+    &quot;peer-port&quot;: 51413, 
+    &quot;peer-port-random-high&quot;: 65535, 
+    &quot;peer-port-random-low&quot;: 49152, 
+    &quot;peer-port-random-on-start&quot;: false, 
+    &quot;peer-socket-tos&quot;: &quot;default&quot;, 
+    &quot;pex-enabled&quot;: true, 
+    &quot;port-forwarding-enabled&quot;: true, 
+    &quot;preallocation&quot;: 1, 
+    &quot;prefetch-enabled&quot;: 1, 
+    &quot;queue-stalled-enabled&quot;: true, 
+    &quot;queue-stalled-minutes&quot;: 30, 
+    &quot;ratio-limit&quot;: 1, 
+    &quot;ratio-limit-enabled&quot;: true, 
+    &quot;rename-partial-files&quot;: true, 
+    &quot;rpc-authentication-required&quot;: true, 
+    &quot;rpc-bind-address&quot;: &quot;0.0.0.0&quot;, 
+    &quot;rpc-enabled&quot;: true, 
+    &quot;rpc-port&quot;: 9091, 
+    &quot;rpc-url&quot;: &quot;/transmission/&quot;,
+    &quot;rpc-whitelist&quot;: &quot;127.0.0.1&quot;, 
+    &quot;rpc-whitelist-enabled&quot;: false, 
+    &quot;scrape-paused-torrents-enabled&quot;: true, 
+    &quot;script-torrent-done-enabled&quot;: false, 
+    &quot;script-torrent-done-filename&quot;: &quot;&quot;, 
+    &quot;seed-queue-enabled&quot;: false, 
+    &quot;seed-queue-size&quot;: 10, 
+    &quot;speed-limit-down&quot;: 100, 
+    &quot;speed-limit-down-enabled&quot;: false, 
+    &quot;speed-limit-up&quot;: 100, 
+    &quot;speed-limit-up-enabled&quot;: false, 
+    &quot;start-added-torrents&quot;: true, 
+    &quot;trash-original-torrent-files&quot;: false, 
+    &quot;umask&quot;: 18, 
+    &quot;upload-limit&quot;: 100, 
+    &quot;upload-limit-enabled&quot;: 0, 
+    &quot;upload-slots-per-torrent&quot;: 14, 
+    &quot;utp-enabled&quot;: true
+}
+</code></pre><p>You can set YOUR_USER &amp; SECRET to whatever you want.  Feel free to play aroud with your settings, they are the same as regular Transmission. I actually just copied/pasted from a desktop version of Transmission that was all setup how I wanted.</p>
+<h3 id="more-with-permissions">More with Permissions</h3>
+<p>I add the transmission &amp; mediatomb users to nogroup:</p>
+<pre><code>sudo adduser debian-transmission nogroup
+sudo adduser mediatomb nogroup
+</code></pre><p>Now, they can write to the share directory.</p>
+<h3 id="welcome-page">Welcome page</h3>
+<p>I made a cute lil (responsive for easy phone-use) welcome page using PHP.  I wanted it to show freespace, and give local users all the info they need to connect.  I put a nice template <a href="/articles/nas/nas-welcome.zip">here</a>. Extract it in <code>/var/www</code>:</p>
+<pre><code>cd /var/www
+wget http://blog.jetboystudio.com/articles/nas/nas-welcome.zip
+unzip nas-welcome.zip
+rm nas-welcome.zip
+</code></pre><p>You may need some <code>sudo</code>‘s, if you don’t have write access to <code>/var/www</code></p>
+<p>Make sure to change your transmission username &amp; password.  All the other stuff uses javascript to fill in the right addresses. You can definitely add more features, like polling Transmission’s web-RPC to get info about running torrents, etc.  I didn’t need all that.</p>
+<p>You can see the page at <a href="http://192.168.1.5/">http://192.168.1.5/</a> (if that is your NAS IP.)</p>
+<p>It gives you some links to plugins that will let you add torrents form your computer. Use the settings in the grey box on the top-right. Tested the chrome plugin &amp; standalone, both worked great, just like a native client.</p>
+<h3 id="samba-windows-networking-">Samba (Windows Networking)</h3>
+<p>Visit your welcome page, and click “Samba” button.  When it asks you to login, use “root” and the password you set earlier.</p>
+<p>This is SWAT. It has a lot of options.  I basically setup 2 shares.  One is “share” which has everything in it, and points to <code>/share</code> (my massive harddrive mount) and 1 for the web interface, that points to <code>/var/www</code>, so I can very easily mess with the welcome page.  I made these both guest-access and browseable (no security, closed LAN.)</p>
+<p>If you don’t want to click around in SWAT, you can use mine. Save it as <code>/etc/samba/smb.conf</code> on the NAS. Be sure to have a look at the global section, either way, as I added some nice speed-optimization flags, etc.</p>
+<pre><code>[global]
+    server string = %h server (Samba, Ubuntu)
+    map to guest = Bad Password
+    obey pam restrictions = Yes
+    pam password change = Yes
+    passwd program = /usr/bin/passwd %u
+    passwd chat = *Enter\snew\s*\spassword:* %n\n *Retype\snew\s*\spassword:* %n\n *password\supdated\ssuccessfully* .
+    unix password sync = Yes
+    syslog = 0
+    log file = /var/log/samba/log.%m
+    max log size = 1000
+    min receivefile size = 65535
+    max xmit = 65535
+    max open files = 65535
+    socket options = TCP_NODELAY IPTOS_LOWDELAY SO_SNDBUF=65535 SO_RCVBUF=65535
+    dns proxy = No
+    usershare allow guests = Yes
+    panic action = /usr/share/samba/panic-action %d
+    idmap config * : backend = tdb
+    aio read size = 16384
+    aio write size = 16384
+    aio write behind = true
+    max connections = 65535
+    use sendfile = Yes
+
+[share]
+    comment = All shared stuff
+    path = /share/
+    read only = No
+    guest ok = Yes
+
+[web]
+    comment = Website for this box
+    path = /var/www
+    read only = No
+    guest ok = Yes
+</code></pre><h3 id="mediatomb-upnp-">MediaTomb (UPnP)</h3>
+<p>Follow the directions <a href="https://vanalboom.org/node/14">here</a> to get an easy transcode-everything setup for PS3/XBOX/VLC. Here is exactly how I did it:</p>
+<pre><code>sudo apt-get install mencoder ffmpeg mediainfo lsdvd
+</code></pre><p>then made my <code>/etc/mediatomb/config.xml</code> look like this:</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;config version=&quot;2&quot; xmlns=&quot;http://mediatomb.cc/config/2&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:schemaLocation=&quot;http://mediatomb.cc/config/2 http://mediatomb.cc/config/2.xsd&quot;&gt;&lt;!--
+     Read /usr/share/doc/mediatomb-common/README.gz section 6 for more
+     information on creating and using config.xml configration files.
+    --&gt;
+  &lt;server&gt;
+    &lt;ui enabled=&quot;yes&quot; show-tooltips=&quot;yes&quot;&gt;
+      &lt;accounts enabled=&quot;yes&quot; session-timeout=&quot;30&quot;&gt;
+        &lt;account user=&quot;YOUR_USER&quot; password=&quot;SECRET&quot;/&gt;
+      &lt;/accounts&gt;
+    &lt;/ui&gt;
+    &lt;name&gt;Stooge&lt;/name&gt;
+    &lt;udn&gt;uuid:e9a55b5a-a212-4957-9ed6-ec5b316ff609&lt;/udn&gt;
+    &lt;home&gt;/var/lib/mediatomb&lt;/home&gt;
+    &lt;webroot&gt;/usr/share/mediatomb/web&lt;/webroot&gt;
+    &lt;storage caching=&quot;yes&quot;&gt;
+      &lt;sqlite3 enabled=&quot;no&quot;&gt;
+        &lt;database-file&gt;mediatomb.db&lt;/database-file&gt;
+      &lt;/sqlite3&gt;
+      &lt;mysql enabled=&quot;yes&quot;&gt;
+        &lt;host&gt;localhost&lt;/host&gt;
+        &lt;username&gt;mediatomb&lt;/username&gt;
+        &lt;database&gt;mediatomb&lt;/database&gt;
+      &lt;/mysql&gt;
+    &lt;/storage&gt;
+    &lt;!-- For PS3 support change to &quot;yes&quot; --&gt;
+    &lt;protocolInfo extend=&quot;yes&quot;/&gt;
+    &lt;!--
+       Uncomment the lines below to get rid of jerky avi playback on the
+       DSM320 or to enable subtitles support on the DSM units
+    --&gt;
+    &lt;custom-http-headers&gt;
+      &lt;add header=&quot;X-User-Agent: redsonic&quot;/&gt;
+    &lt;/custom-http-headers&gt;
+
+    &lt;manufacturerURL&gt;redsonic.com&lt;/manufacturerURL&gt;
+    &lt;modelNumber&gt;105&lt;/modelNumber&gt;
+
+   &lt;!-- Uncomment the line below if you have a Telegent TG100 --&gt;&lt;!--
+       &lt;upnp-string-limit&gt;101&lt;/upnp-string-limit&gt;
+    --&gt;
+    &lt;extended-runtime-options&gt;
+      &lt;ffmpegthumbnailer enabled=&quot;yes&quot;&gt;
+        &lt;thumbnail-size&gt;128&lt;/thumbnail-size&gt;
+        &lt;seek-percentage&gt;5&lt;/seek-percentage&gt;
+        &lt;filmstrip-overlay&gt;yes&lt;/filmstrip-overlay&gt;
+        &lt;workaround-bugs&gt;no&lt;/workaround-bugs&gt;
+      &lt;/ffmpegthumbnailer&gt;
+      &lt;mark-played-items enabled=&quot;no&quot; suppress-cds-updates=&quot;yes&quot;&gt;
+        &lt;string mode=&quot;prepend&quot;&gt;*&lt;/string&gt;
+      &lt;/mark-played-items&gt;
+    &lt;/extended-runtime-options&gt;
+  &lt;/server&gt;
+  &lt;import hidden-files=&quot;no&quot;&gt;
+    &lt;scripting script-charset=&quot;UTF-8&quot;&gt;
+      &lt;common-script&gt;/usr/share/mediatomb/js/common.js&lt;/common-script&gt;
+      &lt;playlist-script&gt;/usr/share/mediatomb/js/playlists.js&lt;/playlist-script&gt;
+      &lt;virtual-layout type=&quot;builtin&quot;&gt;
+        &lt;import-script&gt;/usr/share/mediatomb/js/import.js&lt;/import-script&gt;
+        &lt;dvd-script&gt;/usr/share/mediatomb/js/import-dvd.js&lt;/dvd-script&gt;
+      &lt;/virtual-layout&gt;
+    &lt;/scripting&gt;
+    &lt;mappings&gt;
+    &lt;extension-mimetype ignore-unknown=&quot;no&quot;&gt;
+        &lt;map from=&quot;mp3&quot; to=&quot;audio/mpeg&quot;/&gt;
+        &lt;map from=&quot;wmv&quot; to=&quot;video/transcode&quot;/&gt;
+        &lt;map from=&quot;flv&quot; to=&quot;video/transcode&quot;/&gt;
+        &lt;map from=&quot;mkv&quot; to=&quot;video/transcode&quot;/&gt;
+        &lt;map from=&quot;rm&quot;  to=&quot;video/transcode&quot;/&gt;
+        &lt;map from=&quot;iso&quot; to=&quot;video/transcode&quot;/&gt;
+        &lt;map from=&quot;ogm&quot; to=&quot;video/transcode&quot;/&gt;
+        &lt;map from=&quot;mp4&quot; to=&quot;video/transcode&quot;/&gt; 
+        &lt;map from=&quot;avi&quot; to=&quot;video/transcode&quot;/&gt;
+      &lt;/extension-mimetype&gt;
+      &lt;mimetype-upnpclass&gt;
+        &lt;map from=&quot;audio/*&quot; to=&quot;object.item.audioItem.musicTrack&quot;/&gt;
+        &lt;map from=&quot;video/*&quot; to=&quot;object.item.videoItem&quot;/&gt;
+        &lt;map from=&quot;image/*&quot; to=&quot;object.item.imageItem&quot;/&gt;
+      &lt;/mimetype-upnpclass&gt;
+      &lt;mimetype-contenttype&gt;
+        &lt;treat mimetype=&quot;audio/mpeg&quot; as=&quot;mp3&quot;/&gt;
+        &lt;treat mimetype=&quot;video/transcode&quot; as=&quot;mpg&quot;/&gt;
+      &lt;/mimetype-contenttype&gt;
+   &lt;/mappings&gt;
+    &lt;online-content&gt;&lt;!-- Make sure to setup a transcoding profile for flv --&gt;
+      &lt;YouTube enabled=&quot;no&quot; refresh=&quot;28800&quot; update-at-start=&quot;no&quot; purge-after=&quot;604800&quot; racy-content=&quot;exclude&quot; format=&quot;flv&quot; hd=&quot;no&quot;&gt;
+        &lt;favorites user=&quot;mediatomb&quot;/&gt;
+        &lt;standardfeed feed=&quot;most_viewed&quot; time-range=&quot;today&quot;/&gt;
+        &lt;playlists user=&quot;mediatomb&quot;/&gt;
+        &lt;uploads user=&quot;mediatomb&quot;/&gt;
+        &lt;standardfeed feed=&quot;recently_featured&quot; time-range=&quot;today&quot;/&gt;
+      &lt;/YouTube&gt;
+      &lt;Weborama enabled=&quot;no&quot; refresh=&quot;28800&quot; update-at-start=&quot;no&quot;&gt;
+        &lt;playlist name=&quot;Active&quot; type=&quot;playlist&quot; mood=&quot;active&quot;/&gt;
+        &lt;playlist name=&quot;Metal&quot; type=&quot;playlist&quot;&gt;
+          &lt;filter&gt;
+            &lt;genres&gt;metal&lt;/genres&gt;
+          &lt;/filter&gt;
+        &lt;/playlist&gt;
+      &lt;/Weborama&gt;
+      &lt;AppleTrailers enabled=&quot;no&quot; refresh=&quot;43200&quot; update-at-start=&quot;no&quot; resolution=&quot;640&quot;/&gt;
+    &lt;/online-content&gt;
+  &lt;/import&gt;
+  &lt;transcoding enabled=&quot;yes&quot;&gt;
+    &lt;mimetype-profile-mappings&gt;
+      &lt;transcode mimetype=&quot;video/transcode&quot; using=&quot;multifunctional&quot;/&gt;
+    &lt;/mimetype-profile-mappings&gt;
+    &lt;profiles&gt;
+      &lt;profile name=&quot;multifunctional&quot; enabled=&quot;yes&quot; type=&quot;external&quot;&gt;
+        &lt;mimetype&gt;video/mpeg&lt;/mimetype&gt;
+        &lt;first-resource&gt;yes&lt;/first-resource&gt;
+        &lt;agent command=&quot;/usr/local/bin/mediatomb-multifunctional.sh&quot; arguments=&quot;%in %out&quot;/&gt;
+        &lt;buffer size=&quot;102400&quot; chunk-size=&quot;51200&quot; fill-size=&quot;20480&quot;/&gt;
+      &lt;/profile&gt;
+    &lt;/profiles&gt;
+ &lt;/transcoding&gt;
+&lt;/config&gt;
+</code></pre><p>Make sure to replace <code>YOUR_USER</code> &amp; <code>SECRET</code> &amp; use the UUID that was originally in there in <code>&lt;udn&gt;</code></p>
+<p>I used mysql instead of flakey sqlite, so I enabled all those options.  Make a mysql user <code>mediatomb</code> with no password, and grant all permissions to local. I did this in phpmyadmin.</p>
+<p>I also made a <code>/usr/local/bin/mediatomb-multifunctional.sh</code> that looked like this:</p>
+<pre><code>#!/bin/bash
+#
+# General all-covering MediaTomb transcoding script.
+#
+#############################################################################
+# Edit the parameters below to suit your needs.
+#############################################################################
+
+# Subtitles imply transcoding; set to 1 to disable subtitle rendering.
+# For divx this doesn&#39;t matter much but for mp4, mkv and DVD it does.
+DISABLESUBS=1
+
+# Change this to enable different DVD subtitle languages.
+SUBS=&quot;nl,en&quot;
+
+# Change this line to set the average bitrate.
+# Use something like 8000 for wired connections; lower to 2000 for wireless.
+AVBIT=8000
+
+# Change this line to set the maximum bitrate.
+# Use something like 12000 for wired connections; lower to 5000 for wireless.
+MVBIT=12000
+
+# Change this line to set the MPEG audio bitrate in kbps. AC3 is fixed to 384.
+AABIT=256
+
+# Change this line to set your favourite subtitle font.
+SFONT=&quot;/etc/mediatomb/DejaVuSans.ttf&quot;
+
+# Change this line to set the size of subtitles. 20-25 is okay.
+SUBSIZE=20
+
+# Enable downscaling of transcoded content to 720 pixels wide (DVD format)?
+DOWNSCALE=1
+
+# If downscaling is enabled, anything over this width (pixels) will be downscaled.
+MAXSIZE=900
+
+# Enable logging to file?
+LOGGING=1
+
+# If logging is enabled, log to which file?
+LOGFILE=&quot;/var/log/mediatomb-transcode.log&quot;
+
+#############################################################################
+# Do not change anything below this line.
+#############################################################################
+# Variables
+#############################################################################
+
+FILE=$1
+VERSION=&quot;0.12&quot;
+
+MENCODER=$(which mencoder)
+MEDIAINFO=$(which mediainfo)
+FFMPEG=$(which ffmpeg)
+LSDVD=$(which lsdvd)
+XML=$(which xmlstarlet)
+
+M_TR_M=&quot;-oac lavc -ovc lavc -of mpeg -lavcopts \
+    abitrate=${AABIT}:vcodec=mpeg2video:keyint=1:vbitrate=${AVBIT}:\
+    vrc_maxrate=${MVBIT}:vrc_buf_size=1835 \
+    -mpegopts muxrate=12000 -af lavcresample=44100 &quot;
+M_TR_A=&quot;-oac lavc -ovc copy -of mpeg -lavcopts \
+    abitrate=${AABIT} -af lavcresample=44100 &quot;
+M_RE_M=&quot;-oac copy -ovc copy -of mpeg -mpegopts format=dvd -noskip -mc 0 &quot;
+F_TR_M=&quot;-acodec ac3 -ab 384k -vcodec copy -vbsf h264_mp4toannexb -f mpegts -y &quot;
+F_RE_M=&quot;-acodec copy -vcodec copy -vbsf h264_mp4toannexb -f mpegts -y &quot;
+SUBOPTS=&quot;-slang ${SUBS} &quot;
+SRTOPTS=&quot;-font ${SFONT} -subfont-autoscale 0 \
+    -subfont-text-scale ${SUBSIZE} -subpos 100 &quot;
+SIZEOPTS=&quot;-vf harddup,scale=720:-2 &quot;
+NOSIZEOPTS=&quot;-vf harddup &quot;
+S24FPS=&quot;23.976&quot;
+S24OPT=&quot;-ofps 24000/1001 &quot;
+S30FPS=&quot;29.970&quot;
+S30OPT=&quot;-ofps 30000/1001 &quot;
+
+VCODEC=&quot;&quot;
+ACODEC=&quot;&quot;
+VWIDTH=&quot;&quot;
+VFPS=&quot;&quot;
+QPEL=&quot;&quot;
+AVCPROF=&quot;&quot;
+
+OPTS=(&quot;&quot;)
+
+declare -i MODE=0
+
+#############################################################################
+# Functions
+#############################################################################
+
+function log {
+        if [ &quot;${LOGGING}&quot; == &quot;1&quot; ] ; then
+                echo -e &quot;$(date +&#39;%Y/%m/%d %H:%m:%S&#39;) \t $1&quot; &gt;&gt; ${LOGFILE}
+        fi
+}
+
+function mediainfo {
+        MIOUT=$(mktemp /tmp/tmp.mediainfo.XXXXXX)
+        log &quot;Logging mediainfo XML to ${MIOUT}.&quot;
+        ${MEDIAINFO} --output=xml &quot;${FILE}&quot; &gt; ${MIOUT}
+        VCODEC=$(${XML} sel -t -m &quot;.//track[@type=&#39;Video&#39;]&quot; -v &quot;Format&quot; ${MIOUT} )
+        ACODEC=$(${XML} sel -t -m &quot;.//track[@type=&#39;Audio&#39;]&quot; -v &quot;Format&quot; ${MIOUT} )
+        VWIDTH=$(${XML} sel -t -m &quot;.//track[@type=&#39;Video&#39;]&quot; -v &quot;Width&quot; \ 
+            ${MIOUT} | sed &#39;s/ pixels//&#39; )
+        VFPS=$(${XML} sel -t -m &quot;.//track[@type=&#39;Video&#39;]&quot; -v &quot;Frame_rate&quot; \ 
+            ${MIOUT} | sed &#39;s/ fps//&#39; )
+        AVCPROF=$(${XML} sel -t -m &quot;.//track[@type=&#39;Video&#39;]&quot; -v &quot;Format_profile&quot; \
+            ${MIOUT} | sed &#39;s/[^0-9]//g&#39; )
+        QPEL=$(${XML} sel -t -m &quot;.//track[@type=&#39;Video&#39;]&quot; -v &quot;Format_settings__QPel&quot; \
+            ${MIOUT} )
+        log &quot;Variables found: \
+            ${VCODEC} | ${ACODEC} | ${VWIDTH} | ${VFPS} | ${AVCPROF} | ${QPEL} &quot;
+        rm -f ${MIOUT}
+}
+
+function tropts {
+        if [ &quot;${DOWNSCALE}&quot; == &quot;1&quot; -a ${VWIDTH} -gt ${MAXSIZE} ] ; then
+                log &quot;Rescaling to 720 pixels wide.&quot;
+                OPTS+=(${SIZEOPTS})
+        else
+                log &quot;Rescaling disabled or file within limits.&quot;
+                OPTS+=(${NOSIZEOPTS})
+        fi
+        if [ &quot;${VFPS}&quot; == &quot;${S24FPS}&quot; ] ; then
+                log &quot;Framerate adjusted for mencoder.&quot;
+                OPTS+=(${S24OPT})
+        else if [ &quot;${VFPS}&quot; == &quot;${S30FPS}&quot; ] ; then
+                log &quot;Framerate adjusted for mencoder.&quot;
+                OPTS+=(${S30OPT})
+        else
+                log &quot;Framerate acceptable for mencoder.&quot;
+        fi
+        fi
+}
+
+function getmode {
+        # Fixed case: DVD ISO.
+        if [ &quot;${FEXT}&quot; == &quot;ISO&quot; ] ; then
+                CHAPTER=$(${LSDVD} &quot;${FILE}&quot; | grep Longest | sed &#39;s/.* //&#39;)
+                log &quot;DVD iso image found: Longest chapter is ${CHAPTER}.&quot;
+                MODE+=${DISABLESUBS}1000000
+                return 0
+        fi
+        # Fixed case: subtitle found: transcode by default.
+        if [ &quot;${DISABLESUBS}&quot; == &quot;0&quot; -a -e &quot;$(echo $FILE | sed &#39;s/...$/sub/&#39;)&quot; ] ; then
+                log &quot;SRT subtitle found.&quot;
+                SUB=$(echo $FILE | sed &#39;s/...$/sub/&#39;)
+                MODE+=100000
+                return 0
+        elif [ &quot;${DISABLESUBS}&quot; == &quot;0&quot; -a -e &quot;$(echo $FILE | sed &#39;s/...$/srt/&#39;)&quot; ] ; then
+                log &quot;SUB subtitle found.&quot;
+                SUB=$(echo $FILE | sed &#39;s/...$/srt/&#39;)
+                MODE+=100000
+                return 0
+        fi
+
+        log &quot;No subtitles found, or subtitle rendering disabled.&quot;
+        mediainfo
+
+        case ${VCODEC} in
+        &quot;AVC&quot;)
+                if [ &quot;${AVCPROF}&quot; -gt &quot;41&quot; ] ; then
+                        # Cannot handle h.264 4.1+
+                        MODE+=10000     
+                else          
+                        # We can handle the rest                          
+                        MODE+=1         
+                fi ;;
+        &quot;MPEG-4 Visual&quot;)
+                if [ &quot;${QPEL}&quot; == &quot;No&quot; ] ; then
+                        # No QPEL: we could remux the video         
+                        MODE+=100       
+                else            
+                        # QPEL: just transcode it all                        
+                        MODE+=10000     
+                fi ;;
+        * )
+                        # Transcode everything we don&#39;t know
+                        MODE+=10000 ;;  
+        esac
+
+        case ${ACODEC} in
+        &quot;AC-3&quot; | &quot;MPEG Audio&quot; )      
+                        # These should be wellknown                   
+                        MODE+=1 ;;      
+        * )
+                if [ &quot;${MODE}&quot; -lt &quot;100&quot; ] ; then    
+                        # If video is AVC, transcode audio in m2ts   
+                        MODE+=10        
+                else     
+                        # Otherwise in other container                       
+                        MODE+=1000      
+                fi ;;
+        esac
+
+}
+
+function processmode {
+        log &quot;Mode is ${MODE}.&quot;
+        if [ ! &quot;${MODE}&quot; -lt &quot;10000000&quot; ] ; then
+                EXEC=&quot;${MENCODER} -dvd-device&quot;
+                OPTS+=(dvd://${CHAPTER} ${M_RE_M} -o )
+        elif [ ! &quot;${MODE}&quot; -lt &quot;1000000&quot; ] ; then
+                EXEC=&quot;${MENCODER} -dvd-device&quot;
+                OPTS+=(dvd://${CHAPTER} ${SUBOPTS} ${M_TR_M} -o )
+        elif [ ! &quot;${MODE}&quot; -lt &quot;100000&quot; ] ; then
+                EXEC=${MENCODER}
+                tropts
+                OPTS+=(${M_TR_M} -sub ${SUB} ${SRTOPTS} -o )
+        elif [ ! &quot;${MODE}&quot; -lt &quot;10000&quot; ] ; then
+                EXEC=${MENCODER}
+                tropts
+                OPTS+=(${M_TR_M} -o )
+        elif [ ! &quot;${MODE}&quot; -lt &quot;1000&quot; ] ; then
+                EXEC=${MENCODER}
+                tropts
+                OPTS+=(${M_TR_M} -o)
+        elif [ ! &quot;${MODE}&quot; -lt &quot;100&quot; ] ; then
+                EXEC=${MENCODER}
+                OPTS+=(${M_TR_M} -o)
+        elif [ ! &quot;${MODE}&quot; -lt &quot;10&quot; ] ; then
+                EXEC=&quot;${FFMPEG} -i&quot;
+                OPTS+=(${F_TR_M})
+        elif [ ! &quot;${MODE}&quot; -lt &quot;1&quot; ] ; then
+                EXEC=&quot;${FFMPEG} -i&quot;
+                OPTS+=(${F_RE_M})
+        else
+                log &quot;I&#39;m sorry Dave, I&#39;m afraid I can&#39;t do mode=0.&quot;
+        fi
+}
+
+#############################################################################
+# Main method
+#############################################################################
+
+log &quot;Starting MediaTomb Multifunctional Transcoder (version ${VERSION}).&quot;
+FEXT=$(echo $FILE | sed &#39;s/.*\.//&#39; | tr [a-z] [A-Z])
+log &quot;${FEXT} file specified: \&quot;${FILE}\&quot;&quot;
+
+getmode
+processmode
+
+log &quot;Starting exec:&quot;
+log &quot;${EXEC} \&quot;${FILE}\&quot; ${OPTS[@]} ${2} &amp;&gt;/dev/null&quot;
+exec ${EXEC} &quot;${FILE}&quot; ${OPTS[@]} &quot;${2}&quot; &amp;&gt;/dev/null
+</code></pre><p>Make sure to <code>chmod 755 /usr/local/bin/mediatomb-multifunctional.sh</code> and reboot.</p>
+<p>Visit your NAS’s MediaTomb page (UPnP button) and add <code>/share</code>, under “Filesystem”. Set the share to auto-update, timed (so SAMBA changes are propagated.)</p>
+<h3 id="timemachine">Timemachine</h3>
+<p>I am the only mac (hackintosh) on my network.  I followed <a href="http://www.xdracco.net/time-machine-backup-volume-on-ubuntu-server/">these</a> directions to get it working.</p>
+<p>Wow! That was easy! Time to drink.</p>
+<h2 id="moar-stuff">Moar stuff</h2>
+<h3 id="sparkleshare">SparkleShare</h3>
+<p>If you want a privately hosted Dropbox, with no size limit, based on git, then this is your tool! I followed the directions on <a href="http://sparkleshare.org/">SparkeShare</a> under “Setting up a host”, and now people who are not used to using git, or just want a local dropbox are all set!  An added bonus of the client is that it works with a lot of hosted git services, so I am editing this blog by just saving the file!</p>
+<h3 id="lamp">LAMP</h3>
+<p>If you want a local LAMP vhost setup, follow <a href="http://blog.jetboystudio.com/2013/01/31/easy-dev-environment.html">these instructions</a>, and leave out the virtualbox stuff.  This will allow you and all your housemates to have a super-easy NAS-accessible LAMP-server, with no local virtualbox install! Put it all in /var/www, and it will be ready for the samba share.</p>
+<h3 id="lan-cable-network">LAN Cable Network</h3>
+<p>You can install a SAP server (<code>sudo apt-get install minisapserver</code>) to install a streaming multicast LAN-only cable network! This will allow you to stream security cameras, your house’s toilet-cam channel, <a href="http://www.youtube.com/watch?v=uE2M7g_IWSE">Maoist progopanda</a>, your Youtube channel, or whatevs to anyone who can view SAP (hint: VLC.) Holy crap! Haven’t played with this, but it’s gonna be awesome.</p>
+<h3 id="itunes">iTunes</h3>
+<p>You can add an endpoint/file-server for iTunes, if you hook your NAS up to your stereo by following <a href="http://linuxhomeserverguide.com/mediaserver/firefly.php">these</a> instructions. On Ubuntu 12.10, I used <code>forked-daapd</code> instead of <code>mt-daapd</code>, and it had no web front-end (which is fine.) As of now, it is still updating the index (very slowly) so I dunno how cool this is, if your stereo ain’t hooked up to it. UPnP (in VLC) seems like a better option, upon initial playing. To be fair, I have never been a big iTunes fan.</p>
+</div>
+        
+      </div>
+      
+      <div class="container" id="disqus_thread"></div>
+      <script type="text/javascript">
+          var disqus_shortname = 'jetboystudio';
+          var ga_code = 'UA-2392079-5';
+          (function() {
+              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+              dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-2392079-5', 'jetboystudio.com');
+        ga('send', 'pageview');
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+      <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+    </div> <!-- /#wrap -->
+
+    <div id="footer">
+      <div class="container">
+        <p class="text-muted credit">© 2016 David Konsumer</p>
+      </div>
+    </div>
+
+    <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.4/highlight.min.js"></script>
+
+  </body>
+</html>
+
+
+

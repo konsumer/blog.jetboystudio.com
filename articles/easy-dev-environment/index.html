@@ -1,0 +1,263 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="If you are like me, you want a full LAMP stack on your box while developing, and don’t want it to mess with your other stuff.">
+    <meta name="author" content="David Konsumer">
+    <title>Easy dev environment, on any computer - Drunken Coder Blog</title>
+    <link rel="alternate" href="http://blog.jetboystudio.com/feed.xml" type="application/rss+xml" title="you can do it well, even if you&#x27;re drunk">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.4/styles/tomorrow.min.css">
+    <meta property="og:site_name" content="Drunken Coder Blog"/>
+    <meta property="og:description" content="If you are like me, you want a full LAMP stack on your box while developing, and don’t want it to mess with your other stuff.">
+    <meta property="og:image" content="http://blog.jetboystudio.com/favicon.ico"/>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <div class="page-article" id="wrap">
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/"><img width="20" height="20" src="/favicon.ico"> Drunken Coder Blog</a>
+          </div>
+          <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav addthis_toolbox addthis_default_style addthis_32x32_style">
+              <li><a href="/">Home</a></li>
+              <li><a href="/archive.html">Archive</a></li>
+            </ul>
+            <ul class="social addthis_toolbox addthis_default_style addthis_32x32_style">
+              <li><a class="addthis_button_facebook"></a></li>
+              <li><a class="addthis_button_twitter"></a></li>
+              <li><a class="addthis_button_google_plusone_share"></a></li>
+              <li><a class="addthis_button_compact"></a><a class="addthis_counter addthis_bubble_style"></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=xa-52a4a9a2159a1d9a"></script>
+
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+      <div class="container">
+        <div class="page-header">
+          <h2><a href="/articles/easy-dev-environment/">Easy dev environment, on any computer</a></h2>
+          
+          <ul class="tags"> <li>Drupal</li>  <li>LAMP</li>  <li>drunk</li>  <li>Linux</li>  <li>PHP</li>  <li>MySQL</li>  <li>Apache</li>  <li>development</li>  <li>VirtualBox</li> </ul>
+          <div class="date">Jan 31st, 2013</div>
+        </div>
+        <div><p>If you are like me, you want a full LAMP stack on your box while developing, and don’t want it to mess with your other stuff.</p>
+<hr>
+<ul>
+<li>WAMP &amp; MAMP are ok, I guess, but tend to have little oddities that make them act funny/broken, or they mess with other system files, which I hate. Linux is pretty light, in a vbox totally self-contained, and is a real version of what you  will eventually be deploying on (Linux rules!)</li>
+<li>I wanna slick-ass setup, that requires no config for new projects (drunken dev-site-launches, lets go!)</li>
+<li>I don’t want to have to SSH into my local vhost, I just wanna make web-stuff and have it work without thought.</li>
+<li>I want to do this all while drunk. If I get wasted in the process, and it fails, then it is too complicated for the inexperienced, when I haven’t had my coffee in the morning, or when I am (as now) wasted.  This is unacceptable. We are rarely at 100%.</li>
+</ul>
+<p>I am running Mac Mountain Lion 10.8.2 on a Hackintosh. These directions should apply to any host OS, including Linux Windows, and Mac. My Hackintosh is a tricky little power-beast, but you don’t really need all that.  Any system that can run VirtualBox and blast tunes should be A-OK.</p>
+<p>I start drinking a gross amount of Hamms (the beer-refreshing) and set out on my noble mission.</p>
+<p>Whatever you see in () is what I am blasting on my stereo or doing, for some context. You can safely ignore.</p>
+<p>In all directions, replace “konsumer” with your local username.</p>
+<h2 id="the-simple-grimy-details">The (simple) grimy details</h2>
+<ul>
+<li>(Combichrist - Tractor) Install <a href="https://www.virtualbox.org/wiki/Downloads">Virtualbox</a></li>
+<li>Download an <a href="http://www.ubuntu.com/download/server">Ubuntu Server Disk Image</a>: takes half an hour (make a few cocktails!)</li>
+<li>Wait. Drink. Dance around your room/office. (mixes by @Glucosemusic on soundcloud, bumped up for extra glitchy bass-madness)</li>
+<li>Dang! It’s done, finally. Contemplate the nature of data and it’s real-world toll on all of our souls. Bits are tangible, yo.</li>
+<li>(masterful digi-funk hits by DOS.putin on soundcloud) Run VirtualBox (left window open while I danced) make a new virtual-machine. It’s Linux, Ubuntu 64bit. I named mine “LAMPinatro”, which is how I apparently type “LAMPinator” when I am wasted. Make sure it has the recommended RAM (I gave mine 2048MB, because I already love it like the father I never had)</li>
+<li>Right-click on “LAMPinatro” and go to settings. Under “Network” set it to “Bridged”. Under “Shared Folders” add your home directory (on my hackmac: /User/konsumer) and set it to “Auto-mount” (chug a Hamms: the beer refreshing, Hamms)</li>
+<li>Run it. It will ask for a bootdisk, choose the Ubuntu ISO image you downloaded already (mmm, cocktails….)</li>
+<li>(Suicide Commando is so good…) Hit ENTER a bunch, enter your name, etc. I set host name to “lampinator”, typed correctly this time!</li>
+<li>Hit ENTER till it asks if you want to write to disk, choose YES, hit ENTER, like a boss.</li>
+<li>Wait for all the pretty red progress-bars to, like blood, slowly tick away the pointlessness of your life.</li>
+<li>Set updates to “Install security updates automatically”</li>
+<li>In the tasksel menu, choose “OpenSSH Server, and LAMP server”, TAB, ENTER.</li>
+<li>(Velvet Acid Christ) Enter passwords for MySQL</li>
+<li>Hit ENTER till it reboots (check facebook while banging head)</li>
+<li>(Ramstein - Sonne) I like to use my sweet Mac transparent-background terminal (that can easily cut/paste), so I use ssh to setup initial stuff.  login to your vmachine, type <code>ifconfig</code> to get the IP. In my case it was <code>192.168.1.130</code>. In terminal ssh: <code>ssh konsumer@192.168.1.130</code></li>
+<li>(wumpscut - praise your fears) <code>sudo apt-get update &amp;&amp; sudo apt-get install virtualbox-guest-utils phpmyadmin drush</code>, password, ENTER, wait… autoconfigure for apache.</li>
+<li>(Combichrist - Never Surrender) <code>sudo vim /etc/apache2/sites-available/vhosts</code>, hit “I” make it like this:</li>
+</ul>
+<pre><code class="lang-apache"><span class="section">&lt;VirtualHost *:80&gt;</span>
+  <span class="attribute">EnableSendFile</span> <span class="literal">Off</span>
+  <span class="attribute">UseCanonicalName</span> <span class="literal">off</span>
+  <span class="attribute">VirtualDocumentRoot</span> /media/sf_konsumer/Sites/<span class="number">%1</span>/webroot
+
+  <span class="attribute">CustomLog</span> <span class="string">"/media/sf_konsumer/Sites/logs/access_log"</span> combined
+  <span class="attribute">ErrorLog</span> <span class="string">"/media/sf_konsumer/Sites/logs/error_log"</span>
+
+  <span class="section">&lt;Directory "/media/sf_konsumer/Sites/*"&gt;</span> 
+    <span class="attribute">AllowOverride</span> <span class="literal">All</span>
+    <span class="attribute"><span class="nomarkup">Options</span></span> Indexes FollowSymLinks MultiViews
+    <span class="attribute"><span class="nomarkup">RewriteEngine</span></span> <span class="literal">On</span> 
+    <span class="attribute">RewriteBase</span> / 
+    <span class="attribute"><span class="nomarkup">RewriteCond</span></span> <span class="variable">%{REQUEST_FILENAME}</span> !-f
+    <span class="attribute"><span class="nomarkup">RewriteCond</span></span> <span class="variable">%{REQUEST_FILENAME}</span> !-d
+    <span class="attribute"><span class="nomarkup">RewriteCond</span></span> <span class="variable">%{REQUEST_URI}</span> !=/favicon.ico
+    <span class="attribute"><span class="nomarkup">RewriteRule</span></span> ^/media/sf_konsumer/Sites/(.*)$ index.php/<span class="number">$1</span><span class="meta"> [QSA,L]</span>
+
+    <span class="comment"># Rules to correctly serve gzip compressed CSS and JS files.</span>
+    <span class="comment"># Requires both mod_rewrite and mod_headers to be enabled.</span>
+    <span class="section">&lt;IfModule mod_headers.c&gt;</span>
+      <span class="comment"># Serve gzip compressed CSS files if they exist and the client accepts gzip.</span>
+      <span class="attribute"><span class="nomarkup">RewriteCond</span></span> <span class="variable">%{HTTP:Accept-encoding}</span> gzip
+      <span class="attribute"><span class="nomarkup">RewriteCond</span></span> <span class="variable">%{REQUEST_FILENAME}</span>\.gz -s
+      <span class="attribute"><span class="nomarkup">RewriteRule</span></span> ^(.*)\.css <span class="number">$1</span>\.css\.gz<span class="meta"> [QSA]</span>
+
+      <span class="comment"># Serve gzip compressed JS files if they exist and the client accepts gzip.</span>
+      <span class="attribute"><span class="nomarkup">RewriteCond</span></span> <span class="variable">%{HTTP:Accept-encoding}</span> gzip
+      <span class="attribute"><span class="nomarkup">RewriteCond</span></span> <span class="variable">%{REQUEST_FILENAME}</span>\.gz -s
+      <span class="attribute"><span class="nomarkup">RewriteRule</span></span> ^(.*)\.js <span class="number">$1</span>\.js\.gz<span class="meta"> [QSA]</span>
+
+      <span class="comment"># Serve correct content types, and prevent mod_deflate double gzip.</span>
+      <span class="attribute"><span class="nomarkup">RewriteRule</span></span> \.css\.gz$ -<span class="meta"> [T=text/css,E=no-gzip:1]</span>
+      <span class="attribute"><span class="nomarkup">RewriteRule</span></span> \.js\.gz$ -<span class="meta"> [T=text/javascript,E=no-gzip:1]</span>
+
+      <span class="section">&lt;FilesMatch "(\.js\.gz|\.css\.gz)$"&gt;</span>
+        <span class="comment"># Serve correct encoding type.</span>
+        <span class="attribute"><span class="nomarkup">Header</span></span> set Content-Encoding gzip
+        <span class="comment"># Force proxies to cache gzipped &amp; non-gzipped css/js files separately.</span>
+        <span class="attribute"><span class="nomarkup">Header</span></span> append Vary Accept-Encoding
+      <span class="section">&lt;/FilesMatch&gt;</span>
+    <span class="section">&lt;/IfModule&gt;</span>
+
+    <span class="comment"># Requires mod_expires to be enabled.</span>
+    <span class="section">&lt;IfModule mod_expires.c&gt;</span>
+      <span class="comment"># Enable expirations.</span>
+      <span class="attribute">ExpiresActive</span> <span class="literal">On</span>
+
+      <span class="comment"># Cache all files for 2 weeks after access (A).</span>
+      <span class="attribute">ExpiresDefault</span> A1209600
+
+      <span class="section">&lt;FilesMatch \.php$&gt;</span>
+        <span class="comment"># Do not allow PHP scripts to be cached unless they explicitly send cache</span>
+        <span class="comment"># headers themselves. Otherwise all scripts would have to overwrite the</span>
+        <span class="comment"># headers set by mod_expires if they want another caching behavior. This may</span>
+        <span class="comment"># fail if an error occurs early in the bootstrap process, and it may cause</span>
+        <span class="comment"># problems if a non-Drupal PHP file is installed in a subdirectory.</span>
+        <span class="attribute">ExpiresActive</span> <span class="literal">Off</span>
+      <span class="section">&lt;/FilesMatch&gt;</span>
+    <span class="section">&lt;/IfModule&gt;</span>
+
+    <span class="comment"># PHP 5, Apache 1 and 2.</span>
+    <span class="section">&lt;IfModule mod_php5.c&gt;</span>
+      <span class="attribute">php_flag</span> magic_quotes_gpc                 <span class="literal">off</span>
+      <span class="attribute">php_flag</span> magic_quotes_sybase              <span class="literal">off</span>
+      <span class="attribute">php_flag</span> register_globals                 <span class="literal">off</span>
+      <span class="attribute">php_flag</span> session.auto_start               <span class="literal">off</span>
+      <span class="attribute">php_value</span> mbstring.http_input             pass
+      <span class="attribute">php_value</span> mbstring.http_output            pass
+      <span class="attribute">php_flag</span> mbstring.encoding_translation    <span class="literal">off</span>
+    <span class="section">&lt;/IfModule&gt;</span>
+  <span class="section">&lt;/Directory&gt;</span> 
+
+  <span class="attribute">Alias</span> /phpmyadmin/ <span class="string">"/usr/share/phpmyadmin/"</span>
+  <span class="section">&lt;Directory "/usr/share/phpmyadmin/"&gt;</span>
+      <span class="attribute"><span class="nomarkup">Options</span></span> Indexes MultiViews FollowSymLinks
+      <span class="attribute">AllowOverride</span> None
+      <span class="attribute"><span class="nomarkup">Order</span></span> deny,allow
+      <span class="attribute"><span class="nomarkup">Allow</span></span> from <span class="literal">all</span>
+  <span class="section">&lt;/Directory&gt;</span>
+
+
+  <span class="attribute">LogLevel</span> debug 
+<span class="section">&lt;/VirtualHost&gt;</span>
+</code></pre>
+<p>I keep my files in Mac <code>~/Sites/ohcool/webroot</code>, when I want them to work for <a href="http://ohcool.local">http://ohcool.local</a>. adjust the above if you don’t do that.</p>
+<p>ESC:wq Gosh!, we win!</p>
+<p>Now, do this:</p>
+<pre><code class="lang-bash">sudo adduser www-data konsumer
+sudo adduser www-data vboxsf
+sudo adduser konsumer www-data
+sudo adduser konsumer vboxsf
+</code></pre>
+<ul>
+<li><code>sudo a2enmod vhost_alias rewrite &amp;&amp; sudo a2dissite default &amp;&amp; sudo a2ensite vhosts</code></li>
+<li>(Funker Vogt)  <code>sudo reboot</code> I am the prince of evil. I don’t work at Dairy Queen.</li>
+<li>Your vbox is pretty much as it will be, for the rest of your pro-life. awesome.</li>
+<li>(Covenant: eins, zwei, drei, FEAR! - Dead stars) On your host system, you can install <a href="http://www.davesouth.org/stories/how-to-set-up-dnsmasq-on-snow-leopard-for-local-wildcard-domains">dnsmasq</a>, but I prefer to just add stuff to /etc/hosts. I added this:</li>
+</ul>
+<pre><code>192.168.1.114 test test.local
+</code></pre><ul>
+<li>in SSH (or direct) type <code>mkdir -p /media/sf_konsumer/Sites/test/webroot</code></li>
+<li><code>echo &quot;o cool&quot; &gt; /media/sf_konsumer/Sites/test/webroot/index.html</code></li>
+<li><code>mkdir -p /media/sf_konsumer/Sites/logs</code></li>
+<li><code>sudo service apache2 restart</code> for good measure. check errors. all cool?</li>
+<li>visit <a href="http://test.local">http://test.local</a></li>
+<li>enjoy what yer new website has to say about you.</li>
+</ul>
+<p>Now, life is better, here’s why:</p>
+<ul>
+<li>(Tragic Error - Tanzen) you can drop yer random code-thoughts in ~/Sites/SITE/webroot and profit, like you meant it</li>
+<li>you can use <a href="http://SITE.local/phpmyadmin">http://SITE.local/phpmyadmin</a> to mess with DB</li>
+<li>you can see yer logs in ~/Sites/logs/, for those hard-to-drunken-troubleshoot typa issues.</li>
+<li>you have a lot more time for beer, and it won’t <a href="http://www.youtube.com/watch?v=BfHpMaAVp-I">trash your Minecraft saves</a>, I promise. (Betcha didn’t know I had a sword in my pants…)</li>
+</ul>
+<p>Now, when you wanna test something, fire up your fancy-ass vmachine (takes like 2 secs, fer reals) and hit the site.local. You can SSH in and drush-up your Drupal things, if you want, and be done with that mess (corrugated piece of sh*t…)</p>
+<p>I gotta get some sleep, with all this Hamms I been drinking.</p>
+<p>If you are looking for explanations of the above, here goes:</p>
+<ul>
+<li>It’s “Bridged” networking, so you can get to the IP of it from your host system. NAT makes it get the Internet, but no access from host. We expect more from our playthings.</li>
+<li>I auto-mount it, and setup virtualbox in client so I can share my files easy.  I point Apache to use ~/Sites as my vhost root. virtualbox take scare of permissions, like it’s a network mount. I add apache user to vboxsf so I can just do stuff how I like, and not be bothered with pesky details, like dumbass permissions or whatevs. It’s local, security is stupid.</li>
+<li>I like vim, use whatever you like, nano is super-simple. Both are pre-installed in Ubuntu Server 12.</li>
+<li>This kinda drunken-ease comes from master-level know-how. Be sure to look into all the technology we talk about here, to get a better idea of how things really work, and how to make it work better. I expect you to return with a tech-battle and avenge this drunken blog post.</li>
+</ul>
+<p>Nigh-night, ninjas</p>
+</div>
+        
+      </div>
+      
+      <div class="container" id="disqus_thread"></div>
+      <script type="text/javascript">
+          var disqus_shortname = 'jetboystudio';
+          var ga_code = 'UA-2392079-5';
+          (function() {
+              var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+              dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+              (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-2392079-5', 'jetboystudio.com');
+        ga('send', 'pageview');
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+      <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    
+    </div> <!-- /#wrap -->
+
+    <div id="footer">
+      <div class="container">
+        <p class="text-muted credit">© 2016 David Konsumer</p>
+      </div>
+    </div>
+
+    <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/7.4/highlight.min.js"></script>
+
+  </body>
+</html>
+
+
+
