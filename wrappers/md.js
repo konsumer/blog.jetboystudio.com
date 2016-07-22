@@ -13,6 +13,22 @@ import { config } from 'config'
 
 import 'css/zenburn.css'
 
+const style = {
+  h1: {
+    marginTop: 0
+  },
+  hr: {
+    marginBottom: rhythm(2)
+  },
+  Tags: {
+    marginBottom: rhythm(2)
+  },
+  date: {
+    display: 'block',
+    marginBottom: rhythm(2)
+  }
+}
+
 class MarkdownWrapper extends React.Component {
   componentDidMount () {
     fixLinks(this.refs.markdown, this.context.router)
@@ -25,11 +41,11 @@ class MarkdownWrapper extends React.Component {
     return (
     <DocumentTitle title={post.title ? `${post.title} | ${config.blogTitle}` : config.blogTitle}>
       <div className="markdown">
-        <h1 style={{ marginTop: 0 }}>{post.title}</h1>
-        {!post.date ? null : <em style={{ display: 'block', marginBottom: rhythm(2) }}>Posted {moment(post.date).format('MMMM D, YYYY')}</em>}
-        <Tags post={post} style={{ marginBottom: rhythm(2) }} />
+        <h1 style={style.h1}>{post.title}</h1>
+        {!post.date ? null : <em style={style.date}>Posted {moment(post.date).format('MMMM D, YYYY')}</em>}
+        <Tags post={post} style={style.Tags} />
         <div ref="markdown" dangerouslySetInnerHTML={{__html: post.body}} />
-        <hr style={{ marginBottom: rhythm(2) }} />
+        <hr style={style.hr} />
         <ReadNext post={post} pages={route.pages} />
         <Bio />
         <Disqus shortname={config.disqusShortname} title={post.title} url={config.blogUrl + route.page.path} />
