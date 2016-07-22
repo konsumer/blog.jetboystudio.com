@@ -6,6 +6,7 @@ import find from 'lodash/find'
 import intersect from 'just-intersect'
 import { rhythm, fontSizeToMS } from 'utils/typography'
 import { getTags } from 'utils'
+import Summary from 'components/Summary'
 
 const style = {
   h6: {
@@ -53,17 +54,12 @@ class ReadNext extends React.Component {
     } else {
       nextPost = find(pages, (page) => includes(page.path, readNext.slice(1, -1))
       )
-      // Create pruned version of the body.
-      const html = nextPost.data.body
-      const body = prune(html.replace(/<[^>]*>/g, ''), 200)
 
       return (
       <div>
         <h6 style={style.h6}>READ THIS NEXT:</h6>
         <h3 style={style.h3}><Link to={{  pathname: prefixLink(nextPost.path),  query: {    readNext: true  }}} > {nextPost.data.title} </Link></h3>
-        <p>
-          {body}
-        </p>
+        <Summary body={nextPost.data.body} />
         <hr />
       </div>
       )
