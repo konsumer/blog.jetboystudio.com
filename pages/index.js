@@ -12,11 +12,20 @@ import Summary from 'components/Summary'
 import moment from 'moment'
 
 const style = {
-  date: {
-    color: 'grey'
+  post: {
+    marginBottom: rhythm(1),
+    listStyle: 'none'
   },
-  li: {  marginBottom: rhythm(1 / 4)},
-  Link: {boxShadow: 'none'}
+  Link: {
+    boxShadow: 'none'
+  },
+  date: {
+    fontSize: rhythm(1 / 2),
+    color: 'gray'
+  },
+  more: {
+    fontSize: rhythm(1 / 4)
+  }
 }
 
 class BlogIndex extends React.Component {
@@ -29,7 +38,7 @@ class BlogIndex extends React.Component {
       if (access(page, 'file.ext') === 'md' && !include(page.path, '/404')) {
         const title = access(page, 'data.title') || page.path
         pageLinks.push(
-          <li key={page.path} style={style.li}>
+          <li key={page.path} style={style.post}>
             <Link style={style.Link} to={prefixLink(page.path)}>
             {title}
             </Link>
@@ -37,7 +46,8 @@ class BlogIndex extends React.Component {
               {moment(page.data.date).calendar()}
             </div>
             <Summary body={page.data.body} />
-            <small><Link to={prefixLink(page.path)}> more </Link></small>
+            <Link style={style.more} to={prefixLink(page.path)}> more
+            </Link>
           </li>
         )
       }

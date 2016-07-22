@@ -21,11 +21,12 @@ const style = {
     marginBottom: rhythm(2)
   },
   Tags: {
-    marginBottom: rhythm(2)
+    marginBottom: rhythm(1)
   },
   date: {
-    display: 'block',
-    marginBottom: rhythm(2)
+    marginBottom: rhythm(1 / 2),
+    fontSize: rhythm(1 / 2),
+    color: 'gray'
   }
 }
 
@@ -42,7 +43,9 @@ class MarkdownWrapper extends React.Component {
     <DocumentTitle title={post.title ? `${post.title} | ${config.blogTitle}` : config.blogTitle}>
       <div className="markdown">
         <h1 style={style.h1}>{post.title}</h1>
-        {!post.date ? null : <em style={style.date}>Posted {moment(post.date).format('MMMM D, YYYY')}</em>}
+        {!post.date ? null : <div style={style.date}>
+                               {moment(post.date).format('[Posted] MMMM D, YYYY')}
+                             </div>}
         <Tags post={post} style={style.Tags} />
         <div ref="markdown" dangerouslySetInnerHTML={{__html: post.body}} />
         <hr style={style.hr} />
