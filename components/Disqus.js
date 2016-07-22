@@ -11,7 +11,7 @@ export default class Disqus extends React.Component {
   }
 
   componentWillMount () {
-    if (typeof window != 'undefined' && window.document) {
+    if (typeof window != 'undefined') {
       const component = this
       window.disqus_config = function () {
         this.page.identifier = component.state.identifier

@@ -25,6 +25,7 @@ class BlogIndex extends React.Component {
             {title}
             </Link>
             <Summary body={page.data.body} />
+            <small><Link to={prefixLink(page.path)}> more </Link></small>
           </li>
         )
       }
