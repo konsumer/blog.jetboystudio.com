@@ -1,6 +1,6 @@
 import React from 'react'
-import slugify from 'slugify'
 import {Link} from 'react-router'
+import {tagMap} from 'utils'
 
 const Tags = props => {
   const { post, ...rest } = props
@@ -8,7 +8,7 @@ const Tags = props => {
     <div className="Tags" {...rest}>
       {(props.post.tags || []).map((tag, i) => {
          return [i !== 0 ? ' | ' : null,
-           <Link key={i} className="tag" to={{pathname:'/tags/', hash: '#'+slugify(tag).toLowerCase()}}>
+           <Link key={i} className="tag" to={{pathname:'/tags/', hash: '#'+tagMap(tag)}}>
              {tag}
            </Link>]
        })}

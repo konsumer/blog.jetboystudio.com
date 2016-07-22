@@ -6,6 +6,13 @@ import Summary from 'components/Summary'
 import { config } from 'config'
 import { tagMap, getTags, getAllTags } from 'utils'
 
+const style = {
+  tagLink: {
+    color: 'inherit',
+    boxShadow: 'none'
+  }
+}
+
 const TaggedPage = ({page, hideSummary}) => (
   <li>
     <Link to={page.data.path}>
@@ -21,7 +28,7 @@ const ShowTag = ({tag, pages, hideSummary}) => {
     .filter(page => getTags(page).map(tagMap).indexOf(tag) !== -1)
   return (
   <div>
-    <h2>{tag}</h2>
+    <h2><Link style={style.tagLink} to={{pathname: '/tags/', hash: '#' + tagMap(tag)}}> {tag} </Link></h2>
     <ul>
       {taggedPages.map((page, i) => (<TaggedPage hideSummary={hideSummary} key={i} page={page} />))}
     </ul>
