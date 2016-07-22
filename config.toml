@@ -1,6 +1,7 @@
 blogTitle = "Drunken Coder"
+blogUrl = "http://blog.jetboystudio.com"
 subTitle = "code like a drunken master"
 authorName = "David Konsumer"
 authorBio = "Written by <strong>David Konsumer</strong> who lives and works in Portland and makes rad stuff. You should follow him on <a href='https://twitter.com/davidkonsumer'>Twitter</a> &amp; <a href='https://github.com/konsumer'>Github</a>"
-linkPrefix = "http://blog.jetboystudio.com/"
+linkPrefix = "/"
 disqusShortname = "jetboystudio"

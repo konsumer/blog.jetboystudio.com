@@ -14,24 +14,21 @@ export default class Disqus extends React.Component {
     if (typeof window != 'undefined') {
       const component = this
       window.disqus_config = function () {
-        this.page.identifier = component.state.identifier
-        this.page.title = component.state.title
-        this.page.url = component.state.url
-        this.page.category_id = component.state.category_id
-        this.callbacks.onNewComment = component.state.onNewComment
+        window.disqus_config.page.identifier = component.state.identifier
+        window.disqus_config.page.title = component.state.title
+        window.disqus_config.page.url = component.state.url
+        window.disqus_config.page.category_id = component.state.category_id
+        window.disqus_config.callbacks.onNewComment = component.state.onNewComment
       }
       const script = document.createElement('script')
-      script.src = `//${this.state.shortname}.disqus.com/embed.js`
+      script.src = `//${component.state.shortname}.disqus.com/embed.js`
       script.async = true
       document.body.appendChild(script)
     }
   }
 
   render () {
-    let props = this.props
-    for (let i in Disqus.propTypes) {
-      delete props[i]
-    }
+    let {shortname, identifier, title, url, category_id, onNewComment, ...props} = this.props
     return (<div id="disqus_thread" {...props}></div>)
   }
 }
