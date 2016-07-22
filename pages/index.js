@@ -22,9 +22,6 @@ const style = {
   date: {
     fontSize: rhythm(1 / 2),
     color: 'gray'
-  },
-  more: {
-    fontSize: rhythm(1 / 4)
   }
 }
 
@@ -46,8 +43,6 @@ class BlogIndex extends React.Component {
               {moment(page.data.date).calendar()}
             </div>
             <Summary body={page.data.body} />
-            <Link style={style.more} to={prefixLink(page.path)}> more
-            </Link>
           </li>
         )
       }
