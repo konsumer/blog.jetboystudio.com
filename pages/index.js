@@ -17,7 +17,6 @@ const style = {
     listStyle: 'none'
   },
   Link: {
-    boxShadow: 'none'
   },
   date: {
     fontSize: rhythm(1 / 2),
