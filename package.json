@@ -1,7 +1,5 @@
 {
   "name": "blog.jetboystudio.com",
-  "private": true,
-  "description": "A Gatsby Blog",
   "version": "1.0.0",
   "author": "David Konsumer <konsumer@jetboystudio.com>",
   "dependencies": {
