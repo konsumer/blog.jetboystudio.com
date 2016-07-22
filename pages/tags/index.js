@@ -1,19 +1,10 @@
 import React from 'react'
-import slugify from 'slugify'
 import { Link } from 'react-router'
 import DocumentTitle from 'react-document-title'
-import uniq from 'lodash/uniq'
 
 import Summary from 'components/Summary'
 import { config } from 'config'
-
-function tagMap (tag) {
-  return slugify(tag).toLowerCase()
-}
-
-function getTags (page) {
-  return page.data.tags || []
-}
+import { tagMap, getTags, getAllTags } from 'utils'
 
 const TaggedPage = ({page, hideSummary}) => (
   <li>
@@ -41,7 +32,7 @@ const ShowTag = ({tag, pages, hideSummary}) => {
 class BlogTags extends React.Component {
   render () {
     const tag = this.props.location.hash.replace('#', '')
-    const allTags = tag ? [] : uniq([].concat.apply([], this.props.route.pages.map(page => getTags(page).map(tagMap)))).sort()
+    const allTags = tag ? [] : getAllTags(this.props.route.pages)
     return (
     <DocumentTitle title={tag ? `${tag} - ${config.blogTitle}` : config.blogTitle}>
       <div>
