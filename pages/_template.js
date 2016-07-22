@@ -6,10 +6,8 @@ import { rhythm, fontSizeToMS } from 'utils/typography'
 import { config } from 'config'
 
 const style = {
-  Link: {
-    boxShadow: 'none',
-    textDecoration: 'none',
-    color: 'inherit'
+  header: {
+    marginBottom: rhythm(1.5)
   },
   h1: {
     marginBottom: 0,
@@ -17,13 +15,13 @@ const style = {
     lineHeight: fontSizeToMS(1.5).lineHeight,
     marginTop: 0
   },
-  h3: {
-    fontFamily: 'Montserrat, sans-serif',
-    marginTop: 0
-  },
   h2: {
     marginTop: 0,
     textAlign: 'center'
+  },
+  h3: {
+    fontFamily: 'Montserrat, sans-serif',
+    marginTop: 0
   },
   img: {
     margin: 0,
@@ -31,6 +29,15 @@ const style = {
     width: '1em',
     height: '1em',
     verticalAlign: 'middle'
+  },
+  Link: {
+    boxShadow: 'none',
+    textDecoration: 'none',
+    color: 'inherit'
+  },
+  Container: {
+    maxWidth: rhythm(24),
+    padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`
   }
 }
 
@@ -40,7 +47,7 @@ class Template extends React.Component {
     let header
     if (location.pathname === prefixLink('/')) {
       header = (
-        <header style={{marginBottom: rhythm(1.5)}}>
+        <header style={style.header}>
           <h1 style={style.h1}><Link style={style.Link} to={prefixLink('/')} > <img src="/favicon.ico" style={style.img}/> {config.blogTitle} </Link></h1>
           <h2 style={style.h2}>{config.subTitle}</h2>
         </header>
@@ -53,7 +60,7 @@ class Template extends React.Component {
       )
     }
     return (
-    <Container style={{  maxWidth: rhythm(24),  padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`}}>
+    <Container style={style.Container}>
       {header}
       {children}
     </Container>

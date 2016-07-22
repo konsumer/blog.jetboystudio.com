@@ -1,5 +1,6 @@
 import React from 'react'
 import slugify from 'slugify'
+import {Link} from 'react-router'
 
 const Tags = props => {
   const { post, ...rest } = props
@@ -7,9 +8,9 @@ const Tags = props => {
     <div className="Tags" {...rest}>
       {(props.post.tags || []).map((tag, i) => {
          return [i !== 0 ? ' | ' : null,
-           <a key={i} className="tag" href={`/tags/${slugify(tag.toLowerCase())}`}>
+           <Link key={i} className="tag" to={{pathname:'/tags/', hash: slugify(tag).toLowerCase()}}>
              {tag}
-           </a>]
+           </Link>]
        })}
     </div>
   )

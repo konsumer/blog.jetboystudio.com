@@ -15,11 +15,6 @@ import 'css/zenburn.css'
 class MarkdownWrapper extends React.Component {
   componentDidMount () {
     fixLinks(this.refs.markdown, this.context.router)
-    setTimeout(this.scroll, 0)
-  }
-
-  componentWillReceiveProps () {
-    setTimeout(this.scroll, 0)
   }
 
   render () {
@@ -27,10 +22,10 @@ class MarkdownWrapper extends React.Component {
     const post = route.page.data
 
     return (
-    <DocumentTitle title={`${post.title} | ${config.blogTitle}`}>
+    <DocumentTitle title={post.title ? `${post.title} | ${config.blogTitle}` : config.blogTitle}>
       <div className="markdown">
         <h1 style={{ marginTop: 0 }}>{post.title}</h1>
-        <em style={{ display: 'block', marginBottom: rhythm(2) }}>Posted {moment(post.date).format('MMMM D, YYYY')}</em>
+        {!post.date ? null : <em style={{ display: 'block', marginBottom: rhythm(2) }}>Posted {moment(post.date).format('MMMM D, YYYY')}</em>}
         <Tags post={post} style={{ marginBottom: rhythm(2) }} />
         <div ref="markdown" dangerouslySetInnerHTML={{__html: post.body}} />
         <hr style={{ marginBottom: rhythm(2) }} />
