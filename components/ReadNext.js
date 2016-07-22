@@ -7,6 +7,19 @@ import intersect from 'just-intersect'
 import { rhythm, fontSizeToMS } from 'utils/typography'
 import { getTags } from 'utils'
 
+const style = {
+  h6: {
+    margin: 0,
+    fontSize: fontSizeToMS(-0.5).fontSize,
+    lineHeight: fontSizeToMS(-0.5).lineHeight,
+    letterSpacing: -0.25
+  },
+  h3: {
+    marginTop: 0,
+    marginBottom: rhythm(1 / 4)
+  }
+}
+
 class ReadNext extends React.Component {
   render () {
     const { pages, post } = this.props
@@ -46,8 +59,8 @@ class ReadNext extends React.Component {
 
       return (
       <div>
-        <h6 style={{  margin: 0,  fontSize: fontSizeToMS(-0.5).fontSize,  lineHeight: fontSizeToMS(-0.5).lineHeight,  letterSpacing: -0.25}}>READ THIS NEXT:</h6>
-        <h3 style={{  marginTop: 0,  marginBottom: rhythm(1 / 4)}}><Link to={{  pathname: prefixLink(nextPost.path),  query: {    readNext: true  }}} > {nextPost.data.title} </Link></h3>
+        <h6 style={style.h6}>READ THIS NEXT:</h6>
+        <h3 style={style.h3}><Link to={{  pathname: prefixLink(nextPost.path),  query: {    readNext: true  }}} > {nextPost.data.title} </Link></h3>
         <p>
           {body}
         </p>
