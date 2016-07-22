@@ -26,7 +26,7 @@
     "slugify": "^0.1.1",
     "typography": "^0.11.7",
     "typography-react": "^0.10.4",
-    "typography-theme-funston": "^0.11.7",
+    "typography-theme-wordpress-2016": "^0.11.3",
     "underscore.string": "^3.2.3"
   },
   "devDependencies": {
