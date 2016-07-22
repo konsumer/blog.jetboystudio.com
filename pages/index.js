@@ -9,6 +9,15 @@ import { config } from 'config'
 import include from 'underscore.string/include'
 import Bio from 'components/Bio'
 import Summary from 'components/Summary'
+import moment from 'moment'
+
+const style = {
+  date: {
+    color: 'grey'
+  },
+  li: {  marginBottom: rhythm(1 / 4)},
+  Link: {boxShadow: 'none'}
+}
 
 class BlogIndex extends React.Component {
   render () {
@@ -20,10 +29,13 @@ class BlogIndex extends React.Component {
       if (access(page, 'file.ext') === 'md' && !include(page.path, '/404')) {
         const title = access(page, 'data.title') || page.path
         pageLinks.push(
-          <li key={page.path} style={{  marginBottom: rhythm(1 / 4)}}>
-            <Link style={{boxShadow: 'none'}} to={prefixLink(page.path)}>
+          <li key={page.path} style={style.li}>
+            <Link style={style.Link} to={prefixLink(page.path)}>
             {title}
             </Link>
+            <div style={style.date}>
+              {moment(page.data.date).calendar()}
+            </div>
             <Summary body={page.data.body} />
             <small><Link to={prefixLink(page.path)}> more </Link></small>
           </li>
