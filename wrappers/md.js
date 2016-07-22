@@ -2,7 +2,7 @@ import React from 'react'
 import moment from 'moment'
 import DocumentTitle from 'react-document-title'
 import { fixLinks } from 'utils'
-import Disqus from 'components/Disqus'
+// import Disqus from 'components/Disqus'
 
 import ReadNext from 'components/ReadNext'
 import Bio from 'components/Bio'
@@ -36,7 +36,7 @@ class MarkdownWrapper extends React.Component {
         <hr style={{ marginBottom: rhythm(2) }} />
         <ReadNext post={post} pages={route.pages} />
         <Bio />
-        <Disqus shortname={config.disqusShortname} title={post.title} url={`${config.disqusUrlPrefix}${route.page.path}`} />
+        {/* <Disqus shortname={config.disqusShortname} title={post.title} url={`${config.disqusUrlPrefix}${route.page.path}`} /> */}
       </div>
     </DocumentTitle>
     )
