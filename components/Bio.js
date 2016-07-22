@@ -19,7 +19,7 @@ const style = {
 
 const Bio = props => (
   <p style={style.p}>
-    <img src={profilePic} alt={`author ${config.authorName}`} style={style.img} /><span dangerouslySetInnerHTML={{__html: config.authorBio}} />
+    <img src={`/${profilePic}`} alt={`author ${config.authorName}`} style={style.img} /><span dangerouslySetInnerHTML={{__html: config.authorBio}} />
   </p>
 )
 
