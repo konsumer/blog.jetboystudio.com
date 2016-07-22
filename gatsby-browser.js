@@ -2,7 +2,7 @@ import ReactGA from 'react-ga'
 import { config, pages } from 'config'
 import find from 'lodash/find'
 
-ReactGA.initialize(config.gaCode, {debug: true})
+ReactGA.initialize(config.gaCode)
 
 exports.onRouteUpdate = state => {
   const page = find(pages, {path: state.pathname})
