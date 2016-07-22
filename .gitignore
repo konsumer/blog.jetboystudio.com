@@ -1,11 +1,4 @@
-node_modules
-.DS_Store
-build
+node_modules/
 *.log
-archive.html
-favicon.ico
-feed.xml
-index.html
-page
-articles
-css
+public
+.gatsby-context.js

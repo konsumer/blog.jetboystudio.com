@@ -1,0 +1,337 @@
+---
+title:  "blogging with gatsby"
+date:   2016-07-21 16:02:00
+tags: [react,blogging,gatsby,node]
+---
+
+I wanted to make a static blog that used react to render, and generated pages for noscript people (and SEO.) This is about my awesome [gatsby](https://github.com/gatsbyjs/gatsby) starter you can use yourself.
+
+---
+
+If you want to skip ahead to the code or just use it for your own blog, you can check it out here: [gatsby-starter-drunkenblog](https://github.com/konsumer/gatsby-starter-drunkenblog).
+
+I decided it was time for a change. I liked [gatsby](https://github.com/gatsbyjs/gatsby) because it uses react and generates plain static sites (with progressive react enhancement.) I opened a Coors and started my adventure.
+
+So, I need a few things that weren't in the [basic blog starter](https://github.com/gatsbyjs/gatsby-starter-blog), but that's what I started with.
+
+Here's what was missing for me:
+
+* no page-reload on internal links
+* disqus comments
+* tags
+* summaries (pulled from section marked by '---' at top, if available) on home and in other places
+* automatic recommended next articles by default, with options for curating them
+* scrolling
+
+## no page-reload on internal links
+
+I opened up `wrappers/md.js` and added `componentDidMount()` to `MarkdownWrapper`:
+
+```js
+// update internal links to use router
+  componentDidMount () {
+    catchLinks(this.refs.markdown, (href) => {
+      const ext = href.split('.').pop().toLowerCase()
+      if (['zip', 'png', 'jpg', 'txt', 'md'].indexOf(ext) === -1) {
+        this.context.router.push(href)
+      }
+    })
+  }
+```
+
+You can put whatever restricted local link extensions you want in that array.
+
+I did a `npm i -S catch-links` and add this to the top of `wrappers/md.js`:
+
+```js
+import catchLinks from 'catch-links'
+```
+
+## disqus comments
+
+There are a few react disqus components, but they didn't play well with the dynamic page-loading and although I thought about contributing back to one of them, the component was so small and single-purpose, I didn't bother (I added a comment to [this issue](https://github.com/mzabriskie/react-disqus-thread/issues/14) to track mine.)
+
+Here is the code I put in `components/Disqus.js`:
+
+```js
+import React from 'react'
+
+export default class Disqus extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = props
+  }
+
+  componentWillReceiveProps (nextProps) {
+    this.setState(nextProps)
+  }
+
+  componentWillMount () {
+    const component = this
+    window.disqus_config = function () {
+      this.page.identifier = component.state.identifier
+      this.page.title = component.state.title
+      this.page.url = component.state.url
+      this.page.category_id = component.state.category_id
+      this.callbacks.onNewComment = component.state.onNewComment
+    }
+    const script = document.createElement('script')
+    script.src = `//${this.state.shortname}.disqus.com/embed.js`
+    script.async = true
+    document.body.appendChild(script)
+  }
+
+  render () {
+    let props = this.props
+    for (let i in Disqus.propTypes) {
+      delete props[i]
+    }
+    return (<div id="disqus_thread" {...props}></div>)
+  }
+}
+
+Disqus.propTypes = {
+  /**
+   * `shortname` tells the Disqus service your forum's shortname,
+   * which is the unique identifier for your website as registered
+   * on Disqus. If undefined , the Disqus embed will not load.
+   */
+  shortname: React.PropTypes.string.isRequired,
+
+  /**
+   * `identifier` tells the Disqus service how to identify the
+   * current page. When the Disqus embed is loaded, the identifier
+   * is used to look up the correct thread. If disqus_identifier
+   * is undefined, the page's URL will be used. The URL can be
+   * unreliable, such as when renaming an article slug or changing
+   * domains, so we recommend using your own unique way of
+   * identifying a thread.
+   */
+  identifier: React.PropTypes.string,
+
+  /**
+   * `title` tells the Disqus service the title of the current page.
+   * This is used when creating the thread on Disqus for the first time.
+   * If undefined, Disqus will use the <title> attribute of the page.
+   * If that attribute could not be used, Disqus will use the URL of the page.
+   */
+  title: React.PropTypes.string,
+
+  /**
+   * `url` tells the Disqus service the URL of the current page.
+   * If undefined, Disqus will take the window.location.href.
+   * This URL is used to look up or create a thread if disqus_identifier
+   * is undefined. In addition, this URL is always saved when a thread is
+   * being created so that Disqus knows what page a thread belongs to.
+   */
+  url: React.PropTypes.string,
+
+  /**
+   * `category_id` tells the Disqus service the category to be used for
+   * the current page. This is used when creating the thread on Disqus
+   * for the first time.
+   */
+  category_id: React.PropTypes.string,
+
+  /**
+   * `onNewComment` function accepts one parameter `comment` which is a
+   * JavaScript object with comment `id` and `text`. This allows you to track
+   * user comments and replies and run a script after a comment is posted.
+   */
+  onNewComment: React.PropTypes.func
+}
+```
+
+Back in `wrappers/md.js`, I imported it at the top, and put it into the `render()`:
+
+```html
+<Disqus shortname={config.disqusShortname} title={post.title} url={`${config.disqusUrlPrefix}${route.page.path}`} />
+```
+
+## tags
+
+Tags are defined in [front-matter](https://jekyllrb.com/docs/frontmatter/), they look like this:
+
+```
+---
+tags: [react,blogging,gatsby,node]
+---
+```
+
+to display them, I made a `components/Tags.js`:
+
+```js
+import React from 'react'
+import slugify from 'slugify'
+
+const Tags = props => {
+  const { post, ...rest } = props
+  return (
+    <div className="Tags" {...rest}>
+      {(props.post.tags || []).map((tag, i) => {
+         return [i !== 0 ? ' | ' : null,
+           <a key={i} className="tag" href={`/tags/${slugify(tag.toLowerCase())}`}>
+             {tag}
+           </a>]
+       })}
+    </div>
+  )
+}
+
+export default Tags
+```
+
+In `wrappers/md.js` I import it and use the tag, like this:
+
+```html
+<Tags post={post} style={{ marginBottom: rhythm(2) }} />
+```
+
+## summaries
+
+When I started, I already had a bunch of articles I wrote for [wintersmith](http://wintersmith.io/). I wrote a little parser to grab summaries from all my posts, which are just separated from the rest of the content with the `hr` dashes:
+
+```
+---
+```
+
+I liked this system, but didn't want to have to make a summary (just use the first 200 words of the post, by default.) I made a file in `components/Summary.js` to do this:
+
+```js
+import React from 'react'
+import { prune } from 'underscore.string'
+import catchLinks from 'catch-links'
+
+class Summary extends React.Component {
+  summary () {
+    const {body} = this.props
+    const split = body.split('<hr>')
+    return split.length !== 0 && split[0].length < 200 ? split[0] : prune(body.replace(/<[^>]*>/g, ''), 200)
+  }
+
+  // update internal links to use router
+  componentDidMount () {
+    catchLinks(this.refs.markdown, (href) => {
+      const ext = href.split('.').pop().toLowerCase()
+      if (['zip', 'png', 'jpg', 'txt', 'md'].indexOf(ext) === -1) {
+        this.context.router.push(href)
+      }
+    })
+  }
+
+  render () {
+    return (<div ref="markdown" className="Summary" dangerouslySetInnerHTML={{__html: this.summary()}} />)
+  }
+}
+
+Summary.propTypes = {
+  body: React.PropTypes.string.isRequired
+}
+
+Summary.contextTypes = {
+  router: React.PropTypes.object.isRequired
+}
+
+export default Summary
+```
+
+As you can see, I repeated `componentDidMount()` to properly grab internal links. Eventually, I will put this in a utils function, for better DRY (done by the time you read this.)
+
+## readNext
+
+In gatsby, there is this [front-matter](https://jekyllrb.com/docs/frontmatter/):
+
+```
+---
+readNext: "/articles/teensy2AVRISP-MKII-lufa/"
+---
+```
+I think this is awesome, but I wanted it to show something good, even if I didn't set it.
+
+My basic algorithm is this:
+
+* if set, use `readNext`
+* if not, find 5 similar items, by tag similarity, pick one at random
+
+I overwrote `components/ReadNext.js` to look like this:
+
+```js
+import React from 'react'
+import { Link } from 'react-router'
+import { prefixLink } from 'gatsby-helpers'
+import { include as includes } from 'underscore.string'
+import find from 'lodash/find'
+import intersect from 'just-intersect'
+import { rhythm, fontSizeToMS } from 'utils/typography'
+import Summary from './Summary'
+import slugify from 'slugify'
+
+class ReadNext extends React.Component {
+  render () {
+    const { pages, post } = this.props
+    let { readNext } = post
+
+    const tags = post.tags.map(tag => slugify(tag).toLowerCase())
+
+    // find 5 most similar by tags, and get a random item if readNext isn't set
+    if (!readNext) {
+      readNext = pages
+        .filter(p => p.data.tags && p.data.body !== post.body)
+        .map(p => {
+          p.diff = intersect(tags, p.data.tags).length
+          return p
+        })
+        .sort((a, b) => a.diff - b.diff)
+        .slice(-5)
+        .sort((a, b) => Math.random() * -0.5)
+        .pop()
+        .path
+    }
+
+    let nextPost
+    if (readNext) {
+      nextPost = find(pages, (page) => includes(page.path, readNext.slice(1, -1)))
+    }
+
+    if (!nextPost) {
+      return null
+    } else {
+      return (
+      <div>
+        <h6 style={{  margin: 0,  fontSize: fontSizeToMS(-0.5).fontSize,  lineHeight: fontSizeToMS(-0.5).lineHeight,  letterSpacing: -0.25}}>READ THIS NEXT:</h6>
+        <h3 style={{  marginTop: 0,  marginBottom: rhythm(1 / 4)}}><Link to={{  pathname: prefixLink(nextPost.path),  query: { readNext: true }}} > {nextPost.data.title} </Link></h3>
+        <Summary body={nextPost.data.body} />
+        <hr />
+      </div>
+      )
+    }
+  }
+}
+
+ReadNext.propTypes = {
+  post: React.PropTypes.object.isRequired,
+  pages: React.PropTypes.array
+}
+
+export default ReadNext
+```
+
+This uses my new `Summary` component, and also does what I want with tagged posts.
+
+## scrolling
+
+Scrolling is whatever it was before when you change pages. I want it to act like a static page, so I added this to `wrappers/md.js`:
+
+```js
+  componentDidMount () {
+    setTimeout(this.scroll, 0)
+  }
+
+  componentWillReceiveProps () {
+    setTimeout(this.scroll, 0)
+  }
+```
+
+## next steps
+
+[Scott Nonnenberg's Blog](https://github.com/scottnonnenberg/blog) does a few other cool things I'd like to incorporate, like RSS and a better front-page. I like my approach of parsing the pages array, rather than his method of using standalone scripts to generate the feed, so I'll probably do it a bit different. 

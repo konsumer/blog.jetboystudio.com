@@ -1,0 +1,36 @@
+import React from 'react'
+import { Link } from 'react-router'
+import { Container } from 'react-responsive-grid'
+import { prefixLink } from 'gatsby-helpers'
+import { rhythm, fontSizeToMS } from 'utils/typography'
+import { config } from 'config'
+
+class Template extends React.Component {
+  render () {
+    const { location, children } = this.props
+    let header
+    if (location.pathname === prefixLink('/')) {
+      header = (
+        <h1 style={{  fontSize: fontSizeToMS(1.5).fontSize,  lineHeight: fontSizeToMS(1.5).lineHeight,  marginBottom: rhythm(1.5),  marginTop: 0}}><Link style={{  boxShadow: 'none',  textDecoration: 'none',  color: 'inherit'}} to={prefixLink('/')} > <img src="/favicon.ico" style={{ width: 50, height: 50, verticalAlign: 'middle', border: 'none', margin: 0 }} /> {config.blogTitle} </Link></h1>
+      )
+    } else {
+      header = (
+        <h3 style={{  fontFamily: 'Montserrat, sans-serif',  marginTop: 0}}><Link style={{  boxShadow: 'none',  textDecoration: 'none',  color: 'inherit'}} to={prefixLink('/')} > <img src="/favicon.ico" style={{ width: 30, height: 30, verticalAlign: 'middle', border: 'none', margin: 0 }} /> {config.blogTitle} </Link></h3>
+      )
+    }
+    return (
+    <Container style={{  maxWidth: rhythm(24),  padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`}}>
+      {header}
+      {children}
+    </Container>
+    )
+  }
+}
+
+Template.propTypes = {
+  children: React.PropTypes.any,
+  location: React.PropTypes.object,
+  route: React.PropTypes.object
+}
+
+export default Template
