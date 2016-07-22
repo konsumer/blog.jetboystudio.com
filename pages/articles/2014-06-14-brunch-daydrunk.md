@@ -4,7 +4,7 @@ date: 2014-06-14T19:57:00.000Z
 tags:
   - brunch
   - quickie
-path: /articles/brunch-daydrunk
+path: /articles/brunch-daydrunk/
 ---
 
 So, lately I have been super-into [brunch](http://brunch.io).
@@ -69,3 +69,4 @@ Let's add some cool pages at `#/hello` & `#/ohai`. Add templates to `front/asset
 Ok, cool. When you are ready to deploy do a `git add -A && git commit -am "deploy" && git push heroku master`. This will send it up to heroku, and minify all your sourcecode like a boss.
 
 This is a super-basic overview. Hopefully, I'll have time to write more, soon.
+

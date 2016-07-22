@@ -7,7 +7,7 @@ tags:
   - games
   - Humble Bundle
   - quickie
-path: /articles/humble-bundle-mobile-in-desktop
+path: /articles/humble-bundle-mobile-in-desktop/
 ---
 
 I have a bunch of [Humble Bundle](https://www.humblebundle.com/) Android games that I wanted to play on our house entertainment computer (hooked up to a projector!) Here is how I did it. This is also a guide if you want a really fast & performant Android emulator.
@@ -46,3 +46,4 @@ These had issues:
 *  Swords & Soldiers HD (crashed on run)
 *  Bard's Tale (installed, anddownloaded content,then crashed)
 *  Breach & Clear (crashed on run)
+

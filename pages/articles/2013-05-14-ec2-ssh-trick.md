@@ -7,7 +7,7 @@ tags:
   - Ubuntu
   - quickie
   - SSH
-path: /articles/ec2-ssh-trick
+path: /articles/ec2-ssh-trick/
 ---
 
 I have a generic disposable SSH keypair for working on projects on AWS.  I like to not have to remember dumb details (especially when I'm drunk.)
@@ -25,3 +25,4 @@ Save a key named "deploy" in `~/.ssh/deploy.key` and it will automatically use t
 If you need to generate a pubkey (like for a github project deploy key, etc) Use this command:
 
 `ssh-keygen -y -f ~/.ssh/deploy.key`
+

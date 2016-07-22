@@ -6,7 +6,7 @@ tags:
   - extension
   - torrent
   - NAS
-path: /articles/safari-extension
+path: /articles/safari-extension/
 ---
 
 [Earlier](/articles/nas/) I talked about my awesome media/storage server named "stooge".  I want stooge to handle all the torrents on my network. I saw some good extensions for Firefox & Chrome, but not Safari. Since my new housemate prefers Mac Safari, I set out to make it awesome.
@@ -200,5 +200,6 @@ I wanted some preferences for the user to configure the torrent back-end. Mine (
 ![preferences](/files/safari3.png)
 
 As you can see, I am securely storing user/password. I currently only have 1 client available (Transmission WebUI), but if you look at `global.html`, you can see how to add more, using `add` callbacks, and you can also see how I messed with my settings. Sweet!
+
 
 

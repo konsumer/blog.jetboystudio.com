@@ -8,7 +8,7 @@ tags:
   - XMEGA
   - LUFA
   - teensy
-path: /articles/teensy2AVRISP-MKII-lufa
+path: /articles/teensy2AVRISP-MKII-lufa/
 ---
 
 [Previously](/articles/teensy2AVRISP-MKII/) I went through a lot of hoops to figure out how to compile a Teensy version of a burner for my XMEGA.  This is a simpler version of those instructions.
@@ -42,4 +42,5 @@ CD to Projects/AVRISP-MKII/ and type `make`
 drag AVRISP-MKII.hex to your teensy burner window and press reset.
 
 Now, you have a AVRISP-MKII clone!
+
 

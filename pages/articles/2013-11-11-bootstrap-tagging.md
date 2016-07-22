@@ -9,7 +9,7 @@ tags:
   - express
   - mongoose
   - mongodb
-path: /articles/bootstrap-tagging
+path: /articles/bootstrap-tagging/
 ---
 
 I had a need for a mongodb-driven tagging widget. The idea is that you get nice tags that you can add & remove, and it knows about tags that are already present.
@@ -185,6 +185,7 @@ $("#tags").typeahead({
 Run `npm start` and you will have a running webserver & JSON interface to your db's tags.
 
 Now, yer all set. It still needs a little style love, but basically does what is needed. Pretty extreme level of magic for such a small investment, eh?
+
 
 
 

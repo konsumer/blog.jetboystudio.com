@@ -6,7 +6,7 @@ tags:
   - googledocs
   - amazon
   - methodology
-path: /articles/googledocs-amazonbooks
+path: /articles/googledocs-amazonbooks/
 ---
 
 I needed to make a list of my audiobooks for my girlfriend. Since I am an obsessed software engineer, here is how I did it. Let this be a lesson in software problem-solving.
@@ -58,3 +58,4 @@ Now, we need to create  a link from formatted text of `AUTHOR + " - " + TITLE`:
 ```
 
 After this, I copied `D2` and pasted into `D3:D25`, I copied `D2:D25`, and that gave me a nice table to paste into an email.
+

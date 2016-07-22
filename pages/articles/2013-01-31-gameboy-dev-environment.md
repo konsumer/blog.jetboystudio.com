@@ -5,7 +5,7 @@ tags:
   - drunk
   - gameboy
   - development
-path: /articles/gameboy-dev-environment
+path: /articles/gameboy-dev-environment/
 ---
 
 I do a lot of weird code stuff.  Recently, I was writing a [ROM for a Gameboy hardware-platform](https://github.com/konsumer/dkart).
@@ -120,6 +120,7 @@ It's also handy if you have a bunch of c files, you can run:
 type `open testsound.gb` to run it.
 
 You just made yer first gameboy game. Yer an "old-timer".
+
 
 
 

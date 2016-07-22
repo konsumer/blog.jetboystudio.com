@@ -9,7 +9,7 @@ tags:
   - LUFA
   - teensy
 readNext: /articles/teensy2AVRISP-MKII-lufa
-path: /articles/teensy2AVRISP-MKII
+path: /articles/teensy2AVRISP-MKII/
 ---
 
 I needed a way to program the [XMEGA100 breakout board from Sparkfun](https://www.sparkfun.com/products/9546), and didn't have a "real programmer".
@@ -125,6 +125,7 @@ Dang! So happy. [Life is rad](http://www.youtube.com/watch?v=VazV36eWHLc).
 If you want the hex for your own Teensy++ 2, [here](/files/teensy_avrisp-mk2.zip) it is. Now you don't have to bother with all this silly bizness.
 
 Looks like I may need to do something with that 'Unknown (Device has not been configured)' bit. dunno.
+
 
 
 

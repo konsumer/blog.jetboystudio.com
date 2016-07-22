@@ -12,7 +12,7 @@ tags:
   - development
   - VirtualBox
 readNext: /articles/tools
-path: /articles/easy-dev-environment
+path: /articles/easy-dev-environment/
 ---
 
 If you are like me, you want a full LAMP stack on your box while developing, and don't want it to mess with your other stuff.
@@ -187,4 +187,5 @@ If you are looking for explanations of the above, here goes:
 *  This kinda drunken-ease comes from master-level know-how. Be sure to look into all the technology we talk about here, to get a better idea of how things really work, and how to make it work better. I expect you to return with a tech-battle and avenge this drunken blog post.
 
 Nigh-night, ninjas
+
 

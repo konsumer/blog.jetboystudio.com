@@ -5,7 +5,7 @@ tags:
   - quickie
   - Arduino
   - C++
-path: /articles/arduino-serial
+path: /articles/arduino-serial/
 ---
 
 Recently, I was making code on an Arduino Uno, that also needed to run on a Mega 2560. The Mega has 4 Harware serial ports, and the Uno has one.  I wanted it to auto-create Serial1, if needed, so I don't have to change my code.
@@ -67,3 +67,4 @@ void loop()
   }
 }
 ```
+

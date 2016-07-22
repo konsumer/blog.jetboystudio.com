@@ -6,7 +6,7 @@ tags:
   - NAS
   - TV
   - quickie
-path: /articles/automated_tv
+path: /articles/automated_tv/
 ---
 
 I want [Stooge, my NAS](/articles/nas/) to be able to keep track of my favorite shows, and download new episodes when they come out.
@@ -52,4 +52,5 @@ Now, we want this to run when Stooge starts up. He is running Ubuntu Server 12.1
 
 
 ### wow!
+
 

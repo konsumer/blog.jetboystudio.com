@@ -6,7 +6,7 @@ tags:
   - VirtualBox
   - LAMP
   - networking
-path: /articles/virtualbox-networking
+path: /articles/virtualbox-networking/
 ---
 
 Virtualbox networking can be tricky.
@@ -54,3 +54,4 @@ Type `ifconfig` to get the IP address that were assigned to each interface. On m
 
 If you setup everything else, as [I did](/articles/easy-dev-environment/) you should have files in ~/Sites/project1/webroot on host machine that gets served-up, and you should be able to `ping 192.168.56.101` from the host.
     
+

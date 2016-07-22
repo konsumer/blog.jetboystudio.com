@@ -10,7 +10,7 @@ tags:
   - modular
   - components
   - echonest
-path: /articles/angular-music-player
+path: /articles/angular-music-player/
 ---
 
 Here I will teach you to make an Angular app that plays music, with reusable components that are packaged in single directories.  This will allow you to use the same audio controller in multiple apps, even if ou aren't paying attention (drunk.)
@@ -344,4 +344,5 @@ Last step: style the track images in `app/styles/main.css`:
 ```
 
 Dang! Not too much work, for a pretty big payoff. Angular rocks.
+
 

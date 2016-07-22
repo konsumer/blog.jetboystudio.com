@@ -5,7 +5,7 @@ tags:
   - facebook
   - PHP
   - composer
-path: /articles/facebook-and-php
+path: /articles/facebook-and-php/
 ---
 
 Deving for Facebook apps kinda sucks using server-side PHP. PHP's lib is not 100% with all browsers and has lil glitches if you don't do it right, and you gotta really pay attention to a lot of details if you need info from the parent page.
@@ -389,4 +389,5 @@ and **views/about.mustache**
 ```html
     <h1>o hai!</h1>
 ```
+
 

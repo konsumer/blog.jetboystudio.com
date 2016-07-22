@@ -8,7 +8,7 @@ tags:
   - load
   - testing
   - quickie
-path: /articles/ec2-automated-testing
+path: /articles/ec2-automated-testing/
 ---
 
 I made a simple little clustered testing system, using [NodeStressSuite](https://github.com/Samuel29/NodeStressSuite). Basically, I want it to launch a bunch of instances, clobber a server, then remove all the machines.
@@ -81,4 +81,5 @@ So, now that we have a test setup, let's spin-up a bunch of AWS instances to run
 This will turn on 5 AWS instances, and wait for them, then send the test. You can view the output at http://localhost:3000
 
 To see your available options, run `loadtest --help`
+
 

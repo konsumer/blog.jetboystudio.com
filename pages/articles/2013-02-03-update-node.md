@@ -6,7 +6,7 @@ tags:
   - Linux
   - node
   - quickie
-path: /articles/update-node
+path: /articles/update-node/
 ---
 
 I was having funny little issues on Ubuntu 12.10 64bit, and realized that it was using a really old version of node.
@@ -21,3 +21,4 @@ sudo add-apt-repository ppa:chris-lea/node.js
 sudo apt-get update
 sudo apt-get install python g++ make nodejs npm
 ```
+
