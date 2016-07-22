@@ -44,7 +44,7 @@ class MarkdownWrapper extends React.Component {
       <div className="markdown">
         <h1 style={style.h1}>{post.title}</h1>
         {!post.date ? null : <div style={style.date}>
-                               {moment(post.date).format('[Posted] MMMM D, YYYY')}
+                               {`Posted ${moment(post.date).calendar().toLowerCase()}`}
                              </div>}
         <Tags post={post} style={style.Tags} />
         <div ref="markdown" dangerouslySetInnerHTML={{__html: post.body}} />
