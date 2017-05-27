@@ -13,7 +13,7 @@ class Summary extends React.Component {
   }
 
   render () {
-    return (<div ref="markdown" dangerouslySetInnerHTML={{__html: this.summary(this.props.body)}} />)
+    return (<div ref='markdown' dangerouslySetInnerHTML={{__html: this.summary(this.props.body)}} />)
   }
 }
 

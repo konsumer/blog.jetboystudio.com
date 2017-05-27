@@ -42,25 +42,25 @@ class MarkdownWrapper extends React.Component {
     const post = route.page.data
 
     return (
-    <DocumentTitle title={post.title ? `${post.title} | ${config.blogTitle}` : config.blogTitle}>
-      <div className="markdown">
-        <h1 style={style.h1}>{post.title}</h1>
-        {!post.date ? null : <div style={style.date}>
-                               {`Posted ${moment(post.date).calendar().toLowerCase()}`}
-                             </div>}
-        <Tags post={post} style={style.Tags} />
-        <div className="article" ref="markdown" dangerouslySetInnerHTML={{__html: post.body}} />
-        <hr style={style.hr} />
-        <ReadNext post={post} pages={route.pages} />
-        <Bio />
-        {config.disqusShortname ? <Disqus
-                                    shortname={config.disqusShortname}
-                                    title={post.title}
-                                    identifier={route.page.path}
-                                    url={`${config.blogUrl}${prefixLink(route.page.path)}`} /> : null}
-        {config.kommentsCode ? <Komments code={config.kommentsCode} /> : null}
-      </div>
-    </DocumentTitle>
+      <DocumentTitle title={post.title ? `${post.title} | ${config.blogTitle}` : config.blogTitle}>
+        <div className='markdown'>
+          <h1 style={style.h1}>{post.title}</h1>
+          {!post.date ? null : <div style={style.date}>
+            {`Posted ${moment(post.date).calendar().toLowerCase()}`}
+          </div>}
+          <Tags post={post} style={style.Tags} />
+          <div className='article' ref='markdown' dangerouslySetInnerHTML={{__html: post.body}} />
+          <hr style={style.hr} />
+          <ReadNext post={post} pages={route.pages} />
+          <Bio />
+          {config.disqusShortname ? <Disqus
+            shortname={config.disqusShortname}
+            title={post.title}
+            identifier={route.page.path}
+            url={`${config.blogUrl}${prefixLink(route.page.path)}`} /> : null}
+          {config.kommentsCode ? <Komments code={config.kommentsCode} /> : null}
+        </div>
+      </DocumentTitle>
     )
   }
 }

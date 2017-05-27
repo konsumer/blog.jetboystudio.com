@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router'
 import { prefixLink } from 'gatsby-helpers'
-import { prune, include as includes } from 'underscore.string'
+import { include as includes } from 'underscore.string'
 import find from 'lodash/find'
 import intersect from 'just-intersect'
 import { rhythm, fontSizeToMS } from 'utils/typography'
@@ -29,7 +29,7 @@ class ReadNext extends React.Component {
 
     if (readNext) {
       nextPost = find(pages, (page) => includes(page.path, readNext))
-    }else {
+    } else {
       readNext = pages
         .filter(p => p.data.tags && p.data.body !== post.body)
         .map(p => {
@@ -56,12 +56,12 @@ class ReadNext extends React.Component {
       )
 
       return (
-      <div>
-        <h6 style={style.h6}>READ THIS NEXT:</h6>
-        <h3 style={style.h3}><Link to={{  pathname: prefixLink(nextPost.path)}} > {nextPost.data.title} </Link></h3>
-        <Summary body={nextPost.data.body} />
-        <hr />
-      </div>
+        <div>
+          <h6 style={style.h6}>READ THIS NEXT:</h6>
+          <h3 style={style.h3}><Link to={{ pathname: prefixLink(nextPost.path)}} > {nextPost.data.title} </Link></h3>
+          <Summary body={nextPost.data.body} />
+          <hr />
+        </div>
       )
     }
   }

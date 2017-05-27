@@ -11,7 +11,7 @@ export default class Komments extends React.Component {
         this.refs.kmt.appendChild(t)
       }, 0)
     }
-    return (<div ref="kmt" id="_kmts"></div>)
+    return (<div ref='kmt' id='_kmts' />)
   }
 }
 
