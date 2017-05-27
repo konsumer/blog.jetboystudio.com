@@ -1,5 +1,5 @@
+/* global DISQUS */
 import React from 'react'
-import { prefixLink } from 'gatsby-helpers'
 
 export default class Disqus extends React.Component {
   constructor (props) {
