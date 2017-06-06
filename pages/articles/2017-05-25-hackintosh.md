@@ -57,4 +57,8 @@ I found [this](https://github.com/toleda/audio_CloverALC/blob/master/audio_clove
 - First, I used Clover Configurator to mount my EFI partition.
 - Next, I `chmod 755 audio_cloverALC-120.sh && ./audio_cloverALC-120.sh`
 
+
+I got a [nice MacAlly keyboard](https://us.macally.com/products/103-key-full-size-usb-keyboard-with-short-cut-keys-for-mac) with a correctly-placed ⌘-key (next to spacebar) but if you need to modify a standard Windows keyboard, [see this](https://arstechnica.com/apple/2008/11/ars-guide-windows-to-mac-key-switching/) and add a ⌘ & alt/option sticker to make it match.
+
+
 Now, everything seems to be working well, including video, sound, network, USB3, etc.

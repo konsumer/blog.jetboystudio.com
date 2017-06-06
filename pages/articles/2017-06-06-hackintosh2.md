@@ -15,7 +15,7 @@ Basically, there are 2 factions of hackintosh forums/developers: [tonymacx68](ht
 
 It's not cutting-edge or fancy hardware by any means, but I liked the Aspire E5-575-33BM for the price (under $400), the look (all black, but sorta macpro-ish keyboard/trackpad), 12hour battery-life, and my initial research says I should be able to hackintosh it. If not, it'll make a fine Linux laptop for a good price, so I won't be heartbroken.
 
-The main elements of the hardware are:
+The main troublesome elements of the hardware are:
 
 * Intel Core™ i3-7100U dual-core 64bit Kabylake
 * Intel HD integrated Graphics 620
