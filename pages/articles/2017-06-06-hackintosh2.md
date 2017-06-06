@@ -7,7 +7,7 @@ tags:
 path: /articles/hackintosh2/
 ---
 
-I realized [this article](/articles/hackintosh/) about my hackintosh desktop isn't super-detailed, and I thought I would go into more detail about installing OSX Sierra (10.12) with my new Acer Aspire E5-575 laptop.
+I realized [this article](/articles/hackintosh/) about my hackintosh desktop is pretty basic, and I thought I would go into more detail about installing OSX Sierra (10.12) with my new Acer Aspire E5-575 laptop.
 
 Basically, there are 2 factions of hackintosh forums/developers: [tonymacx68](https://www.tonymacx86.com) and [insanelymac](http://www.insanelymac.com). I [recently read](http://prasys.info/2011/01/tonymac-seriously/) that tonymacx86 hasn't given proper credit for the awesome work that other developers (who mostly hangout on insanelymac) have put in to make hackintoshing work so well. [Multibeast & Unibeast](https://www.tonymacx86.com/resources/categories/tonymacx86-downloads.3/) is what I have used in the past, and it was really easy, but [Pandora's Box](http://www.insanelymac.com/forum/files/file/11-pandoras-box-os-x-installer/) looks like it offers more control and also seems pretty easy, so I'll try that.
 
