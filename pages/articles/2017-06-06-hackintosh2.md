@@ -60,11 +60,13 @@ Pandora makes it easy to do the clover `efi` part, as you just choose stuff in t
 
 I chose "Yes" for laptop support, I left all the efi drivers as-is. I chose the `(laptop's) config_HD615_620_630_640_650.plist` because that's what I have. click "Install", Bam!
 
+Once it's all done, copy Pandora's Box app onto the Installer partition on the USB (not "EFI") and copy any drivers you know for sure you will need.
+
 ## collecting drivers
 
 `kext` files (located in `EFI/CLOVER/kexts/Other`) are the low-level drivers for things in OSX, and `efi` files (in `EFI/CLOVER/drivers/64UEFI`) are lower-level drivers for the EFI bootloader (Clover.) I want the only modifications to OSX to be on EFI partition for easier management and better backups and upgrades.
 
-[this guide](https://www.tonymacx86.com/threads/guide-booting-the-os-x-installer-on-laptops-with-clover.148093/) is awesome and has a lot of info pertaining directly to the process we are doing here.
+[this guide](https://www.tonymacx86.com/threads/guide-booting-the-os-x-installer-on-laptops-with-clover.148093/) is awesome and has a lot of info pertaining directly to the process we are doing here. Also, [this](https://www.tonymacx86.com/threads/faq-read-first-laptop-frequent-questions.164990/) was useful.
 
 
 ### wifi
@@ -73,16 +75,24 @@ I found [this](https://www.tonymacx86.com/threads/compatibility-wifi-atheros-ar5
 
 ## boot that shit
 
+I needed to go into the BIOS (`F2`) and disable secure boot, which you can only do if you set an Admin Password on my laptop.
+
 It boots into OSX-install or it gets the hose again.
 
 ![hose time](/files/hose.jpg)
 
 First time I booted, I got just the apple logo and frozen boot. I restarted, hit space on the mac icon, chose "Verbose" and booted again, and just got a bunch of pluses.
 
-![pluses](/files/pluses.jpg)
+![laptop hose](/files/pluses.jpg)
 
-Where's my laptop-hose?
+I looked around, and this hard-to-troubleshoot-no-error-message situation is probably caused by basic required boot harddrive or CPU efi's. I copied [OsxAptioFixDrv-64.efi](https://github.com/MegaCookie/Lenovo-Y580-OSX-Installer-Clover/blob/master/Clover%20UEFI/EFI/CLOVER/drivers64UEFI/OsxAptioFixDrv-64.efi) and [HFSPlus.efi](https://github.com/JrCs/CloverGrowerPro/blob/master/Files/HFSPlus/X64/HFSPlus.efi?raw=true) into `EFI/Clover/drivers64UEFI/`, rebooted (with verbose enabled) and got into installer!
 
-I looked around, and this hard-to-troubleshoot-cause-no-error situation is probably caused by basic required harddrive or CPU efi's. I copied [OsxAptioFixDrv-64.efi](https://github.com/MegaCookie/Lenovo-Y580-OSX-Installer-Clover/blob/master/Clover%20UEFI/EFI/CLOVER/drivers64UEFI/OsxAptioFixDrv-64.efi) and [HFSPlus.efi](https://github.com/JrCs/CloverGrowerPro/blob/master/Files/HFSPlus/X64/HFSPlus.efi?raw=true) into `EFI/Clover/drivers64UEFI/`, rebooted (with verbose enabled) and got into installer!
+Once I was in the Installer screen, I went to "Disk Utility" and Erased my SSD (GPT, journaled, like when I made the USB) and proceeded through install.
 
-Once I was in the Installer screen, I went to "Disk Utility" and wiped my SSD (GPT, journaled, like installer) and proceeded through install.
+I rebooted, using clover on the USB, and got to my desktop after a series of invasive opt-in scenarios, provided thoughtfully by Apple.
+
+When it came back up, the video seemed a bit slow, and I noticed scrolling doesn't work on the trackpad.
+
+I ran Pandora's Box, and did "Bootloaders configurator" and setup clover with boot rc-scripts.
+
+I ran "Post Installation" and picked a bunch of drivers to make things work better. I had to reboot several times until I got it working right.
