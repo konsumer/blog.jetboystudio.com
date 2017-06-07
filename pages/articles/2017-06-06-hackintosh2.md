@@ -93,6 +93,8 @@ I rebooted, using clover on the USB, and got to my desktop after a series of inv
 
 When it came back up, the video seemed a bit slow, and I noticed scrolling doesn't work on the trackpad.
 
-I ran Pandora's Box, and did "Bootloaders configurator" and setup clover with boot rc-scripts.
+I ran Pandora's Box, and did "Bootloaders configurator" and setup clover with boot rc-scripts. It didn't want to boot, so I used Pandora's EFI mount to copy the files from the EFI on the USB to the harddrive.
 
-I ran "Post Installation" and picked a bunch of drivers to make things work better. I had to reboot several times until I got it working right.
+## tuning drivers for hardware
+
+* I copied [toledaARPT.kext](https://github.com/toleda/wireless_half-mini/tree/master/Deprecated%20Files/airport_kext_enabler) in `EFI/CLOVER/kexts/Other` to get wifi working.
