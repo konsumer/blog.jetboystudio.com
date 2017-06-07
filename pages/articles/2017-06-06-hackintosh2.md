@@ -25,22 +25,28 @@ The main troublesome elements of the hardware (that I anticipate) are:
 
 * Intel Core™ i3-7100U dual-core 64bit Kabylake
 * Intel HD integrated Graphics 620
-* Qualcomm Atheros NFA435A wifi. Often hackintoshing doesn't work with integrated wifi cards found in laptops, so I am prepared to get a new card, if needed
-* Power Management - this often doesn't work on laptops, and can be tricky to troubleshoot, so I will need to make sure it's setup right
+* Qualcomm Atheros NFA435A wifi. I hear hackintoshing often doesn't work with integrated wifi cards found in laptops, so I am prepared to get a new card, if needed
+* Sound - I always have trouble with sound. It tends to be a trial-and-error situation with various drivers. I'll try voodoo first, which is a generic sort of catch-all.
+* Ethernet - Not sure what ethernet chipset I have. I think it's a Realtek from what I can find online.
 
 These things are pretty standard, and should work out of the box:
 
 * 4GB of DD4 SDRAM (expandable, 2 slots, up to 32GB)
 * 1TB SATA 5400RPM harddrive
 * SATA DVD-Writer
+* Camera - these usually just work, unless they are interfaced in some weird way
+* Trackpad - I'm hoping this goes ok, should look like a regular mouse.
+* ower Management - I'm hoping this works ok.
 
 ### upgrades
 
 I immediately upgraded RAM (to 20GB with a 16GB chip) and SSD (Crucial MX300 275GB M.2 card) but I left the old harddrive in there, for easier dual-boot and for extra storage. These 2 upgrades increase the performance immediately, and don't require me to pull anything out, so I get immediate value without loss. They also should be fine with hackintosh, as long as SSD is working ok.
 
+I installed the latest BIOS from the Acer site, before doing anything.
+
 ## bootdisk
 
-We're going to make a bootable USB drive to install. Load up the app store, and install Sierra. Hit `⌘-Q` to exit installer once it runs, but the files will still be on your hardrive!
+We're going to make a bootable USB drive to install. Load up the app store, and purchase/install Sierra. Hit `⌘-Q` to exit installer once it runs, but the files will still be on your hardrive!
 
 ### usb installer
 
@@ -60,22 +66,15 @@ Pandora makes it easy to do the clover `efi` part, as you just choose stuff in t
 
 I chose "Yes" for laptop support, I left all the efi drivers as-is. I chose the `(laptop's) config_HD615_620_630_640_650.plist` because that's what I have. click "Install", Bam!
 
-Once it's all done, copy Pandora's Box app onto the Installer partition on the USB (not "EFI") and copy any drivers you know for sure you will need.
-
 ## collecting drivers
 
 `kext` files (located in `EFI/CLOVER/kexts/Other`) are the low-level drivers for things in OSX, and `efi` files (in `EFI/CLOVER/drivers/64UEFI`) are lower-level drivers for the EFI bootloader (Clover.) I want the only modifications to OSX to be on EFI partition for easier management and better backups and upgrades.
 
 [this guide](https://www.tonymacx86.com/threads/guide-booting-the-os-x-installer-on-laptops-with-clover.148093/) is awesome and has a lot of info pertaining directly to the process we are doing here. Also, [this](https://www.tonymacx86.com/threads/faq-read-first-laptop-frequent-questions.164990/) was useful.
 
-
-### wifi
-
-I found [this](https://www.tonymacx86.com/threads/compatibility-wifi-atheros-ar5b195-on-yosemite.156527/) which recommends [toledaARPT.kext](https://www.tonymacx86.com/threads/guide-airport-pcie-half-mini-v2.104850/) with [this firmware upgrade](https://github.com/RehabMan/OS-X-Atheros-3k-Firmware) to enable bluetooth.
-
 ## boot that shit
 
-I needed to go into the BIOS (`F2`) and disable secure boot, which you can only do if you set an Admin Password on my laptop.
+I needed to go into the BIOS (`F2`) and disable secure boot, which you can only do if you set an Admin Password, on my laptop. Yours may differ. Basically, with hackintosh, in your BIOS, you want EFI booting off SATA, and everything else pretty much default.
 
 It boots into OSX-install or it gets the hose again.
 
@@ -85,16 +84,86 @@ First time I booted, I got just the apple logo and frozen boot. I restarted, hit
 
 ![laptop hose](/files/pluses.jpg)
 
-I looked around, and this hard-to-troubleshoot-no-error-message situation is probably caused by basic required boot harddrive or CPU efi's. I copied [OsxAptioFixDrv-64.efi](https://github.com/MegaCookie/Lenovo-Y580-OSX-Installer-Clover/blob/master/Clover%20UEFI/EFI/CLOVER/drivers64UEFI/OsxAptioFixDrv-64.efi) and [HFSPlus.efi](https://github.com/JrCs/CloverGrowerPro/blob/master/Files/HFSPlus/X64/HFSPlus.efi?raw=true) into `EFI/Clover/drivers64UEFI/`, rebooted (with verbose enabled) and got into installer!
+I looked around, and this hard-to-troubleshoot-no-error-message situation is probably caused by basic required boot harddrive or CPU efi files. I copied [OsxAptioFixDrv-64.efi](https://github.com/MegaCookie/Lenovo-Y580-OSX-Installer-Clover/blob/master/Clover%20UEFI/EFI/CLOVER/drivers64UEFI/OsxAptioFixDrv-64.efi) and [HFSPlus.efi](https://github.com/JrCs/CloverGrowerPro/blob/master/Files/HFSPlus/X64/HFSPlus.efi?raw=true) into `EFI/Clover/drivers64UEFI/`, rebooted (with verbose enabled) and got into installer!
 
 Once I was in the Installer screen, I went to "Disk Utility" and Erased my SSD (GPT, journaled, like when I made the USB) and proceeded through install.
 
+## post-installation
+
 I rebooted, using clover on the USB, and got to my desktop after a series of invasive opt-in scenarios, provided thoughtfully by Apple.
 
-When it came back up, the video seemed a bit slow, and I noticed scrolling doesn't work on the trackpad.
+I ran Pandora's Box, and did "Bootloaders configurator" and setup clover with boot rc-scripts. It didn't want to reboot, so I used Pandora's EFI mount to copy the files from the EFI on the USB to the harddrive, which got it booting without the USB.
 
-I ran Pandora's Box, and did "Bootloaders configurator" and setup clover with boot rc-scripts. It didn't want to boot, so I used Pandora's EFI mount to copy the files from the EFI on the USB to the harddrive.
+Make a time-machine backup, if you have the space. This is "totally vanilla + USB clover EFI, boots but not much else". You can use this with the installer to get back to this stage quickly, if you screw things up. It takes a long time, but it will save you time and stress in the future.
 
-## tuning drivers for hardware
 
-* I copied [toledaARPT.kext](https://github.com/toleda/wireless_half-mini/tree/master/Deprecated%20Files/airport_kext_enabler) in `EFI/CLOVER/kexts/Other` to get wifi working.
+### fix broken things
+
+At this point go through and try to figure out what doesn't work, so we can form a strategy for setting up drivers.
+
+To identify chipsets, I'm going to use [DPCIManager](https://sourceforge.net/projects/dpcimanager/). I put it on the thumbdrive, and installed it on the hackintosh.
+
+I also went to [olarila](http://olarila.com/kexts/) and downloaded the Mac OSX system Info Util. I used that info to search for stuff. It requires java, so you'll probably want an internet connection before you resort to that.
+
+Under Pandora's "post installation" I went through several screens and picked out appropriate drivers for everything, as best as I could guess from PCI info in DPCIManager. I listed what I did, below. It took lots of reboots and trial-and-error.
+
+> I installed everything to the "Other" of the EFI partition, rather than the system folders.
+
+#### sensors
+
+I checked everything in "kazlek HWSensor 6.25.1426" in Pandora's post-installation to get some sensor capabilities.
+
+#### disk
+
+I enabled "Trim Enabler", "AHCIPortInjector.kext" and "AppleATIATA.kext"
+
+After reboot, I found "Trim Enabler" in Applications/Utilities and enabled patch. I rebooted, then ran it again, and verified that TRIM is enabled.
+
+
+#### bluetooth
+
+This worked right away. Not sure why, but I'll take it. You can verify this in "System Preferences/Bluetooth".
+
+
+#### ethernet
+
+DPCIManager says it's a RTL811/8168/8411 (`0x10EC:0x1025 0x8168:0x1094`)
+
+I installed RealTekRTL8111.kext in Pandora's post-installation. It worked after reboot. I used this to install other drivers and get things working.
+
+#### wifi
+
+I tried WIfiInjector.kext in Pandora's post-installation, but it didn't seem to work.
+
+I found [this](https://www.tonymacx86.com/threads/compatibility-wifi-atheros-ar5b195-on-yosemite.156527/) which recommends [toledaARPT.kext](https://www.tonymacx86.com/threads/guide-airport-pcie-half-mini-v2.104850/) with [this firmware upgrade](https://github.com/RehabMan/OS-X-Atheros-3k-Firmware) to enable bluetooth, but as I said it seems to already work.
+
+
+#### power management
+
+This didn't work on boot: no battery indicator.
+
+I enabled "ACPIBatteryManager.kext" (under laptop in Pandora's post-installation.) Seems to have got this working.
+
+
+#### sound
+
+Sound isn't working. You can verify this in "System Preferences/Sound" and you'll see the outputs are not there.
+
+I started to install Voodoo under Pandora's "post installation" to get it working. In the install panel it says "ALC255" which DPCIManager [verifies](https://github.com/shmilee/T450-Hackintosh/blob/master/ALC3232/tools/patch-hda-codecs.pl#L40) (codec id: `0x10EC0255`.) The "Mirone AppleHDA" drivers had ALC255 listed under "Laptop's", but I wasn't sure how to use it (so confusing!) I just went for Voodoo, works fine.
+
+
+#### video
+
+It works at boot, at the monitor's max-resolution, but definitely not accelerated.
+
+
+#### trackpad
+
+It works as a mouse, but scrolling doesn't work on the trackpad.
+
+I enabled VoodoPS2Controller (under laptop in Pandora's post-installation.) Seems to have enabled trackpad.
+
+
+## conclusion
+
+I actually like this method a lot better than unibeast+multibeast. I will probably use it instead, in the future, even for non-laptops. It should be more resistant to updates & easier to backup than adding files to the system dirs. It seems easier to see how it all goes together, and will be easier to make changes to. I love that Pandora is an all-in-one solution, and is fairly easy to use, but I still think the interface could be improved a bit. I wish the source was available, so I could make it better.
