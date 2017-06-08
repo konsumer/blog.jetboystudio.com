@@ -183,6 +183,8 @@ When I rebooted, it worked great.
 
 It works as a mouse, but scrolling doesn't work on the trackpad.
 
+I installed [this](http://forum.osxlatitude.com/index.php?/topic/1948-elan-focaltech-and-synaptics-smart-touchpad-driver-mac-os-x/) which requires the VoodooPS2 stuff removed, and it works great. I can use the native trackpad control panel, and change the scrolling speed under Accessibility.
+
 
 #### wifi
 
@@ -194,8 +196,9 @@ The directions were super-confusing to me, and although I tried to get it to wor
 
 I installed an [alternative kext](https://bitbucket.org/RehabMan/os-x-atheros-3k-firmware/downloads/) in EFI/CLOVER/kexts/Other, but that didn't work either.
 
-I was at my end, then I found [some FakePCIID stuff](https://github.com/RehabMan/OS-X-Fake-PCI-ID). I still couldn't make it work. This is the last of the important stuff (I can live with the trackpad not scrolling) so I will update when I get it working or just get a new card.
+I found [some FakePCIID stuff](https://github.com/RehabMan/OS-X-Fake-PCI-ID). I still couldn't make it work.
 
+I ended up just getting [this card](https://www.amazon.com/AzureWave-AW-CE123H-Bluetooth-Half-Size-PCI-Express/dp/B00HRFS1GQ) which should have native support.
 
 ## conclusion
 
