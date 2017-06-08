@@ -121,11 +121,14 @@ Under Pandora's "post installation" I went through several screens and picked ou
 
 I checked everything in "kazlek HWSensor 6.25.1426" in Pandora's post-installation to get some sensor capabilities.
 
+After a reboot, I had advanced sensors in Applications/Utilities/HWMonitor. I have it running on startup so I have a ncie way to look in on all my hardware.
+
+
 #### disk
 
-I enabled "Trim Enabler", "AHCIPortInjector.kext" and "AppleATIATA.kext"
+I enabled "TRIM Enabler", "AHCIPortInjector.kext" and "AppleATIATA.kext"
 
-After reboot, I found "Trim Enabler" in Applications/Utilities and enabled patch. I rebooted, then ran it again, and verified that TRIM is enabled.
+After reboot, I found "TRIM Enabler" in Applications/Utilities and enabled patch. I rebooted, then ran it again, and verified that TRIM is enabled.
 
 
 #### bluetooth
@@ -139,26 +142,16 @@ DPCIManager says it's a RTL811/8168/8411 (`0x10EC:0x1025 0x8168:0x1094`)
 
 I installed RealTekRTL8111.kext in Pandora's post-installation. It worked after reboot. I used this to install other drivers and get things working.
 
-#### wifi
-
-I tried WifiInjector.kext in Pandora's post-installation, but it didn't seem to work.
-
-I found [this](https://www.tonymacx86.com/threads/compatibility-wifi-atheros-ar5b195-on-yosemite.156527/) which recommends [toledaARPT.kext](https://www.tonymacx86.com/threads/guide-airport-pcie-half-mini-v2.104850/) with [this firmware upgrade](https://github.com/RehabMan/OS-X-Atheros-3k-Firmware) to enable bluetooth, but as I said it seems to already work.
-
-The directions were super-confusing to me, and although I tried to get it to work by patching things in clover, I ended up using [Kext Wizard](http://www.insanelymac.com/forum/topic/253395-kext-wizard-easy-to-use-kext-installer-and-more/) to install it on my system. That still didn't work.
-
-Finally, I installed an [alternative kext](https://bitbucket.org/RehabMan/os-x-atheros-3k-firmware/downloads/) in EFI/CLOVER/kexts/Other.
-
 #### power management
 
 This didn't work on boot: no battery indicator.
 
-I enabled "ACPIBatteryManager.kext" (under laptop in Pandora's post-installation.) Seems to have got this working.
+I enabled "ACPIBatteryManager.kext" (under laptop in Pandora's post-installation) which got this working.
 
 
 #### sound
 
-Sound isn't working. You can verify this in "System Preferences/Sound" and you'll see the outputs are not there.
+Sound didn't work. You can verify this in "System Preferences/Sound" and you'll see the outputs are not there.
 
 I started to install Voodoo under Pandora's "post installation" to get it working. In the install panel it says "ALC255" which DPCIManager [verifies](https://github.com/shmilee/T450-Hackintosh/blob/master/ALC3232/tools/patch-hda-codecs.pl#L40) (codec id: `0x10EC0255`.) The "Mirone AppleHDA" drivers had ALC255 listed under "Laptop's", but I wasn't sure how to use it (so confusing!) I just went for Voodoo, works fine.
 
@@ -168,11 +161,40 @@ I started to install Voodoo under Pandora's "post installation" to get it workin
 It works at boot, at the monitor's max-resolution, but definitely not accelerated.
 
 
+I got the graphics to work by adding [FakePCIID_Intel_HD_Graphics.kext and FakePCIID.kext](https://bitbucket.org/RehabMan/os-x-fake-pci-id/downloads/) to /EFI/CLOVER/kexts/Other
+
+Next, I looked through config.plist for `#AddProperties` and changed it to `AddProperties` then added this in the `<dict>` below that:
+
+```plist
+  <key>Device</key>
+  <string>IntelGFX</string>
+
+  <key>Key</key>
+  <string>AAPL,GfxYTile</string>
+
+  <key>Value</key>
+  <data>AQAAAA==</data>
+```
+
+When I rebooted, it worked great.
+
+
 #### trackpad
 
 It works as a mouse, but scrolling doesn't work on the trackpad.
 
-I enabled VoodoPS2Controller (under laptop in Pandora's post-installation.) Seems to have enabled trackpad.
+
+#### wifi
+
+I tried WifiInjector.kext in Pandora's post-installation, but it didn't seem to work.
+
+I found [this](https://www.tonymacx86.com/threads/compatibility-wifi-atheros-ar5b195-on-yosemite.156527/) which recommends [toledaARPT.kext](https://www.tonymacx86.com/threads/guide-airport-pcie-half-mini-v2.104850/) with [this firmware upgrade](https://github.com/RehabMan/OS-X-Atheros-3k-Firmware) to enable bluetooth, but as I said it seems to already work.
+
+The directions were super-confusing to me, and although I tried to get it to work by patching things in clover, I ended up using [Kext Wizard](http://www.insanelymac.com/forum/topic/253395-kext-wizard-easy-to-use-kext-installer-and-more/) to install it on my system. That still didn't work.
+
+I installed an [alternative kext](https://bitbucket.org/RehabMan/os-x-atheros-3k-firmware/downloads/) in EFI/CLOVER/kexts/Other, but that didn't work either.
+
+I was at my end, then I found [some FakePCIID stuff](https://github.com/RehabMan/OS-X-Fake-PCI-ID). I still couldn't make it work. This the last of the important stuff (I can live with the trackpad not scrolling) so I will update when I get it working or just get a new card.
 
 
 ## conclusion
