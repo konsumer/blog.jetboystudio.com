@@ -194,7 +194,7 @@ The directions were super-confusing to me, and although I tried to get it to wor
 
 I installed an [alternative kext](https://bitbucket.org/RehabMan/os-x-atheros-3k-firmware/downloads/) in EFI/CLOVER/kexts/Other, but that didn't work either.
 
-I was at my end, then I found [some FakePCIID stuff](https://github.com/RehabMan/OS-X-Fake-PCI-ID). I still couldn't make it work. This the last of the important stuff (I can live with the trackpad not scrolling) so I will update when I get it working or just get a new card.
+I was at my end, then I found [some FakePCIID stuff](https://github.com/RehabMan/OS-X-Fake-PCI-ID). I still couldn't make it work. This is the last of the important stuff (I can live with the trackpad not scrolling) so I will update when I get it working or just get a new card.
 
 
 ## conclusion
