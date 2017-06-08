@@ -77,6 +77,7 @@ I put these on the disk for later:
 * [DPCIManager](https://sourceforge.net/projects/dpcimanager/) for detecting devices
 * [Pandora's Box](http://www.insanelymac.com/forum/files/file/11-pandoras-box-os-x-installer/) for post-install stuff
 * [Kext Wizard](http://www.insanelymac.com/forum/topic/253395-kext-wizard-easy-to-use-kext-installer-and-more/)
+* [Clover Configurator (vibrant edition)](http://mackie100projects.altervista.org/download-clover-configurator/)
 
 
 ## boot that shit
@@ -99,7 +100,7 @@ Once I was in the Installer screen, I went to "Disk Utility" and Erased my SSD (
 
 I rebooted, using clover on the USB, and got to my desktop after a series of invasive opt-in scenarios, provided thoughtfully by Apple.
 
-I ran Pandora's Box, and did "Bootloaders configurator" and setup clover with boot rc-scripts. It didn't want to reboot, so I used Pandora's EFI mount to copy the files from the EFI on the USB to the harddrive, which got it booting without the USB.
+I ran Pandora's Box, and did "Bootloaders configurator" and setup clover with boot rc-scripts. It didn't want to reboot, so I used Clover Configurator's EFI mount to copy the files from the EFI on the USB to the harddrive, which got it booting without the USB.
 
 Make a time-machine backup, if you have the space. This is "totally vanilla + USB clover EFI, boots but not much else". You can use this with the installer to get back to this stage quickly, if you screw things up. It takes a long time, but it will save you time and stress in the future.
 
@@ -114,7 +115,7 @@ I also went to [olarila](http://olarila.com/kexts/) and downloaded the Mac OSX s
 
 Under Pandora's "post installation" I went through several screens and picked out appropriate drivers for everything, as best as I could guess from PCI info in DPCIManager. I listed what I did, below. It took lots of reboots and trial-and-error.
 
-> I installed everything to the "Other" of the EFI partition, rather than the system folders.
+> I installed everything I could to the "Other" of the EFI partition, rather than the system folders.
 
 #### sensors
 
