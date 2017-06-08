@@ -72,6 +72,13 @@ I chose "Yes" for laptop support, I left all the efi drivers as-is. I chose the 
 
 [this guide](https://www.tonymacx86.com/threads/guide-booting-the-os-x-installer-on-laptops-with-clover.148093/) is awesome and has a lot of info pertaining directly to the process we are doing here. Also, [this](https://www.tonymacx86.com/threads/faq-read-first-laptop-frequent-questions.164990/) was useful.
 
+I put these on the disk for later:
+
+* [DPCIManager](https://sourceforge.net/projects/dpcimanager/) for detecting devices
+* [Pandora's Box](http://www.insanelymac.com/forum/files/file/11-pandoras-box-os-x-installer/) for post-install stuff
+* [Kext Wizard](http://www.insanelymac.com/forum/topic/253395-kext-wizard-easy-to-use-kext-installer-and-more/)
+
+
 ## boot that shit
 
 I needed to go into the BIOS (`F2`) and disable secure boot, which you can only do if you set an Admin Password, on my laptop. Yours may differ. Basically, with hackintosh, in your BIOS, you want EFI booting off SATA, and everything else pretty much default.
@@ -103,7 +110,7 @@ At this point go through and try to figure out what doesn't work, so we can form
 
 To identify chipsets, I'm going to use [DPCIManager](https://sourceforge.net/projects/dpcimanager/). I put it on the thumbdrive, and installed it on the hackintosh.
 
-I also went to [olarila](http://olarila.com/kexts/) and downloaded the Mac OSX system Info Util. I used that info to search for stuff. It requires java, so you'll probably want an internet connection before you resort to that.
+I also went to [olarila](http://olarila.com/kexts/) and downloaded the Mac OSX system Info Util. It requires java, so you'll probably want an internet connection, and it didn't seem to give me any info that DPCIManager gave me, so YMMV.
 
 Under Pandora's "post installation" I went through several screens and picked out appropriate drivers for everything, as best as I could guess from PCI info in DPCIManager. I listed what I did, below. It took lots of reboots and trial-and-error.
 
@@ -133,10 +140,11 @@ I installed RealTekRTL8111.kext in Pandora's post-installation. It worked after 
 
 #### wifi
 
-I tried WIfiInjector.kext in Pandora's post-installation, but it didn't seem to work.
+I tried WifiInjector.kext in Pandora's post-installation, but it didn't seem to work.
 
 I found [this](https://www.tonymacx86.com/threads/compatibility-wifi-atheros-ar5b195-on-yosemite.156527/) which recommends [toledaARPT.kext](https://www.tonymacx86.com/threads/guide-airport-pcie-half-mini-v2.104850/) with [this firmware upgrade](https://github.com/RehabMan/OS-X-Atheros-3k-Firmware) to enable bluetooth, but as I said it seems to already work.
 
+The directions were super-confusing to me, and although I tried to get it to work by patching things in clover, I ended up just using [Kext Wizard](http://www.insanelymac.com/forum/topic/253395-kext-wizard-easy-to-use-kext-installer-and-more/) to install it on my system.
 
 #### power management
 
