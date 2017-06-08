@@ -111,7 +111,7 @@ At this point go through and try to figure out what doesn't work, so we can form
 
 To identify chipsets, I'm going to use [DPCIManager](https://sourceforge.net/projects/dpcimanager/). I put it on the thumbdrive, and installed it on the hackintosh.
 
-I also went to [olarila](http://olarila.com/kexts/) and downloaded the Mac OSX system Info Util. It requires java, so you'll probably want an internet connection, and it didn't seem to give me any info that DPCIManager gave me, so YMMV.
+I also went to [olarila](http://olarila.com/kexts/) and downloaded the Mac OSX system Info Util. It requires java, so you'll need an internet connection to download the "Legacy JRE", and it didn't seem to give me any info that DPCIManager gave me, so YMMV.
 
 Under Pandora's "post installation" I went through several screens and picked out appropriate drivers for everything, as best as I could guess from PCI info in DPCIManager. I listed what I did, below. It took lots of reboots and trial-and-error.
 
