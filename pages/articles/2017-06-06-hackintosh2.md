@@ -36,7 +36,7 @@ These things are pretty standard, and should work out of the box:
 * SATA DVD-Writer
 * Camera - these usually just work, unless they are interfaced in some weird way
 * Trackpad - I'm hoping this goes ok, should look like a regular mouse.
-* ower Management - I'm hoping this works ok.
+* Power Management - I'm hoping this works ok.
 
 ### upgrades
 
@@ -145,7 +145,9 @@ I tried WifiInjector.kext in Pandora's post-installation, but it didn't seem to 
 
 I found [this](https://www.tonymacx86.com/threads/compatibility-wifi-atheros-ar5b195-on-yosemite.156527/) which recommends [toledaARPT.kext](https://www.tonymacx86.com/threads/guide-airport-pcie-half-mini-v2.104850/) with [this firmware upgrade](https://github.com/RehabMan/OS-X-Atheros-3k-Firmware) to enable bluetooth, but as I said it seems to already work.
 
-The directions were super-confusing to me, and although I tried to get it to work by patching things in clover, I ended up just using [Kext Wizard](http://www.insanelymac.com/forum/topic/253395-kext-wizard-easy-to-use-kext-installer-and-more/) to install it on my system.
+The directions were super-confusing to me, and although I tried to get it to work by patching things in clover, I ended up using [Kext Wizard](http://www.insanelymac.com/forum/topic/253395-kext-wizard-easy-to-use-kext-installer-and-more/) to install it on my system. That still didn't work.
+
+Finally, I installed an [alternative kext](https://bitbucket.org/RehabMan/os-x-atheros-3k-firmware/downloads/) in EFI/CLOVER/kexts/Other.
 
 #### power management
 
@@ -161,7 +163,7 @@ Sound isn't working. You can verify this in "System Preferences/Sound" and you'l
 I started to install Voodoo under Pandora's "post installation" to get it working. In the install panel it says "ALC255" which DPCIManager [verifies](https://github.com/shmilee/T450-Hackintosh/blob/master/ALC3232/tools/patch-hda-codecs.pl#L40) (codec id: `0x10EC0255`.) The "Mirone AppleHDA" drivers had ALC255 listed under "Laptop's", but I wasn't sure how to use it (so confusing!) I just went for Voodoo, works fine.
 
 
-#### video
+#### graphics
 
 It works at boot, at the monitor's max-resolution, but definitely not accelerated.
 
