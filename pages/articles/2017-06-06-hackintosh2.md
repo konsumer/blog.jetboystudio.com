@@ -183,7 +183,7 @@ When I rebooted, it worked great.
 
 It works as a mouse, but scrolling doesn't work on the trackpad.
 
-I installed [this](http://forum.osxlatitude.com/index.php?/topic/1948-elan-focaltech-and-synaptics-smart-touchpad-driver-mac-os-x/) which requires the VoodooPS2 stuff removed, and it works great. I can use the native trackpad control panel, and change the scrolling speed under Accessibility.
+I installed [this](http://forum.osxlatitude.com/index.php?/topic/1948-elan-focaltech-and-synaptics-smart-touchpad-driver-mac-os-x/) in EFI/CLOVER/kexts/Other and removed VoodooPS2 stuff, and it works great. I can use the native trackpad control panel, and change the scrolling speed under Accessibility.
 
 
 #### wifi
