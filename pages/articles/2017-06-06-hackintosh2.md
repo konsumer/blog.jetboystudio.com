@@ -1,6 +1,6 @@
 ---
 title: The Making of GothLappy, My Sweet Hackintosh Laptop
-date: 2017-05-06T16:00:00.000Z
+date: 2017-06-06T16:00:00.000Z
 tags:
   - mac
   - hackintosh
