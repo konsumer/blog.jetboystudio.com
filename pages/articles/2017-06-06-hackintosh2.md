@@ -198,7 +198,14 @@ I installed an [alternative kext](https://bitbucket.org/RehabMan/os-x-atheros-3k
 
 I found [some FakePCIID stuff](https://github.com/RehabMan/OS-X-Fake-PCI-ID). I still couldn't make it work.
 
-I ended up just getting [this card](https://www.amazon.com/AzureWave-AW-CE123H-Bluetooth-Half-Size-PCI-Express/dp/B00HRFS1GQ) which should have native support.
+I ended up getting [this card](https://www.amazon.com/AzureWave-AW-CE123H-Bluetooth-Half-Size-PCI-Express/dp/B00HRFS1GQ) which should has native support, but I didn't realize it was teh wrong form-factor (I need m.2).
+
+I ordered [this](http://www.ebay.com/itm/252319175707?_trksid=p2060353.m2749.l2649). The directions are slightly more involved:
+
+- [FakePCIID.kext and FakePCIID_Broadcom_WiFi.kext](https://github.com/RehabMan/OS-X-Fake-PCI-ID) in /EFI/CLOVER/kexts/Other
+- [BrcmPatchRAM](https://github.com/RehabMan/OS-X-BrcmPatchRAM)
+- [5Ghz handoff patch for bluetooth patch for WiFi]( http://www.tonymacx86.com/network/104850-guide-airport-pcie-half-mini-v2.html)
+
 
 ## conclusion
 
