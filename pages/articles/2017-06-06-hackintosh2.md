@@ -183,7 +183,7 @@ When I rebooted, it worked great.
 
 It works as a mouse, but scrolling doesn't work on the trackpad.
 
-I installed [this](http://forum.osxlatitude.com/index.php?/topic/1948-elan-focaltech-and-synaptics-smart-touchpad-driver-mac-os-x/) in EFI/CLOVER/kexts/Other and removed VoodooPS2 stuff, and it works great. I can use the native trackpad control panel, and change the scrolling speed under Accessibility.
+I installed [this](http://forum.osxlatitude.com/index.php?/topic/1948-elan-focaltech-and-synaptics-smart-touchpad-driver-mac-os-x/) in EFI/CLOVER/kexts/Other and removed VoodooPS2 stuff, and it works ok, but seems a bit glitchy. I can use the native trackpad control panel, and change the scrolling speed under Accessibility.
 
 
 #### wifi
@@ -198,15 +198,22 @@ I installed an [alternative kext](https://bitbucket.org/RehabMan/os-x-atheros-3k
 
 I found [some FakePCIID stuff](https://github.com/RehabMan/OS-X-Fake-PCI-ID). I still couldn't make it work.
 
-I ended up getting [this card](https://www.amazon.com/AzureWave-AW-CE123H-Bluetooth-Half-Size-PCI-Express/dp/B00HRFS1GQ) which should has native support, but I didn't realize it was teh wrong form-factor (I need m.2).
+I ended up getting [this card](https://www.amazon.com/AzureWave-AW-CE123H-Bluetooth-Half-Size-PCI-Express/dp/B00HRFS1GQ) which should has native support, but I didn't realize it was the wrong form-factor (I need m.2).
 
-I ordered [this](http://www.ebay.com/itm/252319175707?_trksid=p2060353.m2749.l2649). The directions are slightly more involved:
+I ordered [this card](http://www.ebay.com/itm/252319175707?_trksid=p2060353.m2749.l2649). The directions are slightly more involved.
+
+I heard it mentioned I needed to do these things:
 
 - [FakePCIID.kext and FakePCIID_Broadcom_WiFi.kext](https://github.com/RehabMan/OS-X-Fake-PCI-ID) in /EFI/CLOVER/kexts/Other
 - [BrcmPatchRAM](https://github.com/RehabMan/OS-X-BrcmPatchRAM)
 - [5Ghz handoff patch for bluetooth patch for WiFi]( http://www.tonymacx86.com/network/104850-guide-airport-pcie-half-mini-v2.html)
 
+but I couldn't get it to work as it was.
+
+I followed [these directions](https://www.youtube.com/watch?v=uNSYR2BiKsc) and got it working.
+
+They said to use Kext-Installer (which puts things on main OSX install) but I just put the files in `EFI/CLOVER/kexts/Other` and applied the changes to `config.plist`,  and it worked fine.
 
 ## conclusion
 
-I actually like this method a lot better than unibeast+multibeast. I will probably use it instead, in the future, even for non-laptops. It should be more resistant to updates & easier to backup than adding files to the system dirs. It seems easier to see how it all goes together, and will be easier to make changes to. I love that Pandora is an all-in-one solution, and is fairly easy to use, but I still think the interface could be improved a bit. I wish the source was available, so I could make it better.
+I actually like this method a lot better than unibeast+multibeast. I will probably use it instead, in the future, even for non-laptops. It made it a lot easier to make deep changes to how things are setup, and it should be more resistant to updates & easier to backup than adding files to the system dirs. It seems easier to see how it all goes together, and make changes to. I love that Pandora is an all-in-one solution, and is fairly easy to use, but I still think the interface could be improved a bit. I wish the source was available, so I could make it better.
