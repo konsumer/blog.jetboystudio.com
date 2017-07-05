@@ -214,6 +214,36 @@ I followed [these directions](https://www.youtube.com/watch?v=uNSYR2BiKsc) and g
 
 They said to use Kext-Installer (which puts things on main OSX install) but I just put the files in `EFI/CLOVER/kexts/Other` and applied the changes to `config.plist`,  and it worked fine.
 
+#### final state
+
+Here's what my `/EFI/CLOVER/kexts/Other` looked like, when I was all done:
+
+```
+ACPIBatteryManager.kext
+AHCIPortInjector.kext
+AppleATIATA.kext
+AppleHDADisabler.kext
+AppleIntelCPUPowerManagement.kext
+ApplePS2SmartTouchPad.kext
+AppleRTC.kext
+BrcmFirmwareData.kext
+BrcmPatchRAM2.kext
+FakePCIID.kext
+FakePCIID_Broadcom_WiFi.kext
+FakePCIID_Intel_HDMI_Audio.kext
+FakePCIID_Intel_HD_Graphics.kext
+FakePCIID_XHCIMux.kext
+FakeSMC.kext
+FakeSMC_ACPISensors.kext
+FakeSMC_CPUSensors.kext
+FakeSMC_GPUSensors.kext
+FakeSMC_LPCSensors.kext
+RealtekRTL8111.kext
+VoodooHDA.kext
+```
+
+[Here](/files/config.plist) is what `/EFI/CLOVER/config.plist` looks like. There is probably a few extra things in there, but it should give you a good start if you have this hardware, which now works for me 100%.
+
 ## conclusion
 
 I actually like this method a lot better than unibeast+multibeast. I will probably use it instead, in the future, even for non-laptops. It made it a lot easier to make deep changes to how things are setup, and it should be more resistant to updates & easier to backup than adding files to the system dirs. It seems easier to see how it all goes together, and make changes to. I love that Pandora is an all-in-one solution, and is fairly easy to use, but I still think the interface could be improved a bit. I wish the source was available, so I could make it better.
