@@ -11,7 +11,7 @@ path: /articles/alexabook/
 
 I got a free copy of [Building Voice-Enabled Apps with Alexa](http://bit.ly/2vgm2mV) by Kory Becker, to do a review.
 
-At first glance, I thought it would be a sort of dumb history-lesson of chat-based apps, from a historical perspective, without any good technical details.  For this book, that would be like judging an awesome videogame by it's introductory levels.
+At first glance, I thought it would be a sort of dumb history-lesson of chat-based apps, from a non-tech perspective, without any good technical details.  For this book, that would be like judging an awesome videogame by it's introductory levels.
 
 I found it to be fairly comprehensive, and got into all the details I could hope for:
 
