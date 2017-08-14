@@ -259,7 +259,7 @@ registerServiceWorker()
 
 ```
 
-Obviously, swap out `AppHolder`, Home` and `About` for your own wrapper & page-level components.
+Obviously, swap out `AppHolder`, `Home` and `About` for your own wrapper & page-level components.
 
 ### further reading
 
