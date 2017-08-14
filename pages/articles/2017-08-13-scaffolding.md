@@ -9,7 +9,7 @@ tags:
 path: /articles/scaffolding/
 ---
 
-This is an opinionated quickstart-quide for a couple types of projects. I use a mac for development, but the same basic procedures should apply in other environments. For all things, I prefer ES6, using npm scripts as build tools, and try to keep the number of files and depth of directories to a minimum, to help keep down cognitive load. Rather than just clone a ready-made starter project, which often gets stale fast, I am going to use tools we have available to get everything started, it also helps to explain each thing as we add it to our app, so we know what it's all for.
+This is an opinionated quickstart-quide for a couple types of projects. I use a mac for development, but the same basic procedures should apply in other environments. For all things, I prefer ES6, and following (even future) standards, using npm scripts as build tools, and try to keep the number of files and depth of directories to a minimum, to help keep down cognitive load. Rather than just clone a ready-made starter project, which often gets stale fast, I am going to use tools we have available to get everything started, it also helps to explain each thing as we add it to our app, so we know what it's all for.
 
 I'll try to break down the motivations of each project-type.
 
@@ -464,3 +464,5 @@ export default App
 ```
 
 If the CSS was written a bit differently, you wouldn't need so much namespacing, but that is how to get it working with the current CSS, as-is.
+
+Speaking of CSS, if you want your css to do a little more, I recommend postcss. Here is [a nice article about that](https://blog.madewithenvy.com/webpack-2-postcss-cssnext-fdcd2fd7d0bd). It can do a lot of what sass can do, but faster and more standards-compliant-ee.
