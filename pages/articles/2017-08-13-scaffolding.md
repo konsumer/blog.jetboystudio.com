@@ -40,7 +40,7 @@ make a section in `package.json` that looks like this:
 
   "scripts": {
     "build": "babel src/index.js > index.js",
-    "prepublish": "npm run lint npm run test && npm run build",
+    "prepublish": "npm run lint && npm run test && npm run build",
     "lint": "standard --fix",
     "test": "jest --notify --coverage",
     "test:watch": "jest --watch --notify --coverage"
