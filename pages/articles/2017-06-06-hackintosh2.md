@@ -242,7 +242,7 @@ RealtekRTL8111.kext
 VoodooHDA.kext
 ```
 
-[Here](/files/config.plist) is what `/EFI/CLOVER/config.plist` looks like. There is probably a few extra things in there, but it should give you a good start if you have this hardware, which now works for me 100%.
+[Here](https://gist.github.com/konsumer/0298e51b7e71960810e4a3cd76486205) is what `/EFI/CLOVER/config.plist` looks like. There is probably a few extra things in there, but it should give you a good start if you have this hardware, which now works for me 100%.
 
 ## conclusion
 
