@@ -64,14 +64,16 @@ export default function Template ({ data }) {
           <h4>Related</h4>
           <CardGroup>
             {related.map((r, i) => (
-              <Card key={i}>
-                <CardBody>
-                  <CardTitle>
-                    <Link to={r.path}>{r.title}</Link>
-                  </CardTitle>
-                </CardBody>
-              </Card>
-          ))}
+              r && (
+                <Card key={i}>
+                  <CardBody>
+                    <CardTitle>
+                      <Link to={r.path}>{r.title}</Link>
+                    </CardTitle>
+                  </CardBody>
+                </Card>
+              )
+            ))}
           </CardGroup>
         </Container>
       )}
