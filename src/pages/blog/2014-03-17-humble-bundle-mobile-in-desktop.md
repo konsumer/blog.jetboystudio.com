@@ -1,6 +1,6 @@
 ---
 title: Humble Bundle in Emulator
-date: '2014-03-17 16:29'
+date: '2014-03-17T16:29Z'
 tags:
   - Android
   - emulation
