@@ -1,6 +1,6 @@
 {
-  "name": "gatsby-starter-bootstrap-netlify",
-  "description": "Example Gatsby, Bootstrap, and Netlify CMS project",
+  "name": "blog.jetboystudio.com",
+  "private": true,
   "version": "1.0.0",
   "author": "David Konsumer <konsumer@jetboystudio.com>",
   "dependencies": {

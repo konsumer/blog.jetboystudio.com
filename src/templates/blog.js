@@ -35,6 +35,7 @@ export default function Template ({ data }) {
           })();`}</script>
         )}
       </Helmet>
+
       <Container>
         <h1 className='display-3'>{post.frontmatter.title}</h1>
       </Container>
@@ -67,10 +68,12 @@ export default function Template ({ data }) {
         </CardGroup></Container>
       )}
 
-      {data.site.siteMetadata.disqus && (<Container>
-        <hr />
-        <div id='disqus_thread' />
-      </Container>)}
+      {data.site.siteMetadata.disqus && (
+        <Container>
+          <hr />
+          <div id='disqus_thread' />
+        </Container>
+      )}
     </div>
   )
 }

@@ -21,7 +21,7 @@ module.exports = {
             resolve: 'gatsby-remark-graph',
             options: {
               language: 'mermaid', // default
-              theme: 'dark' // could also be dark, forest, or neutral
+              theme: 'dark' // could also be default, forest, or neutral
             }
           },
           'gatsby-remark-prismjs',
