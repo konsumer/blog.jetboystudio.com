@@ -5,15 +5,21 @@ import graphql from 'graphql'
 import { basename } from 'path'
 import Link from 'gatsby-link'
 
-// find a post title by path
-const findNode = (path, data) => data.allMarkdownRemark.edges
-  .map(edge => edge.node.frontmatter)
-  .filter(r => r.path === path)
-  .pop()
-
 export default function Template ({ data }) {
   const { markdownRemark: post } = data
-  const related = post.frontmatter.related ? post.frontmatter.related.map(r => findNode(r.post, data)) : []
+
+  const allPosts = {}
+  data.allMarkdownRemark.edges.forEach(edge => {
+    allPosts[edge.node.frontmatter.path] = edge.node
+  })
+
+  const related = Object.values(allPosts)
+    .filter(r => r.frontmatter.related && r.frontmatter.related.map(x => x.post).indexOf(post.frontmatter.path) !== -1)
+  if (post.frontmatter.related) {
+    post.frontmatter.related
+      .forEach(r => related.push(allPosts[r.post]))
+  }
+
   return (
     <div>
       <Helmet title={`Blog | ${post.frontmatter.title}`}>
@@ -35,27 +41,31 @@ export default function Template ({ data }) {
 
       <Container dangerouslySetInnerHTML={{ __html: post.html }} />
 
-      {post.frontmatter.attachments && (<Container><h4>Attachments</h4><CardGroup>
-        {post.frontmatter.attachments.map((attachment, i) => (
-          <Card key={i}>
-            <CardBody>
-              <CardTitle><a href={attachment.filename}>{basename(attachment.filename)}</a></CardTitle>
-            </CardBody>
-          </Card>
-        ))}
-      </CardGroup></Container>)}
+      {post.frontmatter.attachments && (
+        <Container><h4>Attachments</h4><CardGroup>
+          {post.frontmatter.attachments.map((attachment, i) => (
+            <Card key={i}>
+              <CardBody>
+                <CardTitle><a href={attachment.filename}>{basename(attachment.filename)}</a></CardTitle>
+              </CardBody>
+            </Card>
+          ))}
+        </CardGroup></Container>
+      )}
 
-      {post.frontmatter.related && (<Container><h4>Related</h4><CardGroup>
-        {related.map((r, i) => (
-          <Card key={i}>
-            <CardBody>
-              <CardTitle>
-                <Link to={r.path}>{r.title}</Link>
-              </CardTitle>
-            </CardBody>
-          </Card>
-        ))}
-      </CardGroup></Container>)}
+      {related && !!related.length && (
+        <Container><h4>Related</h4><CardGroup>
+          {related.map((r, i) => (
+            <Card key={i}>
+              <CardBody>
+                <CardTitle>
+                  <Link to={r.frontmatter.path}>{r.frontmatter.title}</Link>
+                </CardTitle>
+              </CardBody>
+            </Card>
+          ))}
+        </CardGroup></Container>
+      )}
 
       {data.site.siteMetadata.disqus && (<Container>
         <hr />
@@ -94,6 +104,9 @@ export const pageQuery = graphql`
           frontmatter{
             title
             path
+            related {
+              post
+            }
           }
         }
       }

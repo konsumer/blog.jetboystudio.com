@@ -12,7 +12,7 @@ tags:
   - development
   - VirtualBox
 related:
-  - post: /articles/tools
+  - post: /articles/tools/
 contentType: blog
 path: /articles/easy-dev-environment/
 ---

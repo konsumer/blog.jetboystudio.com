@@ -9,7 +9,7 @@ tags:
   - LUFA
   - teensy
 related:
-  - post: /articles/teensy2AVRISP-MKII-lufa
+  - post: /articles/teensy2AVRISP-MKII-lufa/
 contentType: blog
 path: /articles/teensy2AVRISP-MKII/
 ---

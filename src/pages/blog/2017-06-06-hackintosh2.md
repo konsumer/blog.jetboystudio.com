@@ -7,6 +7,8 @@ tags:
   - laptop
 contentType: blog
 path: /articles/hackintosh2/
+related:
+  - post: /articles/hackintosh/
 ---
 
 I realized [this article](/articles/hackintosh/) about my hackintosh desktop is pretty basic and rough, and I thought I would go into more detail about installing OSX Sierra (10.12) with my new Acer Aspire E5-575 laptop.
