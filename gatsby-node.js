@@ -16,7 +16,6 @@ exports.createPages = ({ boundActionCreators, graphql }) => {
               path
               date
               title
-              tags
             }
           }
         }
@@ -32,15 +31,6 @@ exports.createPages = ({ boundActionCreators, graphql }) => {
         component: path.resolve(`src/templates/${String(node.frontmatter.contentType)}.js`),
         context: {} // additional data can be passed via context
       })
-      if (node.frontmatter.tags) {
-        node.frontmatter.tags.forEach(tag => {
-          createPage({
-            path: `/tag/${tag}`,
-            component: path.resolve(`src/templates/tag.js`),
-            context: { tag } // additional data can be passed via context
-          })
-        })
-      }
     })
   })
 }

@@ -1,9 +1,9 @@
 module.exports = {
   siteMetadata: {
-    title: 'Drunken Coder Blog',
+    title: 'Gatsby Starter Blog',
     author: 'konsumer',
     authorLink: 'https://github.com/konsumer',
-    disqus: 'jetboystudio'
+    disqus: 'gatsby-starter-blog'// put your disqus ID here
   },
   plugins: [
     {
@@ -20,9 +20,8 @@ module.exports = {
           {
             resolve: 'gatsby-remark-graph',
             options: {
-            // this is the language in your code-block that triggers mermaid parsing
               language: 'mermaid', // default
-              theme: 'dark' // could also be default, forest, or neutral
+              theme: 'dark' // could also be dark, forest, or neutral
             }
           },
           'gatsby-remark-prismjs',
@@ -30,6 +29,7 @@ module.exports = {
         ]
       }
     },
+    'gatsby-plugin-offline',
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-sass'
   ]

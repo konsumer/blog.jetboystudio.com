@@ -5,8 +5,6 @@ import graphql from 'graphql'
 import { basename } from 'path'
 import Link from 'gatsby-link'
 
-import Tags from '../components/Tags'
-
 // find a post title by path
 const findNode = (path, data) => data.allMarkdownRemark.edges
   .map(edge => edge.node.frontmatter)
@@ -31,66 +29,38 @@ export default function Template ({ data }) {
           })();`}</script>
         )}
       </Helmet>
-
       <Container>
         <h1 className='display-3'>{post.frontmatter.title}</h1>
       </Container>
 
-      <hr />
-
-      {post.frontmatter.tags && (<Tags tags={post.frontmatter.tags} />)}
-
-      <hr />
-
       <Container dangerouslySetInnerHTML={{ __html: post.html }} />
 
-      {post.frontmatter.attachments && (
-        <Container>
-          <h4>Attachments</h4>
-          <CardGroup>
-            {post.frontmatter.attachments.map((attachment, i) => (
-              <Card key={i}>
-                <CardBody>
-                  <CardTitle><a href={attachment.filename}>{basename(attachment.filename)}</a></CardTitle>
-                </CardBody>
-              </Card>
-            ))}
-          </CardGroup>
-        </Container>
-      )}
+      {post.frontmatter.attachments && (<Container><h4>Attachments</h4><CardGroup>
+        {post.frontmatter.attachments.map((attachment, i) => (
+          <Card key={i}>
+            <CardBody>
+              <CardTitle><a href={attachment.filename}>{basename(attachment.filename)}</a></CardTitle>
+            </CardBody>
+          </Card>
+        ))}
+      </CardGroup></Container>)}
 
-      {post.frontmatter.related && (
-        <Container>
-          <h4>Related</h4>
-          <CardGroup>
-            {related.map((r, i) => (
-              r && (
-                <Card key={i}>
-                  <CardBody>
-                    <CardTitle>
-                      <Link to={r.path}>{r.title}</Link>
-                    </CardTitle>
-                  </CardBody>
-                </Card>
-              )
-            ))}
-          </CardGroup>
-        </Container>
-      )}
+      {post.frontmatter.related && (<Container><h4>Related</h4><CardGroup>
+        {related.map((r, i) => (
+          <Card key={i}>
+            <CardBody>
+              <CardTitle>
+                <Link to={r.path}>{r.title}</Link>
+              </CardTitle>
+            </CardBody>
+          </Card>
+        ))}
+      </CardGroup></Container>)}
 
-      <hr />
-
-      <Container className='text-center'>
-        {post.frontmatter.date}
-      </Container>
-
-      {data.site.siteMetadata.disqus && (<hr />)}
-
-      {data.site.siteMetadata.disqus && (
-        <Container>
-          <div id='disqus_thread' />
-        </Container>
-      )}
+      {data.site.siteMetadata.disqus && (<Container>
+        <hr />
+        <div id='disqus_thread' />
+      </Container>)}
     </div>
   )
 }
@@ -115,7 +85,6 @@ export const pageQuery = graphql`
         related {
           post
         }
-        tags
       }
     }
 

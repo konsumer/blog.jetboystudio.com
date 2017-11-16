@@ -1,13 +1,18 @@
 import React from 'react'
-import { Container } from 'reactstrap'
+import { Container, Card, CardText, CardBody, CardTitle, CardSubtitle } from 'reactstrap'
+import Link from 'gatsby-link'
 import graphql from 'graphql'
-
-import BlogList from '../components/BlogList'
 
 const IndexPage = ({ data }) => (
   <Container>
     {data.allMarkdownRemark.edges.filter(post => post.node.frontmatter.contentType === 'blog').map(({ node: post }) => (
-      <BlogList post={post} key={post.id} />
+      <Card style={{marginBottom: 10}} key={post.id}>
+        <CardBody>
+          <CardTitle><Link to={post.frontmatter.path}>{post.frontmatter.title}</Link></CardTitle>
+          <CardSubtitle style={{marginBottom: 10}}>{post.frontmatter.date}</CardSubtitle>
+          <CardText>{post.excerpt}</CardText>
+        </CardBody>
+      </Card>
     ))}
   </Container>
 )
@@ -26,7 +31,6 @@ export const pageQuery = graphql`
             contentType
             date(formatString: "MMMM DD, YYYY")
             path
-            tags
           }
         }
       }
