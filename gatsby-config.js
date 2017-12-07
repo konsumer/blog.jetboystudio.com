@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: 'Gatsby Starter Blog',
+    title: 'Drunken Coder Blog',
     author: 'konsumer',
     authorLink: 'https://github.com/konsumer',
     disqus: 'gatsby-starter-blog'// put your disqus ID here
