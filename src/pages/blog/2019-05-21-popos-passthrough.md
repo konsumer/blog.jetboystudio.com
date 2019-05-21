@@ -1,0 +1,83 @@
+---
+title: 'Trying out Pop_OS and PCI passthrough'
+date: 2017-11-14T20:38:47Z
+contentType: blog
+path: /articles/popos/
+tags:
+  - linux
+  - popos
+  - passthrough
+  - ubuntu
+---
+
+I setup [Manjaro with XFCE](manjaro), but I am so used to debian-based distros (like Ubuntu) I kept getting annoyed when things would differ, or take more work to setup than is really needed. On top of that, deb-packages & snaps really can't be beat for solidness, reproducability, well-testedness, and options for rollback when things (rarely) fail. I keep seeing all these next-gen linux distors that are super shiny, friendly and useful looking, so I wanted to give one a try.
+
+I will walk through the course I followed to get everything setup the way I like it.
+
+I chose [Pop_OS](https://system76.com/pop). I liked the look I saw in screencasts. It feels very integrated and useful, and looks good dark. It also seems very developer-friendly, and it uses debian-based system.
+
+![PopOS](http://blog.gosabe.com/wp-content/uploads/2017/11/Screenshot-from-2017-11-05-20-09-48.png)
+
+## install
+
+First I made a backup of my home-dir with [bup](https://github.com/bup/bup)
+
+```
+export BUP_DIR=/storage/bup
+bup index ~   # only needed if you never made an index
+bup save -n home ~
+```
+
+While that was going, I used [etcher](https://www.balena.io/etcher/) to make a USB thumbdrive for the "intel image" from [Pop_Os](https://system76.com/pop), since I have an nVidia card, but I'm going to use it as the passthrough video-card.
+
+I rebooted my system, when all was ready to go, and went through install (which is really slick, as a side-note) adding a swap partition, and a boot/efi partition, and mounting my `/storage` partition (a seperate drive.) Install was surprsingly fast, and worked great.
+
+On first boot, I setup my primary user. I started my backup restoring (`sudo apt install bup && BUP_DIR=/storage/bup bup restore -C /tmp/home home/latest`.) I hit meta (windows-key) to open "Activities" and started typing "Appearence", and hit enter. I set it to "dark". I installed sublime text, spotify, and Chromium, and uninstalled firefox. In Chromium, I logged in as my google persona, and set it to use "GTK+" so it would match the dark colors. This ended up making the downloads unreadable (black text on dark backgrond,) so I turned it back to "classic" (everythign's white, yuck!) I installed [Just Black](https://chrome.google.com/webstore/detail/just-black/aghfnjkcakhmadgdomlmlhhaocbkloab) and it looks ok. I'll need to look at this more, since the menus are still ugly white. There is [this hack](https://askubuntu.com/questions/1127629/how-to-change-the-color-of-chromium-only-chrome-downloads-bar-in-a-gtk3-theme), but menus still show with black text.
+
+That got the absolute basics out of the way, so I could work in comfort, while I played around with my new OS.
+
+## passthrough
+
+I basically followed [these instructions](https://blog.zerosector.io/2018/07/28/kvm-qemu-windows-10-gpu-passthrough/). I passed through my nvidia video cards and used onboard intel video for regular video.
+
+Since I got this all working on Manjaro, I already had a libvirt xml file, but you will probably have to create one with your PCI devices passed through, and you should be all set. Just make sure to apply the error 43 fix](https://passthroughpo.st/apply-error-43-workaround/), if you need it, and use the OVMF UEFI (not BIOS) in the customization options for your new VM.
+
+Here is the quick code to do all the other steps on popos:
+
+```
+sudo kernelstub -a "intel_iommu=on pcie_acs_override=downstream iommu=pt"
+sudo kernelstub -p # list current params
+
+sudo apt install qemu-kvm libvirt-clients libvirt-daemon-system bridge-utils virt-manager ovmf
+
+sudo kernelstub -a "intel_iommu=on pcie_acs_override=downstream"
+
+# to get IDs for below
+lspci -nn | grep -i nvidia | sed -e 's/.\+\[\([0-9a-f]\+\):\([0-9a-f]\+\)\].\+/\1 \2/g'
+
+echo "options vfio-pci ids=10de:1c03,10de:10f1" | sudo tee /etc/modprobe.d/vfio.conf
+echo 'vfio-pci' | sudo tee /etc/modules-load.d/vfio-pci.conf
+sudo update-initramfs -u
+
+sudo reboot
+
+# now confirm
+
+dmesg | grep -E "DMAR|IOMMU"
+dmesg | grep -i vfio
+
+# now go do nvidia-43 fix
+```
+
+## parsec
+
+I really like [Parsec](https://parsecgaming.com) as a client for my VMs. It performs better than spice for me, and has a lot of great features like controller passthrough, other computers on your network can easily use your VM, and join in as player 2, and it passes sound & video pretty nicely.
+
+You can install it with:
+
+```
+wget https://s3.amazonaws.com/parsec-build/package/parsec-linux.deb
+sudo dpkg -i parsec-linux.deb
+```
+
+Overall, I am really happy with my setup. It's very stylish, simple, and quick to get around.
